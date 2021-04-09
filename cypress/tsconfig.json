@@ -15,16 +15,11 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve"
+    "isolatedModules": false,
+    "jsx": "preserve",
+    "types": ["cypress"]
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "./"
   ],
-  "exclude": [
-    "node_modules",
-    "./cypress"
-  ]
 }
