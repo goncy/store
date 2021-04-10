@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Button, Text} from "@chakra-ui/react";
+import {Stack, Button, Text, Image} from "@chakra-ui/react";
 
 import {parseCurrency} from "../../utils/currency";
 import {Product} from "../types";
@@ -13,17 +13,30 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
   return (
     <Stack
       key={product.id}
-      backgroundColor="gray.100"
+      borderColor="gray.100"
       borderRadius="md"
+      borderWidth={1}
+      boxShadow="md"
       data-test-id="product"
       padding={4}
       spacing={3}
     >
-      <Stack spacing={1}>
-        <Text>{product.title}</Text>
-        <Text color="green.500" fontSize="sm" fontWeight="500">
-          {parseCurrency(product.price)}
-        </Text>
+      <Stack direction="row">
+        <Image
+          backgroundColor="white"
+          borderRadius="md"
+          height={16}
+          loading="lazy"
+          objectFit="contain"
+          src={product.image}
+          width={16}
+        />
+        <Stack spacing={1}>
+          <Text>{product.title}</Text>
+          <Text color="green.500" fontSize="sm" fontWeight="500">
+            {parseCurrency(product.price)}
+          </Text>
+        </Stack>
       </Stack>
       <Button colorScheme="primary" size="sm" variant="outline" onClick={() => onAdd(product)}>
         Agregar
