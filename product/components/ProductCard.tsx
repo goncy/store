@@ -17,7 +17,7 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
       borderRadius="md"
       borderWidth={1}
       boxShadow="md"
-      data-test-id="product"
+      data-testid="product"
       padding={4}
       spacing={3}
     >
