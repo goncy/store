@@ -49,6 +49,7 @@ const App: React.FC<AppProps> = ({Component, pageProps}) => {
               <Link isExternal href="https://gonzalopozzo.com">
                 goncy
               </Link>
+              .
             </Text>
             {/* Fin de copyright */}
           </Container>
