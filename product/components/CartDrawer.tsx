@@ -2,7 +2,7 @@ import {
   Drawer,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
+  CloseButton,
   DrawerHeader,
   DrawerBody,
   Stack,
@@ -12,6 +12,7 @@ import {
   Link,
   DrawerProps,
   Text,
+  Image,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -30,6 +31,9 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onDecrement, onIncrement, 
       parseCurrency(items.reduce((total, product) => total + product.price * product.quantity, 0)),
     [items],
   );
+  const quantity = React.useMemo(() => items.reduce((acc, item) => acc + item.quantity, 0), [
+    items,
+  ]);
   const text = React.useMemo(
     () =>
       items
@@ -55,24 +59,35 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onDecrement, onIncrement, 
   return (
     <Drawer placement="right" size="sm" onClose={onClose} {...props}>
       <DrawerOverlay>
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Tu pedido</DrawerHeader>
+        <DrawerContent paddingTop={4}>
+          <DrawerHeader paddingX={4}>
+            <Stack alignItems="center" direction="row" justifyContent="space-between">
+              <Stack direction="row" fontSize={{base: "2xl", sm: "3xl"}} fontWeight="500">
+                <Text>Tu pedido</Text> <Text color="gray.400">({quantity})</Text>
+              </Stack>
+              <CloseButton onClick={onClose} />
+            </Stack>
+          </DrawerHeader>
 
-          <DrawerBody data-testid="cart">
+          <DrawerBody data-testid="cart" paddingX={4}>
             {items.length ? (
               <Stack divider={<Divider />} spacing={4}>
                 {items.map((product) => (
                   <Stack key={product.id} data-testid="cart-item" direction="row">
                     <Stack width="100%">
-                      <Stack direction="row" justifyContent="space-between">
-                        <Text fontWeight="500">{product.title}</Text>
-                        <Text color="green.400">
-                          {parseCurrency(product.price * product.quantity)}
-                        </Text>
+                      <Stack
+                        alignItems="center"
+                        direction="row"
+                        fontWeight="500"
+                        justifyContent="space-between"
+                      >
+                        <Text fontSize="lg">{product.title}</Text>
+                        <Text>{parseCurrency(product.price * product.quantity)}</Text>
                       </Stack>
                       <Stack direction="row">
                         <Button
+                          borderRadius={9999}
+                          colorScheme="primary"
                           data-testid="decrement"
                           size="xs"
                           onClick={() => onDecrement(product)}
@@ -80,8 +95,10 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onDecrement, onIncrement, 
                           {" "}
                           -{" "}
                         </Button>
-                        <Text>{product.quantity}</Text>
+                        <Text fontWeight="500">{product.quantity}</Text>
                         <Button
+                          borderRadius={9999}
+                          colorScheme="primary"
                           data-testid="increment"
                           size="xs"
                           onClick={() => onIncrement(product)}
@@ -100,18 +117,34 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onDecrement, onIncrement, 
           </DrawerBody>
 
           {Boolean(items.length) && (
-            <DrawerFooter>
-              <Button
-                isExternal
-                as={Link}
-                colorScheme="whatsapp"
-                data-testid="complete-order"
-                href={`https://wa.me/5491141414141?text=${encodeURIComponent(text)}`}
-                size="lg"
-                width="100%"
-              >
-                Completar pedido ({total})
-              </Button>
+            <DrawerFooter paddingX={4}>
+              <Stack spacing={4} width="100%">
+                <Divider />
+                <Stack
+                  alignItems="center"
+                  direction="row"
+                  fontSize="lg"
+                  fontWeight="500"
+                  justifyContent="space-between"
+                >
+                  <Text>Total</Text>
+                  <Text>{total}</Text>
+                </Stack>
+                <Button
+                  isExternal
+                  as={Link}
+                  colorScheme="whatsapp"
+                  data-testid="complete-order"
+                  href={`https://wa.me/5491141414141?text=${encodeURIComponent(text)}`}
+                  leftIcon={
+                    <Image src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff" />
+                  }
+                  size="lg"
+                  width="100%"
+                >
+                  Completar pedido
+                </Button>
+              </Stack>
             </DrawerFooter>
           )}
         </DrawerContent>
