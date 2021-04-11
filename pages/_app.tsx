@@ -31,7 +31,7 @@ const App: React.FC<AppProps> = ({Component, pageProps}) => {
       <ChakraProvider theme={theme}>
         <Container backgroundColor="white" borderRadius="sm" maxWidth="container.xl" padding={4}>
           <Stack spacing={8}>
-            <Stack marginBottom={4} spacing={0}>
+            <Stack marginBottom={4} spacing={4}>
               <Image borderRadius="lg" height="100%" maxHeight={64} src={INFORMATION.banner} />
               <Stack
                 alignItems="center"
@@ -41,7 +41,7 @@ const App: React.FC<AppProps> = ({Component, pageProps}) => {
                 <Box
                   backgroundColor="white"
                   borderRadius={9999}
-                  marginTop={-8}
+                  marginTop={{base: -12, sm: -16}}
                   minWidth={{base: 24, sm: 32}}
                   padding={1}
                 >
