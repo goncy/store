@@ -22,10 +22,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Codecov
-      uses: codecov/codecov-action@v1.3.2
-
     - run: npm install
     - run: npm test
     - run: npm run dev & npx wait-on http://localhost:3000
     - run: npm run integration
+
+    - name: Codecov
+      uses: codecov/codecov-action@v1.3.2
