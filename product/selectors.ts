@@ -13,14 +13,22 @@ export function editCart(product: Product, action: "increment" | "decrement") {
         return acc.concat(_product);
       }
 
-      if (action === "decrement") {
-        if (_product.quantity === 1) {
-          return acc;
+      switch (action) {
+        case "decrement": {
+          if (_product.quantity === 1) {
+            return acc;
+          }
+
+          return acc.concat({..._product, quantity: _product.quantity - 1});
         }
 
-        return acc.concat({..._product, quantity: _product.quantity - 1});
-      } else if (action === "increment") {
-        return acc.concat({..._product, quantity: _product.quantity + 1});
+        case "increment": {
+          return acc.concat({..._product, quantity: _product.quantity + 1});
+        }
+
+        default: {
+          return acc.concat(_product);
+        }
       }
     }, []);
   };
