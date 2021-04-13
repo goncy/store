@@ -57,10 +57,12 @@ const App: React.FC<AppProps> = ({Component, pageProps}) => {
                   spacing={3}
                   textAlign={{base: "center", sm: "left"}}
                 >
-                  <Heading>{INFORMATION.title}</Heading>
-                  <Text color="gray.500" fontWeight="500">
-                    {INFORMATION.description}
-                  </Text>
+                  <Stack spacing={0}>
+                    <Heading>{INFORMATION.title}</Heading>
+                    <Text color="gray.500" fontWeight="500">
+                      {INFORMATION.description}
+                    </Text>
+                  </Stack>
                   <Stack direction="row">
                     {INFORMATION.social.map((social) => (
                       <Link key={social.name} isExternal href={social.url}>
