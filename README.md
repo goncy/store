@@ -1,6 +1,9 @@
+[![codecov](https://codecov.io/gh/goncy/store/branch/main/graph/badge.svg?token=XiTcCI2c18)](https://codecov.io/gh/goncy/store)
+
+---
+
 # Almacency
 Tienda online administrada via Google Sheets.
-[![codecov](https://codecov.io/gh/goncy/store/branch/main/graph/badge.svg?token=XiTcCI2c18)](https://codecov.io/gh/goncy/store)
 
 ## Como la uso?
 1. Crea una copia de [esta planilla de calculo](https://docs.google.com/spreadsheets/d/1Q_mDN1w88zE1vDasru-f3D6kxZAynUC1s253yLmjE7M/edit#gid=0).
