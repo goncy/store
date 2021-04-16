@@ -32,7 +32,13 @@ const App: React.FC<AppProps> = ({Component, pageProps}) => {
         <Container backgroundColor="white" borderRadius="sm" maxWidth="container.xl" padding={4}>
           <Stack spacing={8}>
             <Stack marginBottom={4} spacing={4}>
-              <Image borderRadius="lg" height="100%" maxHeight={64} src={INFORMATION.banner} />
+              <Image
+                borderRadius="lg"
+                height="100%"
+                maxHeight={64}
+                objectFit="cover"
+                src={INFORMATION.banner}
+              />
               <Stack
                 alignItems="center"
                 direction={{base: "column", sm: "row"}}

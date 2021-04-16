@@ -1,10 +1,10 @@
 export const INFORMATION = {
-  avatar: "/banner.avatar",
-  banner: "/banner.jpg",
+  avatar: "/assets/avatar.jpg",
+  banner: "/assets/banner.jpg",
   title: "URBN Catering",
   description: "Galardonada pizza estilo New Haven en Palermo SOHO.",
   phone: `5491141414141`,
-  sheet: `https://docs.google.com/spreadsheets/d/e/2PACX-1vSk6SRbveAHR5DVL_DoFCMXNNMV37BD-J-GzY9i8u246Gwiv5MstNkRSRi2VJNln3W5PaIduadgiRg2/pub?output=csv`,
+  sheet: `https://docs.google.com/spreadsheets/d/e/2PACX-1vQG1pOSbGxaJYzlOWF2t7KFyP5wtWo_EDS0crTllQtALvDDZBq7OwxvTDJwM4dmasW7wmNh6KFB443j/pub?output=csv`,
   color: `teal`,
   social: [
     {
