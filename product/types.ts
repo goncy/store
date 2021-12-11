@@ -1,4 +1,4 @@
-export interface Product {
+export interface Option {
   id: string;
   title: string;
   category: string;
@@ -7,6 +7,12 @@ export interface Product {
   price: number;
 }
 
-export interface CartItem extends Product {
-  quantity: number;
+export interface Product {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+  options?: Record<Option["category"], Option[]>;
+  price: number;
 }
