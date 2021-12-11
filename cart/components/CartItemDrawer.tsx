@@ -60,7 +60,7 @@ const CartItemDrawer: React.FC<Props> = ({item, onClose, onSubmit, ...props}) =>
             </Stack>
           </DrawerHeader>
 
-          <DrawerBody data-testid="cart" paddingX={4}>
+          <DrawerBody data-testid="cart-item-drawer" paddingX={4}>
             <Stack divider={<Divider />} spacing={6}>
               <Stack>
                 <Image
