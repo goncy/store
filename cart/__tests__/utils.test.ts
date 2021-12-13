@@ -1,4 +1,4 @@
-import {getCartItemPrice, getCartPrice} from "../utils";
+import {getCartItemOptionsSummary, getCartItemPrice, getCartMessage, getCartTotal} from "../utils";
 import {CartItem} from "../types";
 
 const item: CartItem = {
@@ -105,17 +105,111 @@ describe("getCartItemPrice", () => {
   });
 });
 
-describe("getCartPrice", () => {
+describe("getCartTotal", () => {
   it("debería devolver el precio correcto cuando hay una unidad", () => {
-    const actual = getCartPrice([item]);
+    const actual = getCartTotal([item]);
     const expected = 100;
 
     expect(actual).toEqual(expected);
   });
 
   it("debería devolver el precio correcto cuando hay más de una unidad", () => {
-    const actual = getCartPrice([item, item]);
+    const actual = getCartTotal([item, item]);
     const expected = 200;
+
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe("getCartItemOptionsSummary", () => {
+  it("debería devolver el summary cuando tenemos una option", () => {
+    const actual: string = getCartItemOptionsSummary({
+      Peso: [
+        {
+          category: "Peso",
+          id: "",
+          description: "",
+          image: "",
+          price: 50,
+          title: "Medio kilo",
+        },
+      ],
+    });
+    const expected = "Peso: Medio kilo";
+
+    expect(actual).toEqual(expected);
+  });
+
+  it("debería devolver el summary cuando tenemos más de una opción", () => {
+    const actual: string = getCartItemOptionsSummary({
+      Peso: [
+        {
+          category: "Peso",
+          id: "",
+          description: "",
+          image: "",
+          price: 50,
+          title: "Medio kilo",
+        },
+      ],
+      Calidad: [
+        {
+          category: "Calidad",
+          id: "",
+          description: "",
+          image: "",
+          price: 50,
+          title: "Alta",
+        },
+      ],
+    });
+    const expected = "Peso: Medio kilo, Calidad: Alta";
+
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe("getCartMessage", () => {
+  it("debería mostrar un mensaje cuando no hay options", () => {
+    const actual: string = getCartMessage([item]);
+    const expected = `* title - $\u00a0100,00
+
+Total: $\u00a0100,00`;
+
+    expect(actual).toEqual(expected);
+  });
+
+  it("debería mostrar un mensaje cuando hay options", () => {
+    const actual: string = getCartMessage([
+      {
+        ...item,
+        options: {
+          Peso: [
+            {
+              category: "Peso",
+              id: "",
+              description: "",
+              image: "",
+              price: 50,
+              title: "Medio kilo",
+            },
+          ],
+          Calidad: [
+            {
+              category: "Calidad",
+              id: "",
+              description: "",
+              image: "",
+              price: 50,
+              title: "Alta",
+            },
+          ],
+        },
+      },
+    ]);
+    const expected = `* title [Peso: Medio kilo, Calidad: Alta] - $\u00a0200,00
+
+Total: $\u00a0200,00`;
 
     expect(actual).toEqual(expected);
   });

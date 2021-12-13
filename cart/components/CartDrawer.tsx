@@ -18,7 +18,7 @@ import React from "react";
 
 import {parseCurrency} from "../../utils/currency";
 import {CartItem} from "../../cart/types";
-import {getCartItemPrice, getCartPrice} from "../utils";
+import {getCartItemPrice, getCartTotal, getCartItemOptionsSummary, getCartMessage} from "../utils";
 
 interface Props extends Omit<DrawerProps, "children"> {
   items: CartItem[];
@@ -27,25 +27,11 @@ interface Props extends Omit<DrawerProps, "children"> {
 }
 
 const CartDrawer: React.FC<Props> = ({items, onClose, onDecrement, onIncrement, ...props}) => {
-  const total = React.useMemo(() => parseCurrency(getCartPrice(items)), [items]);
+  const total = React.useMemo(() => parseCurrency(getCartTotal(items)), [items]);
   const quantity = React.useMemo(() => items.reduce((acc, item) => acc + item.quantity, 0), [
     items,
   ]);
-  const text = React.useMemo(
-    () =>
-      items
-        .reduce(
-          (message, product) =>
-            message.concat(
-              `* ${product.title}${
-                product.quantity > 1 ? ` (X${product.quantity})` : ``
-              } - ${parseCurrency(product.price * product.quantity)}\n`,
-            ),
-          ``,
-        )
-        .concat(`\nTotal: ${total}`),
-    [items, total],
-  );
+  const text = React.useMemo(() => getCartMessage(items), [items]);
 
   React.useEffect(() => {
     if (!items.length) {
@@ -72,25 +58,16 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onDecrement, onIncrement, 
                 {items.map((item) => (
                   <Stack key={item.id} data-testid="cart-item" direction="row">
                     <Stack width="100%">
-                      <Stack
-                        alignItems="flex-start"
-                        direction="row"
-                        fontWeight="500"
-                        justifyContent="space-between"
-                      >
+                      <Stack alignItems="flex-start" direction="row" justifyContent="space-between">
                         <Stack spacing={0}>
-                          <Text fontSize="lg">{item.title}</Text>
+                          <Text fontSize="lg" fontWeight="500">
+                            {item.title}
+                          </Text>
                           {Boolean(item.options) && (
-                            <Text color="gray.500">
-                              {Object.entries(item.options).reduce(
-                                (text, [category, option]) =>
-                                  text.concat(`${category}: ${option[0].title}`),
-                                "",
-                              )}
-                            </Text>
+                            <Text color="gray.500">{getCartItemOptionsSummary(item.options)}</Text>
                           )}
                         </Stack>
-                        <Text>{parseCurrency(getCartItemPrice(item))}</Text>
+                        <Text fontWeight="500">{parseCurrency(getCartItemPrice(item))}</Text>
                       </Stack>
                       <Stack direction="row">
                         <Button
