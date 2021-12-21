@@ -1,9 +1,10 @@
+const phoneNumber : string = `5491141414141`
 export const INFORMATION = {
   avatar: "/assets/avatar.jpg",
   banner: "/assets/banner.jpg",
   title: "URBN Catering",
   description: "Galardonada pizza estilo New Haven en Palermo SOHO.",
-  phone: `5491141414141`,
+  phone: `${phoneNumber}`,
   sheet: `https://docs.google.com/spreadsheets/d/e/2PACX-1vQG1pOSbGxaJYzlOWF2t7KFyP5wtWo_EDS0crTllQtALvDDZBq7OwxvTDJwM4dmasW7wmNh6KFB443j/pub?output=csv`,
   color: `teal`,
   social: [
@@ -13,7 +14,7 @@ export const INFORMATION = {
     },
     {
       name: "whatsapp",
-      url: `https://wa.me/5491141414141`,
+      url: `https://wa.me/${phoneNumber}`,
     },
   ],
 };
