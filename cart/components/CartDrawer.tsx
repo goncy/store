@@ -20,6 +20,8 @@ import {parseCurrency} from "../../utils/currency";
 import {CartItem} from "../../cart/types";
 import {getCartItemPrice, getCartTotal, getCartItemOptionsSummary, getCartMessage} from "../utils";
 
+import {INFORMATION} from "../../app/constants";
+
 interface Props extends Omit<DrawerProps, "children"> {
   items: CartItem[];
   onIncrement: (item: CartItem) => void;
@@ -122,7 +124,7 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onDecrement, onIncrement, 
                   as={Link}
                   colorScheme="whatsapp"
                   data-testid="complete-order"
-                  href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`}
+                  href={`https://wa.me/${INFORMATION.phone}?text=${encodeURIComponent(text)}`}
                   leftIcon={
                     <Image src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff" />
                   }
