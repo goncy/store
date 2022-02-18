@@ -12,8 +12,8 @@ import {
   DrawerProps,
   Text,
   Image,
-  List,
-  ListItem,
+  RadioGroup,
+  Radio,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -79,30 +79,27 @@ const CartItemDrawer: React.FC<Props> = ({item, onClose, onSubmit, ...props}) =>
                       <Text fontSize="xl" fontWeight="500">
                         {category.title}
                       </Text>
-                      <List spacing={2}>
-                        {category.options.map((option) => (
-                          <ListItem
-                            key={option.title}
-                            borderColor={
-                              formData.options?.[option.category]?.[0]?.title === option.title
-                                ? "primary.500"
-                                : "transparent"
-                            }
-                            borderRadius="md"
-                            borderWidth={2}
-                            cursor="pointer"
-                            padding={4}
-                            onClick={() => handleSelectOption(option)}
-                          >
-                            <Stack direction="row" justifyContent="space-between" width="100%">
-                              <Text>{option.title}</Text>
-                              {Boolean(option.price) && (
-                                <Text fontWeight="500">{parseCurrency(option.price)}</Text>
-                              )}
-                            </Stack>
-                          </ListItem>
-                        ))}
-                      </List>
+                      <RadioGroup
+                        colorScheme="primary"
+                        value={formData.options?.[category.title]?.[0]?.title}
+                      >
+                        <Stack>
+                          {category.options.map((option) => (
+                            <Radio
+                              key={option.title}
+                              value={option.title}
+                              onChange={() => handleSelectOption(option)}
+                            >
+                              <Stack direction="row" justifyContent="space-between" width="100%">
+                                <Text>{option.title}</Text>
+                                {Boolean(option.price) && (
+                                  <Text fontWeight="500">{parseCurrency(option.price)}</Text>
+                                )}
+                              </Stack>
+                            </Radio>
+                          ))}
+                        </Stack>
+                      </RadioGroup>
                     </Stack>
                   ))}
                 </Stack>

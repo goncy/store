@@ -1,55 +1,20 @@
 import * as React from "react";
 import {Button, Flex, Grid, Stack, Text} from "@chakra-ui/react";
 
-import type {CartItem} from "../../cart/types";
 import type {Product} from "../types";
 import ProductCard from "../components/ProductCard";
-import CartDrawer from "../../cart/components/CartDrawer";
-import {parseCurrency} from "../../utils/currency";
-import {getCartTotal} from "../../cart/utils";
+import CartDrawer from "../../cart/components/CartDrawer/CartDrawer";
+import {useCart} from "../../cart/context";
+import {Field} from "../../cart/types";
 
 interface Props {
   products: Product[];
+  fields: Field[];
 }
 
-const StoreScreen: React.FC<Props> = ({products}) => {
-  const [cart, setCart] = React.useState<CartItem[]>([]);
+const StoreScreen: React.FC<Props> = ({products, fields}) => {
+  const [{total, quantity}, {addItem}] = useCart();
   const [isCartOpen, toggleCart] = React.useState<boolean>(false);
-
-  const total = React.useMemo(() => parseCurrency(getCartTotal(cart)), [cart]);
-  const quantity = React.useMemo(() => cart.reduce((acc, item) => acc + item.quantity, 0), [cart]);
-
-  function handleAddToCart(item: CartItem) {
-    setCart((cart) => [...cart, {...item, id: String(+new Date())}]);
-  }
-
-  function handleIncrementCartItem(item: CartItem) {
-    setCart((cart) => {
-      return cart.reduce((acc, _item) => {
-        if (item.id !== _item.id) {
-          return acc.concat(_item);
-        }
-
-        return acc.concat({..._item, quantity: _item.quantity + 1});
-      }, []);
-    });
-  }
-
-  function handleDecrementCartItem(item: CartItem) {
-    setCart((cart) => {
-      return cart.reduce((acc, _item) => {
-        if (item.id !== _item.id) {
-          return acc.concat(_item);
-        }
-
-        if (_item.quantity === 1) {
-          return acc;
-        }
-
-        return acc.concat({..._item, quantity: _item.quantity - 1});
-      }, []);
-    });
-  }
 
   return (
     <>
@@ -63,7 +28,11 @@ const StoreScreen: React.FC<Props> = ({products}) => {
             }}
           >
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} onAdd={handleAddToCart} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAdd={(product: Product) => addItem(Symbol(), {...product, quantity: 1})}
+              />
             ))}
           </Grid>
         ) : (
@@ -71,7 +40,7 @@ const StoreScreen: React.FC<Props> = ({products}) => {
             No hay productos
           </Text>
         )}
-        {Boolean(cart.length) && (
+        {Boolean(quantity) && (
           <Flex alignItems="center" bottom={4} justifyContent="center" position="sticky">
             <Button
               boxShadow="xl"
@@ -106,13 +75,7 @@ const StoreScreen: React.FC<Props> = ({products}) => {
           </Flex>
         )}
       </Stack>
-      <CartDrawer
-        isOpen={isCartOpen}
-        items={cart}
-        onClose={() => toggleCart(false)}
-        onDecrement={handleDecrementCartItem}
-        onIncrement={handleIncrementCartItem}
-      />
+      <CartDrawer fields={fields} isOpen={isCartOpen} onClose={() => toggleCart(false)} />
     </>
   );
 };

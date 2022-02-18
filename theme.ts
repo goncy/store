@@ -1,9 +1,17 @@
 import {extendTheme, theme} from "@chakra-ui/react";
 
-import {INFORMATION} from "./app/constants";
-
 export default extendTheme({
   colors: {
-    primary: theme.colors[INFORMATION.color],
+    primary: theme.colors[process.env.NEXT_PUBLIC_COLOR || "teal"],
+  },
+  components: {
+    Radio: {
+      parts: ["label"],
+      baseStyle: {
+        label: {
+          width: "100%",
+        },
+      },
+    },
   },
 });
