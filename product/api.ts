@@ -1,8 +1,6 @@
 import axios from "axios";
 import Papa from "papaparse";
 
-import {INFORMATION} from "../app/constants";
-
 import {Option as IOption, Product as IProduct} from "./types";
 
 interface RawOption extends IOption {
@@ -100,7 +98,7 @@ function normalize(data: (RawProduct | RawOption)[]) {
 export default {
   list: async (): Promise<IProduct[]> => {
     return axios
-      .get(INFORMATION.sheet, {
+      .get(process.env.PRODUCTS_CSV, {
         responseType: "blob",
       })
       .then(

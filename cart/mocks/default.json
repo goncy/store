@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Direccion de envio",
+    "type": "text",
+    "text": "Mi casa 123",
+    "note": "",
+    "required": true
+  },
+  {
+    "title": "Forma de pago",
+    "type": "radio",
+    "text": "Efectivo,Tarjeta",
+    "note": "En efectivo hay descuento de 5% calculado a la hora del cobro",
+    "required": true
+  }
+]
