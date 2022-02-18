@@ -41,22 +41,6 @@ test("deberia mostrar la cantidad de productos en el detalle", () => {
   expect(quantity).toBeInTheDocument();
 });
 
-// test("deberia mostrar la cantidad de productos en el mensaje de whatsapp si es uno", () => {
-//   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
-
-//   const link = screen.getByTestId("complete-order");
-
-//   expect(link.getAttribute("href")).not.toMatch(`(X${String(cartItem.quantity)})`);
-// });
-
-// test("no deberia mostrar la cantidad de productos en el mensaje de whatsapp si es uno", () => {
-//   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
-
-//   const link = screen.getByTestId("complete-order");
-
-//   expect(link.getAttribute("href")).not.toMatch(`(X${String(cartItem.quantity)})`);
-// });
-
 // test("deberia llamar a onDecrement cuando resto un producto", () => {
 //   const onDecrement = jest.fn();
 
@@ -75,6 +59,22 @@ test("deberia mostrar la cantidad de productos en el detalle", () => {
 //   fireEvent.click(screen.getByTestId("increment"));
 
 //   expect(onIncrement).toHaveBeenCalled();
+// });
+
+// test("deberia mostrar la cantidad de productos en el mensaje de whatsapp si es uno", () => {
+//   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
+
+//   const link = screen.getByTestId("complete-order");
+
+//   expect(link.getAttribute("href")).not.toMatch(`(X${String(cartItem.quantity)})`);
+// });
+
+// test("no deberia mostrar la cantidad de productos en el mensaje de whatsapp si es uno", () => {
+//   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
+
+//   const link = screen.getByTestId("complete-order");
+
+//   expect(link.getAttribute("href")).not.toMatch(`(X${String(cartItem.quantity)})`);
 // });
 
 // test("muestro un mensaje de que no hay items cuando el product esta vacio", () => {
