@@ -32,7 +32,6 @@ export const getStaticProps: GetStaticProps<unknown, Params> = async ({params}) 
   const fields = await cartApi.mock.list(params.mock);
 
   return {
-    revalidate: 10,
     props: {
       products,
       fields,
