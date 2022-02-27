@@ -2,7 +2,7 @@
 
 ---
 
-# Commercency.
+# Commercency
 Ecommerce, simple.
 
 ## Como la uso?
