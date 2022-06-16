@@ -1,19 +1,19 @@
 export const INFORMATION = {
   avatar: "/assets/avatar.jpg",
   banner: "/assets/banner.jpg",
-  title: "URBN Catering",
-  description: "Galardonada pizza estilo New Haven en Palermo SOHO.",
-  phone: `5491141414141`,
-  sheet: `https://docs.google.com/spreadsheets/d/e/2PACX-1vQG1pOSbGxaJYzlOWF2t7KFyP5wtWo_EDS0crTllQtALvDDZBq7OwxvTDJwM4dmasW7wmNh6KFB443j/pub?output=csv`,
+  title: "La tiendita de Alex",
+  description: "Casi tan barato como la competencia",
+  phone: `51979336360`,
+  sheet: `https://docs.google.com/spreadsheets/d/e/2PACX-1vQFMFc2wKNZrHLbC52jMiwySViLM9BgjlDihvPq7P5BBrgC6DHkUJ33UStpA11CycNRELgTUE1Jkg7c/pub?output=csv`,
   color: `teal`,
   social: [
     {
       name: "instagram",
-      url: `https://instagram.com/goncy.js`,
+      url: `#`,
     },
     {
       name: "whatsapp",
-      url: `https://wa.me/5491141414141`,
+      url: `https://wa.me/51979336360`,
     },
   ],
 };
