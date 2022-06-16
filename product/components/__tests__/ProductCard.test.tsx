@@ -23,7 +23,7 @@ test("deberia mostrar el titulo, precio y boton", () => {
   expect(screen.getByText("Agregar")).toBeInTheDocument();
 });
 
-test("deberia ejecutar onAdd cuando clickeo en agregar", () => {
+test("deberia ejecutar onAdd cuando clickeo en agregar y no tengo opciones", () => {
   const onAdd = jest.fn();
 
   render(<ProductCard product={product} onAdd={onAdd} />);
@@ -31,4 +31,33 @@ test("deberia ejecutar onAdd cuando clickeo en agregar", () => {
   fireEvent.click(screen.getByText("Agregar"));
 
   expect(onAdd).toHaveBeenCalled();
+});
+
+test("deberia ejecutar onAdd cuando clickeo en agregar y tengo opciones", () => {
+  const onAdd = jest.fn();
+
+  render(
+    <ProductCard
+      product={{
+        ...product,
+        options: {
+          Peso: [
+            {
+              id: "",
+              category: "Peso",
+              title: "500 GR",
+              price: 100,
+              description: "",
+              image: "",
+            },
+          ],
+        },
+      }}
+      onAdd={onAdd}
+    />,
+  );
+
+  fireEvent.click(screen.getByText("Agregar"));
+
+  expect(screen.getByTestId("cart-item-drawer")).toBeInTheDocument();
 });

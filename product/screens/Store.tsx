@@ -1,30 +1,20 @@
 import * as React from "react";
 import {Button, Flex, Grid, Stack, Text} from "@chakra-ui/react";
 
-import {CartItem, Product} from "../types";
+import type {Product} from "../types";
 import ProductCard from "../components/ProductCard";
-import CartDrawer from "../components/CartDrawer";
-import {editCart} from "../selectors";
-import {parseCurrency} from "../../utils/currency";
+import CartDrawer from "../../cart/components/CartDrawer/CartDrawer";
+import {useCart} from "../../cart/context";
+import {Field} from "../../cart/types";
 
 interface Props {
   products: Product[];
+  fields: Field[];
 }
 
-const StoreScreen: React.FC<Props> = ({products}) => {
-  const [cart, setCart] = React.useState<CartItem[]>([]);
+const StoreScreen: React.FC<Props> = ({products, fields}) => {
+  const [{total, quantity}, {addItem}] = useCart();
   const [isCartOpen, toggleCart] = React.useState<boolean>(false);
-
-  const total = React.useMemo(
-    () =>
-      parseCurrency(cart.reduce((total, product) => total + product.price * product.quantity, 0)),
-    [cart],
-  );
-  const quantity = React.useMemo(() => cart.reduce((acc, item) => acc + item.quantity, 0), [cart]);
-
-  function handleEditCart(product: Product, action: "increment" | "decrement") {
-    setCart(editCart(product, action));
-  }
 
   return (
     <>
@@ -41,7 +31,7 @@ const StoreScreen: React.FC<Props> = ({products}) => {
               <ProductCard
                 key={product.id}
                 product={product}
-                onAdd={(product) => handleEditCart(product, "increment")}
+                onAdd={(product: Product) => addItem(Symbol(), {...product, quantity: 1})}
               />
             ))}
           </Grid>
@@ -50,7 +40,7 @@ const StoreScreen: React.FC<Props> = ({products}) => {
             No hay productos
           </Text>
         )}
-        {Boolean(cart.length) && (
+        {Boolean(quantity) && (
           <Flex alignItems="center" bottom={4} justifyContent="center" position="sticky">
             <Button
               boxShadow="xl"
@@ -85,13 +75,7 @@ const StoreScreen: React.FC<Props> = ({products}) => {
           </Flex>
         )}
       </Stack>
-      <CartDrawer
-        isOpen={isCartOpen}
-        items={cart}
-        onClose={() => toggleCart(false)}
-        onDecrement={(product) => handleEditCart(product, "decrement")}
-        onIncrement={(product) => handleEditCart(product, "increment")}
-      />
+      <CartDrawer fields={fields} isOpen={isCartOpen} onClose={() => toggleCart(false)} />
     </>
   );
 };

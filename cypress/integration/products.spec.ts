@@ -4,7 +4,10 @@ describe("Products", () => {
   it("deberia mostrar todos los productos", () => {
     cy.visit("/default");
 
-    cy.get('[data-testid="product"]').should("have.length", mock.length);
+    cy.get('[data-testid="product"]').should(
+      "have.length",
+      mock.filter((item) => item.type === "product").length,
+    );
   });
 
   it("muestra un mensaje cuando no hay productos", () => {
