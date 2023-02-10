@@ -35,10 +35,10 @@ const CartItemDrawer: React.FC<Props> = ({item, onClose, onSubmit, ...props}) =>
     () => Object.entries(item.options).map(([title, options]) => ({title, options})),
     [item],
   );
-  const isValid = React.useMemo(() => options.length === Object.keys(formData.options).length, [
-    formData,
-    options,
-  ]);
+  const isValid = React.useMemo(
+    () => options.length === Object.keys(formData.options).length,
+    [formData, options],
+  );
 
   function handleSelectOption(option: Option) {
     setFormData((formData) => ({

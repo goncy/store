@@ -28,7 +28,7 @@ interface Props {
 
 const CartContext = React.createContext({} as Context);
 
-const CartProvider: React.VFC<Props> = (props) => {
+const CartProvider: React.FC<Props> = (props) => {
   const [checkout, setCheckout] = React.useState<Checkout>(() => new Map());
   const [cart, setCart] = React.useState<Cart>(() => new Map());
   const total = React.useMemo(() => parseCurrency(getCartTotal(cart)), [cart]);
@@ -74,19 +74,14 @@ const CartProvider: React.VFC<Props> = (props) => {
     [checkout],
   );
 
-  const state = React.useMemo(() => ({checkout, cart, total, quantity, message}), [
-    checkout,
-    cart,
-    total,
-    quantity,
-    message,
-  ]);
-  const actions = React.useMemo(() => ({updateItem, updateField, addItem, removeItem}), [
-    updateItem,
-    updateField,
-    addItem,
-    removeItem,
-  ]);
+  const state = React.useMemo(
+    () => ({checkout, cart, total, quantity, message}),
+    [checkout, cart, total, quantity, message],
+  );
+  const actions = React.useMemo(
+    () => ({updateItem, updateField, addItem, removeItem}),
+    [updateItem, updateField, addItem, removeItem],
+  );
 
   return <CartContext.Provider value={{state, actions}}>{props.children}</CartContext.Provider>;
 };

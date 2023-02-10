@@ -14,11 +14,11 @@ interface FieldProps extends Omit<InputProps, "onChange"> {
   onChange: (value: string) => void;
 }
 
-const TextField: React.VFC<FieldProps> = ({value, onChange, ...props}) => {
+const TextField: React.FC<FieldProps> = ({value, onChange, ...props}) => {
   return <Input value={value} onChange={(e) => onChange(e.target.value)} {...props} />;
 };
 
-const RadioField: React.VFC<{
+const RadioField: React.FC<{
   options: string[];
   onChange: (value: string) => void;
   value: string;
