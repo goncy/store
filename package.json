@@ -15,11 +15,16 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "axios": "^1.3.2",
+    "class-variance-authority": "^0.6.0",
+    "clsx": "^1.2.1",
     "framer-motion": "^9.0.2",
+    "lucide-react": "^0.189.0",
     "next": "^13.1.6",
     "papaparse": "^5.3.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "tailwind-merge": "^1.12.0",
+    "tailwindcss-animate": "^1.0.5"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

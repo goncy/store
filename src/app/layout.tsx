@@ -1,5 +1,5 @@
-import api from "../store/api";
-import StoreHeader from "../store/components/StoreHeader";
+import api from "~/store/api";
+import StoreHeader from "~/store/components/StoreHeader";
 import Providers from "./providers";
 
 import "../globals.css"

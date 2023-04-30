@@ -1,3 +1,6 @@
+import type {CartItem} from "../types";
+
+import React from "react";
 import {
   Drawer,
   DrawerOverlay,
@@ -15,11 +18,9 @@ import {
   RadioGroup,
   Radio,
 } from "@chakra-ui/react";
-import React from "react";
 
-import {parseCurrency} from "../../utils/currency";
-import {Option} from "../../product/types";
-import {CartItem} from "../types";
+import {parseCurrency} from "@/utils/currency";
+import {Option} from "~/product/types";
 import {getCartItemPrice} from "../utils";
 
 interface Props extends Omit<DrawerProps, "children"> {

@@ -1,8 +1,9 @@
+import type {Cart, CartItem} from "../../types";
+
 import {Stack, Divider, Button, Text} from "@chakra-ui/react";
 import React from "react";
 
-import {parseCurrency} from "../../../utils/currency";
-import {Cart, CartItem} from "../../types";
+import {parseCurrency} from "@/utils/currency";
 import {getCartItemPrice, getCartItemOptionsSummary} from "../../utils";
 
 interface Props {

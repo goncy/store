@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import {parseCurrency} from "../utils/currency";
+import {parseCurrency} from "@/utils/currency";
 
 import {Cart, CartItem, Checkout, Field} from "./types";
 import {getCartMessage, getCartTotal} from "./utils";

@@ -1,10 +1,11 @@
+import type {Product} from "../types";
+
 import React from "react";
 import {Stack, Button, Text, Image} from "@chakra-ui/react";
 
-import {parseCurrency} from "../../utils/currency";
-import {CartItem} from "../../cart/types";
-import {Product} from "../types";
-import CartItemDrawer from "../../cart/components/CartItemDrawer";
+import {parseCurrency} from "@/utils/currency";
+import {CartItem} from "~/cart/types";
+import CartItemDrawer from "~/cart/components/CartItemDrawer";
 
 interface Props {
   product: Product;

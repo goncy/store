@@ -1,4 +1,4 @@
-import {parseCurrency} from "../utils/currency";
+import {parseCurrency} from "@/utils/currency";
 
 import {Cart, CartItem, Checkout} from "./types";
 
