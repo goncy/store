@@ -1,11 +1,13 @@
-import * as React from "react";
+"use client"
+
+import { useState } from "react";
 import {Button, Flex, Grid, Stack, Text} from "@chakra-ui/react";
 
 import type {Product} from "../types";
+import type {Field} from "../../cart/types";
 import ProductCard from "../components/ProductCard";
 import CartDrawer from "../../cart/components/CartDrawer/CartDrawer";
 import {useCart} from "../../cart/context";
-import {Field} from "../../cart/types";
 
 interface Props {
   products: Product[];
@@ -14,7 +16,7 @@ interface Props {
 
 const StoreScreen: React.FC<Props> = ({products, fields}) => {
   const [{total, quantity}, {addItem}] = useCart();
-  const [isCartOpen, toggleCart] = React.useState<boolean>(false);
+  const [isCartOpen, toggleCart] = useState<boolean>(false);
 
   return (
     <>
