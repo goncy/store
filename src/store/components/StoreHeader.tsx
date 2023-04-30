@@ -65,7 +65,7 @@ export default function StoreHeader({store}: Props) {
                   justifyContent="center"
                   width={10}
                 >
-                  <Image src={`https://icongr.am/fontawesome/instagram.svg?size=24&color=ffffff`} />
+                  <Image src={`https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff`} />
                 </Flex>
               </Link>
             )}
