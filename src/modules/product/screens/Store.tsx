@@ -1,22 +1,19 @@
-"use client"
-
-import { useState } from "react";
-import {Button, Flex, Grid, Stack, Text} from "@chakra-ui/react";
+"use client";
 
 import type {Product} from "../types";
-import type {Field} from "../../cart/types";
+
+import {useState} from "react";
+import {Button, Flex, Grid, Stack, Text} from "@chakra-ui/react";
+
+import type {Field} from "~/cart/types";
+import CartDrawer from "~/cart/components/CartDrawer/CartDrawer";
+import {useCart} from "~/cart/context";
+
 import ProductCard from "../components/ProductCard";
-import CartDrawer from "../../cart/components/CartDrawer/CartDrawer";
-import {useCart} from "../../cart/context";
 
-interface Props {
-  products: Product[];
-  fields: Field[];
-}
-
-const StoreScreen: React.FC<Props> = ({products, fields}) => {
+function StoreScreen({products, fields}: {products: Product[]; fields: Field[]}) {
   const [{total, quantity}, {addItem}] = useCart();
-  const [isCartOpen, toggleCart] = useState<boolean>(false);
+  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -33,7 +30,7 @@ const StoreScreen: React.FC<Props> = ({products, fields}) => {
               <ProductCard
                 key={product.id}
                 product={product}
-                onAdd={(product: Product) => addItem(Symbol(), {...product, quantity: 1})}
+                onAdd={(_product: Product) => addItem(Symbol(), {..._product, quantity: 1})}
               />
             ))}
           </Grid>
@@ -50,7 +47,7 @@ const StoreScreen: React.FC<Props> = ({products, fields}) => {
               data-testid="show-cart"
               size="lg"
               width={{base: "100%", sm: "fit-content"}}
-              onClick={() => toggleCart(true)}
+              onClick={() => setIsCartOpen(true)}
             >
               <Stack alignItems="center" direction="row" spacing={6}>
                 <Stack alignItems="center" direction="row" spacing={3}>
@@ -77,9 +74,9 @@ const StoreScreen: React.FC<Props> = ({products, fields}) => {
           </Flex>
         )}
       </Stack>
-      <CartDrawer fields={fields} isOpen={isCartOpen} onClose={() => toggleCart(false)} />
+      <CartDrawer fields={fields} isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
-};
+}
 
 export default StoreScreen;

@@ -1,10 +1,10 @@
-import {parseCurrency} from "@/utils/currency";
+import type {Cart, CartItem, Checkout} from "./types";
 
-import {Cart, CartItem, Checkout} from "./types";
+import {parseCurrency} from "@/utils/currency";
 
 export function getCartItemPrice(item: CartItem): number {
   const optionsPrice = item.options
-    ? Object.values(item.options).reduce((price, option) => price + option?.[0]?.price, 0)
+    ? Object.values(item.options).reduce((price, option) => price + option[0]?.price, 0)
     : 0;
 
   return (optionsPrice + item.price) * item.quantity;
@@ -15,8 +15,11 @@ export function getCartTotal(cart: Cart): number {
 }
 
 export function getCartItemOptionsSummary(options: CartItem["options"]): string {
-  return Object.entries(options)
-    .reduce((options, [category, option]) => options.concat(`${category}: ${option[0].title}`), [])
+  return Object.entries(options!)
+    .reduce<string[]>(
+      (_options, [category, option]) => _options.concat(`${category}: ${option[0].title}`),
+      [],
+    )
     .join(", ");
 }
 

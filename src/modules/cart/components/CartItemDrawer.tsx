@@ -1,4 +1,5 @@
 import type {CartItem} from "../types";
+import type {DrawerProps} from "@chakra-ui/react";
 
 import React from "react";
 import {
@@ -12,39 +13,43 @@ import {
   Divider,
   Button,
   DrawerFooter,
-  DrawerProps,
   Text,
   Image,
   RadioGroup,
   Radio,
 } from "@chakra-ui/react";
 
+import type {Option} from "~/product/types";
+
 import {parseCurrency} from "@/utils/currency";
-import {Option} from "~/product/types";
+
 import {getCartItemPrice} from "../utils";
 
-interface Props extends Omit<DrawerProps, "children"> {
+function CartItemDrawer({
+  item,
+  onClose,
+  onSubmit,
+  ...props
+}: DrawerProps & {
   item: CartItem;
   onClose: VoidFunction;
   onSubmit: (item: CartItem) => void;
-}
-
-const CartItemDrawer: React.FC<Props> = ({item, onClose, onSubmit, ...props}) => {
+}) {
   const [formData, setFormData] = React.useState<CartItem>(() => ({...item, options: {}}));
   const total = React.useMemo(() => parseCurrency(getCartItemPrice(formData)), [formData]);
   const options = React.useMemo(
-    () => Object.entries(item.options).map(([title, options]) => ({title, options})),
+    () => Object.entries(item.options!).map(([title, _options]) => ({title, options: _options})),
     [item],
   );
   const isValid = React.useMemo(
-    () => options.length === Object.keys(formData.options).length,
+    () => options.length === Object.keys(formData.options!).length,
     [formData, options],
   );
 
   function handleSelectOption(option: Option) {
-    setFormData((formData) => ({
-      ...formData,
-      options: {...formData.options, [option.category]: [option]},
+    setFormData((_formData) => ({
+      ..._formData,
+      options: {..._formData.options, [option.category]: [option]},
     }));
   }
 
@@ -138,6 +143,6 @@ const CartItemDrawer: React.FC<Props> = ({item, onClose, onSubmit, ...props}) =>
       </DrawerOverlay>
     </Drawer>
   );
-};
+}
 
 export default CartItemDrawer;

@@ -1,7 +1,7 @@
+import type {Option as IOption, Product as IProduct} from "./types";
+
 import axios from "axios";
 import Papa from "papaparse";
-
-import {Option as IOption, Product as IProduct} from "./types";
 
 interface RawOption extends IOption {
   type: "option";
@@ -36,11 +36,11 @@ class Product implements IProduct {
   }
 
   addOption(option: RawOption) {
-    if (!this.options[option.category]) {
-      this.options[option.category] = [];
+    if (!this.options![option.category]) {
+      this.options![option.category] = [];
     }
 
-    this.options[option.category].push({
+    this.options![option.category].push({
       id: option.id,
       title: option.title,
       category: option.category,
@@ -61,7 +61,7 @@ class Product implements IProduct {
       price: Number(this.price),
     };
 
-    if (Object.keys(product.options).length === 0) {
+    if (Object.keys(product.options!).length === 0) {
       delete product.options;
     }
 
@@ -78,13 +78,13 @@ function normalize(data: (RawProduct | RawOption)[]) {
     }
 
     if (item.type === "product") {
-      const product = products.get(item.id);
+      const product = products.get(item.id)!;
 
       product.set(item);
     } else if (item.type === "option") {
       const product = products.get(item.id);
 
-      product.addOption(item);
+      product!.addOption(item);
     }
   }
 
@@ -98,7 +98,7 @@ function normalize(data: (RawProduct | RawOption)[]) {
 export default {
   list: async (): Promise<IProduct[]> => {
     return axios
-      .get(process.env.PRODUCTS_CSV, {
+      .get(process.env.PRODUCTS_CSV!, {
         responseType: "blob",
       })
       .then(
@@ -118,8 +118,8 @@ export default {
   },
   mock: {
     list: (mock: string): Promise<IProduct[]> =>
-      import(`./mocks/${mock}.json`).then((result) =>
-        normalize(result.default as (RawProduct | RawOption)[]),
+      import(`./mocks/${mock}.json`).then((result: {default: (RawProduct | RawOption)[]}) =>
+        normalize(result.default),
       ),
   },
 };

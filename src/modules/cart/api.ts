@@ -1,7 +1,7 @@
+import type {Field as IField, RadioField, TextField} from "./types";
+
 import axios from "axios";
 import Papa from "papaparse";
-
-import {Field as IField, RadioField, TextField} from "./types";
 
 interface RawField {
   title: string;
@@ -38,7 +38,7 @@ function normalize(data: RawField[]): IField[] {
 export default {
   list: async (): Promise<IField[]> => {
     return axios
-      .get(process.env.FIELDS_CSV, {
+      .get(process.env.FIELDS_CSV!, {
         responseType: "blob",
       })
       .then(
@@ -58,6 +58,8 @@ export default {
   },
   mock: {
     list: (mock: string): Promise<IField[]> =>
-      import(`./mocks/${mock}.json`).then((result) => normalize(result.default as RawField[])),
+      import(`./mocks/${mock}.json`).then((result: {default: RawField[]}) =>
+        normalize(result.default),
+      ),
   },
 };

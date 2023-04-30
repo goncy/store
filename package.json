@@ -19,7 +19,8 @@
     "clsx": "^1.2.1",
     "framer-motion": "^9.0.2",
     "lucide-react": "^0.189.0",
-    "next": "^13.1.6",
+    "next": "13.3.3-canary.1",
+    "next-themes": "^0.2.1",
     "papaparse": "^5.3.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -27,6 +28,7 @@
     "tailwindcss-animate": "^1.0.5"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "13.3.3-canary.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.4.0",
@@ -36,6 +38,7 @@
     "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
+    "@vercel/style-guide": "^4.0.2",
     "autoprefixer": "^10.4.13",
     "cypress": "^12.5.1",
     "eslint": "^8.34.0",

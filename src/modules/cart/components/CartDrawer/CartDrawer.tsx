@@ -1,3 +1,6 @@
+import type {DrawerProps} from "@chakra-ui/react";
+import type {CartItem, Field} from "../../types";
+
 import React from "react";
 import {
   Text,
@@ -7,7 +10,6 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  DrawerProps,
   Stack,
   IconButton,
   DrawerFooter,
@@ -19,16 +21,16 @@ import {
 import {ChevronLeftIcon} from "@chakra-ui/icons";
 
 import {useCart} from "../../context";
-import {CartItem, Field} from "../../types";
 
 import Details from "./Details";
 import Fields from "./Fields";
 
-interface Props extends Omit<DrawerProps, "children"> {
-  fields: Field[];
-}
-
-const CartDrawer: React.FC<Props> = ({onClose, isOpen, fields, ...props}) => {
+function CartDrawer({
+  onClose,
+  isOpen,
+  fields,
+  ...props
+}: Omit<DrawerProps, "children"> & {fields?: Field[]}) {
   const [{total, message, cart, checkout}, {removeItem, updateItem, updateField}] = useCart();
   const [currentStep, setCurrentStep] = React.useState<"details" | "fields">("details");
 
@@ -81,12 +83,12 @@ const CartDrawer: React.FC<Props> = ({onClose, isOpen, fields, ...props}) => {
           </DrawerHeader>
           <DrawerBody data-testid="cart" paddingX={4}>
             {currentStep === "details" && <Details cart={cart} onChange={handleUpdateCart} />}
-            {currentStep === "fields" && (
+            {fields && currentStep === "fields" ? (
               <Fields checkout={checkout} fields={fields} onChange={handleUpdateField} />
-            )}
+            ) : null}
           </DrawerBody>
           <DrawerFooter paddingX={4}>
-            {fields && currentStep === "details" && (
+            {fields && currentStep === "details" ? (
               <Stack spacing={4} width="100%">
                 <Divider />
                 <Stack
@@ -109,7 +111,7 @@ const CartDrawer: React.FC<Props> = ({onClose, isOpen, fields, ...props}) => {
                   Continuar
                 </Button>
               </Stack>
-            )}
+            ) : null}
             {(currentStep === "fields" || !fields) && (
               <Button
                 isExternal
@@ -131,6 +133,6 @@ const CartDrawer: React.FC<Props> = ({onClose, isOpen, fields, ...props}) => {
       </DrawerOverlay>
     </Drawer>
   );
-};
+}
 
 export default CartDrawer;

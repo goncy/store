@@ -1,12 +1,12 @@
+import type {Store as IStore} from "./types";
+
 import axios from "axios";
 import Papa from "papaparse";
-
-import {Store as IStore} from "./types";
 
 export default {
   fetch: async (): Promise<IStore> => {
     return axios
-      .get(process.env.STORE_CSV, {
+      .get(process.env.STORE_CSV!, {
         responseType: "blob",
       })
       .then(
@@ -24,6 +24,6 @@ export default {
   },
   mock: {
     fetch: (mock: string): Promise<IStore> =>
-      import(`./mocks/${mock}.json`).then((result) => result.default as Promise<IStore>),
+      import(`./mocks/${mock}.json`).then((result: {default: IStore}) => result.default),
   },
 };

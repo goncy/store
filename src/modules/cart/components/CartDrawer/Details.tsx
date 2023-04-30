@@ -1,17 +1,12 @@
 import type {Cart, CartItem} from "../../types";
 
 import {Stack, Divider, Button, Text} from "@chakra-ui/react";
-import React from "react";
 
 import {parseCurrency} from "@/utils/currency";
+
 import {getCartItemPrice, getCartItemOptionsSummary} from "../../utils";
 
-interface Props {
-  cart: Cart;
-  onChange: (id: symbol, item: CartItem) => void;
-}
-
-const Details: React.FC<Props> = ({cart, onChange}) => {
+function Details({cart, onChange}: {cart: Cart; onChange: (id: symbol, item: CartItem) => void}) {
   return (
     <Stack divider={<Divider />} spacing={4}>
       {Array.from(cart.entries()).map(([id, item]) => (
@@ -58,6 +53,6 @@ const Details: React.FC<Props> = ({cart, onChange}) => {
       ))}
     </Stack>
   );
-};
+}
 
 export default Details;

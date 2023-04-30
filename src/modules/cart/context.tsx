@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react";
+import type {Cart, CartItem, Checkout, Field} from "./types";
+
+import {useState, useMemo, useCallback, useContext, createContext} from "react";
 
 import {parseCurrency} from "@/utils/currency";
 
-import {Cart, CartItem, Checkout, Field} from "./types";
 import {getCartMessage, getCartTotal} from "./utils";
 
 interface Context {
@@ -23,24 +24,19 @@ interface Context {
   };
 }
 
-interface Props {
-  fields: Field[];
-  children: React.ReactNode;
-}
+const CartContext = createContext({} as Context);
 
-const CartContext = React.createContext({} as Context);
-
-const CartProvider: React.FC<Props> = (props) => {
-  const [checkout, setCheckout] = React.useState<Checkout>(() => new Map());
-  const [cart, setCart] = React.useState<Cart>(() => new Map());
-  const total = React.useMemo(() => parseCurrency(getCartTotal(cart)), [cart]);
-  const quantity = React.useMemo(
+function CartProvider(props: {fields: Field[]; children: React.ReactNode}) {
+  const [checkout, setCheckout] = useState<Checkout>(() => new Map());
+  const [cart, setCart] = useState<Cart>(() => new Map());
+  const total = useMemo(() => parseCurrency(getCartTotal(cart)), [cart]);
+  const quantity = useMemo(
     () => Array.from(cart.values()).reduce((acc, item) => acc + item.quantity, 0),
     [cart],
   );
-  const message = React.useMemo(() => getCartMessage(cart, checkout), [cart, checkout]);
+  const message = useMemo(() => getCartMessage(cart, checkout), [cart, checkout]);
 
-  const addItem = React.useCallback(
+  const addItem = useCallback(
     (id: symbol, value: CartItem) => {
       cart.set(id, value);
 
@@ -49,7 +45,7 @@ const CartProvider: React.FC<Props> = (props) => {
     [cart],
   );
 
-  const removeItem = React.useCallback(
+  const removeItem = useCallback(
     (id: symbol) => {
       cart.delete(id);
 
@@ -58,7 +54,7 @@ const CartProvider: React.FC<Props> = (props) => {
     [cart],
   );
 
-  const updateItem = React.useCallback(
+  const updateItem = useCallback(
     (id: symbol, value: CartItem) => {
       cart.set(id, value);
 
@@ -67,7 +63,7 @@ const CartProvider: React.FC<Props> = (props) => {
     [cart],
   );
 
-  const updateField = React.useCallback(
+  const updateField = useCallback(
     (id: string, value: string) => {
       checkout.set(id, value);
 
@@ -76,20 +72,20 @@ const CartProvider: React.FC<Props> = (props) => {
     [checkout],
   );
 
-  const state = React.useMemo(
+  const state = useMemo(
     () => ({checkout, cart, total, quantity, message}),
     [checkout, cart, total, quantity, message],
   );
-  const actions = React.useMemo(
+  const actions = useMemo(
     () => ({updateItem, updateField, addItem, removeItem}),
     [updateItem, updateField, addItem, removeItem],
   );
 
   return <CartContext.Provider value={{state, actions}}>{props.children}</CartContext.Provider>;
-};
+}
 
 export function useCart(): [Context["state"], Context["actions"]] {
-  const {state, actions} = React.useContext(CartContext);
+  const {state, actions} = useContext(CartContext);
 
   return [state, actions];
 }

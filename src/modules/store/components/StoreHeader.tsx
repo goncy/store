@@ -1,14 +1,10 @@
-"use client"
-
-import {Stack, Link, Heading, Flex, Box, Image, Text} from "@chakra-ui/react";
+"use client";
 
 import type {Store} from "../types";
 
-type Props = {
-  store: Store;
-};
+import {Stack, Link, Heading, Flex, Box, Image, Text} from "@chakra-ui/react";
 
-export default function StoreHeader({store}: Props) {
+export default function StoreHeader({store}: {store: Store}) {
   return (
     <Stack spacing={4}>
       <Image borderRadius="lg" height="100%" maxHeight={64} objectFit="cover" src={store.banner} />
@@ -39,7 +35,7 @@ export default function StoreHeader({store}: Props) {
             </Text>
           </Stack>
           <Stack direction="row">
-            {store.instagram && (
+            {store.instagram ? (
               <Link isExternal href={store.instagram}>
                 <Flex
                   alignItems="center"
@@ -50,11 +46,11 @@ export default function StoreHeader({store}: Props) {
                   justifyContent="center"
                   width={10}
                 >
-                  <Image src={`https://icongr.am/fontawesome/instagram.svg?size=24&color=ffffff`} />
+                  <Image src="https://icongr.am/fontawesome/instagram.svg?size=24&color=ffffff" />
                 </Flex>
               </Link>
-            )}
-            {store.whatsapp && (
+            ) : null}
+            {store.whatsapp ? (
               <Link isExternal href={store.whatsapp}>
                 <Flex
                   alignItems="center"
@@ -65,10 +61,10 @@ export default function StoreHeader({store}: Props) {
                   justifyContent="center"
                   width={10}
                 >
-                  <Image src={`https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff`} />
+                  <Image src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff" />
                 </Flex>
               </Link>
-            )}
+            ) : null}
           </Stack>
         </Stack>
       </Stack>
