@@ -10,7 +10,7 @@ export default function StoreHeader({store}: {store: Store}) {
       <Image borderRadius="lg" height="100%" maxHeight={64} objectFit="cover" src={store.banner} />
       <Stack alignItems="center" direction={{base: "column", sm: "row"}} spacing={{base: 3, sm: 6}}>
         <Box
-          backgroundColor="white"
+          backgroundColor="inherit"
           borderRadius={9999}
           marginTop={{base: -12, sm: -16}}
           minWidth={{base: 24, sm: 32}}

@@ -3,17 +3,13 @@ import type {Product} from "../types";
 import React from "react";
 import {Stack, Button, Text, Image} from "@chakra-ui/react";
 
-import {parseCurrency} from "@/utils/currency";
-import {CartItem} from "~/cart/types";
+import type {CartItem} from "~/cart/types";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 
-interface Props {
-  product: Product;
-  onAdd: (product: Product) => void;
-}
+import {parseCurrency} from "@/utils/currency";
 
-const ProductCard: React.FC<Props> = ({product, onAdd}) => {
-  const [isModalOpen, toggleModal] = React.useState(false);
+function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Product) => void}) {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
   const cartItem = React.useMemo<CartItem>(() => ({...product, quantity: 1}), [product]);
 
   return (
@@ -21,7 +17,7 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
       <Stack
         key={product.id}
         alignItems="center"
-        borderColor="gray.100"
+        borderColor="whiteAlpha.300"
         borderRadius="md"
         borderWidth={1}
         data-testid="product"
@@ -31,7 +27,7 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
       >
         <Stack direction="row" padding={2} spacing={4} width="100%">
           <Image
-            backgroundColor="white"
+            backgroundColor="blackAlpha.500"
             borderRadius="md"
             height={{base: 24, sm: 36}}
             loading="lazy"
@@ -53,7 +49,7 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
               </Text>
               <Button
                 size="xs"
-                onClick={() => (product.options ? toggleModal(true) : onAdd(cartItem))}
+                onClick={() => (product.options ? setIsModalOpen(true) : onAdd(cartItem))}
               >
                 Agregar
               </Button>
@@ -61,19 +57,19 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
           </Stack>
         </Stack>
       </Stack>
-      {isModalOpen && (
+      {isModalOpen ? (
         <CartItemDrawer
           isOpen
           item={cartItem}
-          onClose={() => toggleModal(false)}
+          onClose={() => setIsModalOpen(false)}
           onSubmit={(item: CartItem) => {
             onAdd(item);
-            toggleModal(false);
+            setIsModalOpen(false);
           }}
         />
-      )}
+      ) : null}
     </>
   );
-};
+}
 
 export default ProductCard;

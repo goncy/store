@@ -30,7 +30,7 @@ function CartItemDrawer({
   onClose,
   onSubmit,
   ...props
-}: DrawerProps & {
+}: Omit<DrawerProps, "children"> & {
   item: CartItem;
   onClose: VoidFunction;
   onSubmit: (item: CartItem) => void;

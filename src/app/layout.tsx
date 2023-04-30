@@ -24,7 +24,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
               <StoreHeader store={store} />
               {children}
             </article>
-            <hr className="border-gray-200 my-4" />
+            <hr className="my-4" />
             {/* Inicio de copyright - Cambiar el contenido de los mismos viola el contenido de los terminos de licencia */}
             <p className="text-center">
               © Copyright {new Date().getFullYear()}. Hecho con ♥ para la comunidad, por{" "}
