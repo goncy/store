@@ -3,7 +3,7 @@ import type {Option} from "~/product/types";
 import type {CartItem} from "../types";
 import type {DrawerProps} from "@chakra-ui/react";
 
-import React from "react";
+import {useState, useMemo} from "react";
 import {
   Drawer,
   DrawerOverlay,
@@ -31,13 +31,13 @@ function CartItemDrawer({
   onClose: VoidFunction;
   onSubmit: (item: CartItem) => void;
 }) {
-  const [formData, setFormData] = React.useState<CartItem>(() => ({...item, options: {}}));
-  const total = React.useMemo(() => parseCurrency(getCartItemPrice(formData)), [formData]);
-  const options = React.useMemo(
+  const [formData, setFormData] = useState<CartItem>(() => ({...item, options: {}}));
+  const total = useMemo(() => parseCurrency(getCartItemPrice(formData)), [formData]);
+  const options = useMemo(
     () => Object.entries(item.options!).map(([title, _options]) => ({title, options: _options})),
     [item],
   );
-  const isValid = React.useMemo(
+  const isValid = useMemo(
     () => options.length === Object.keys(formData.options!).length,
     [formData, options],
   );

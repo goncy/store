@@ -1,7 +1,7 @@
 import type {DrawerProps} from "@chakra-ui/react";
 import type {CartItem, Field} from "../../types";
 
-import React from "react";
+import {useEffect, useState} from "react";
 import {
   CloseButton,
   Drawer,
@@ -27,7 +27,7 @@ function CartDrawer({
   ...props
 }: Omit<DrawerProps, "children"> & {fields?: Field[]}) {
   const [{total, message, cart, checkout}, {removeItem, updateItem, updateField}] = useCart();
-  const [currentStep, setCurrentStep] = React.useState<"details" | "fields">("details");
+  const [currentStep, setCurrentStep] = useState<"details" | "fields">("details");
 
   function handleUpdateCart(id: symbol, item: CartItem) {
     if (!item.quantity) {
@@ -41,13 +41,13 @@ function CartDrawer({
     return updateField(id, value);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!cart.size) {
       onClose();
     }
   }, [cart.size, onClose]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isOpen) {
       setCurrentStep("details");
     }

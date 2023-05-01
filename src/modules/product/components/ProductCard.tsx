@@ -2,15 +2,15 @@ import type {CartItem} from "~/cart/types";
 
 import type {Product} from "../types";
 
-import React from "react";
+import {useState, useMemo} from "react";
 import {Button} from "@chakra-ui/react";
 
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {parseCurrency} from "~/currency/utils";
 
 function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Product) => void}) {
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const cartItem = React.useMemo<CartItem>(() => ({...product, quantity: 1}), [product]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const cartItem = useMemo<CartItem>(() => ({...product, quantity: 1}), [product]);
 
   return (
     <>
