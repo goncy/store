@@ -1,5 +1,6 @@
+import type {CartItem} from "../types";
+
 import {getCartItemOptionsSummary, getCartItemPrice, getCartMessage, getCartTotal} from "../utils";
-import {CartItem} from "../types";
 
 const item: CartItem = {
   id: "id",
@@ -107,14 +108,23 @@ describe("getCartItemPrice", () => {
 
 describe("getCartTotal", () => {
   it("debería devolver el precio correcto cuando hay una unidad", () => {
-    const actual = getCartTotal([item]);
+    const cart = new Map<symbol, CartItem>();
+
+    cart.set(Symbol(), item);
+
+    const actual = getCartTotal(cart);
     const expected = 100;
 
     expect(actual).toEqual(expected);
   });
 
   it("debería devolver el precio correcto cuando hay más de una unidad", () => {
-    const actual = getCartTotal([item, item]);
+    const cart = new Map<symbol, CartItem>();
+
+    cart.set(Symbol(), item);
+    cart.set(Symbol(), item);
+
+    const actual = getCartTotal(cart);
     const expected = 200;
 
     expect(actual).toEqual(expected);
@@ -171,7 +181,13 @@ describe("getCartItemOptionsSummary", () => {
 
 describe("getCartMessage", () => {
   it("debería mostrar un mensaje cuando no hay options", () => {
-    const actual: string = getCartMessage([item]);
+    const cart = new Map<symbol, CartItem>();
+    const checkout = new Map<string, string>();
+
+    cart.set(Symbol(), item);
+    checkout.set("Forma de pago", "Efectivo");
+
+    const actual: string = getCartMessage(cart, checkout);
     const expected = `* title - $\u00a0100,00
 
 Total: $\u00a0100,00`;
@@ -180,33 +196,38 @@ Total: $\u00a0100,00`;
   });
 
   it("debería mostrar un mensaje cuando hay options", () => {
-    const actual: string = getCartMessage([
-      {
-        ...item,
-        options: {
-          Peso: [
-            {
-              category: "Peso",
-              id: "",
-              description: "",
-              image: "",
-              price: 50,
-              title: "Medio kilo",
-            },
-          ],
-          Calidad: [
-            {
-              category: "Calidad",
-              id: "",
-              description: "",
-              image: "",
-              price: 50,
-              title: "Alta",
-            },
-          ],
-        },
+    const cart = new Map<symbol, CartItem>();
+    const checkout = new Map<string, string>();
+
+    cart.set(Symbol(), {
+      ...item,
+      options: {
+        Peso: [
+          {
+            category: "Peso",
+            id: "",
+            description: "",
+            image: "",
+            price: 50,
+            title: "Medio kilo",
+          },
+        ],
+        Calidad: [
+          {
+            category: "Calidad",
+            id: "",
+            description: "",
+            image: "",
+            price: 50,
+            title: "Alta",
+          },
+        ],
       },
-    ]);
+    });
+
+    checkout.set("Forma de pago", "Efectivo");
+
+    const actual: string = getCartMessage(cart, checkout);
     const expected = `* title [Peso: Medio kilo, Calidad: Alta] - $\u00a0200,00
 
 Total: $\u00a0200,00`;

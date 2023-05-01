@@ -1,8 +1,9 @@
+import type {CartItem} from "../../../types";
+
 import * as React from "react";
 import {render, screen, within} from "@testing-library/react";
 
 import CartDrawer from "../CartDrawer";
-import {CartItem} from "../../../types";
 import * as cartContext from "../../../context";
 
 jest.mock("../../../context");
