@@ -19,22 +19,22 @@ const App = async ({children}: {children: React.ReactNode}) => {
       <body>
         <Providers>
           <main className="rounded-sm max-w-screen-xl m-auto p-4">
-            <article className="flex flex-col gap-8">
+            <article className="flex flex-col gap-4">
               <header className="flex flex-col gap-4">
                 <img
                   alt={store.title}
                   className="rounded-lg h-full max-h-64 object-cover"
                   src={store.banner}
                 />
-                <div className="flex items-center flex-col sm:flex-row gap-3 sm:gap-6">
-                  <div className="rounded-full -mt-16 sm:-mt-20 min-w-24 sm:min-w-32 p-1">
+                <div className="flex items-center flex-col sm:flex-row gap-2 sm:gap-4">
+                  <div className="rounded-full -mt-20 sm:-mt-16 min-w-24 sm:min-w-32 p-1">
                     <img
                       alt={store.title}
-                      className="rounded-full h-24 w-24 sm:h-32 sm:w-32"
+                      className="rounded-full h-32 w-32 sm:h-32 sm:w-32 shadow border-8 border-background"
                       src={store.logo}
                     />
                   </div>
-                  <div className="flex flex-col items-center sm:items-start gap-4 text-center sm:text-left">
+                  <div className="flex flex-col items-center sm:items-start gap-4 sm:gap-2 text-center sm:text-left">
                     <div className="flex flex-col gap-1">
                       <p className="font-bold text-4xl">{store.title}</p>
                       <p className="text-muted-foreground font-medium">{store.subtitle}</p>
@@ -68,7 +68,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
             </article>
             <hr className="my-4" />
             {/* Inicio de copyright - Cambiar el contenido de los mismos viola el contenido de los terminos de licencia */}
-            <p className="text-center">
+            <p className="text-center text-sm sm:text-md text-muted-foreground">
               © Copyright {new Date().getFullYear()}. Hecho con ❤ y Next.js, por{" "}
               <a
                 className="underline"

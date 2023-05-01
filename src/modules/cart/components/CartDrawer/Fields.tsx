@@ -3,6 +3,7 @@ import type {Checkout, Field} from "../../types";
 import {Alert} from "~/ui/components/feedback/alert";
 import {Input} from "~/ui/components/form/input";
 import {RadioGroup, RadioGroupItem} from "~/ui/components/form/radio-group";
+import {Label} from "~/ui/components/form/label";
 
 function TextField({
   value,
@@ -25,11 +26,14 @@ function RadioField({
 }) {
   return (
     <RadioGroup value={value} onValueChange={onChange}>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
         {options.map((option) => (
-          <RadioGroupItem key={option} value={option}>
-            {option}
-          </RadioGroupItem>
+          <div key={option} className="flex items-center space-x-3">
+            <RadioGroupItem id={option} value={option}>
+              {option}
+            </RadioGroupItem>
+            <Label htmlFor={option}>{option}</Label>
+          </div>
         ))}
       </div>
     </RadioGroup>
@@ -46,10 +50,10 @@ function Fields({
   onChange: (id: string, value: string) => void;
 }) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8">
       {fields.map((field) => (
-        <div key={field.type} className="flex flex-col gap-2">
-          <p className="font-medium">{field.title}</p>
+        <div key={field.type} className="flex flex-col gap-4">
+          <p className="text-xl font-medium">{field.title}</p>
           <div className="flex flex-col gap-4">
             {field.type === "text" && (
               <TextField

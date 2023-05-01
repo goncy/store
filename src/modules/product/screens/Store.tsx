@@ -18,14 +18,14 @@ function StoreScreen({products, fields}: {products: Product[]; fields: Field[]})
 
   return (
     <>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         {products.length ? (
           <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(320px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(360px,_1fr))]))]">
             {products.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
-                onAdd={(_product: Product) => addItem(Symbol(), {..._product, quantity: 1})}
+                onAdd={(_product: Product) => addItem(Date.now(), {..._product, quantity: 1})}
               />
             ))}
           </div>
@@ -33,9 +33,9 @@ function StoreScreen({products, fields}: {products: Product[]; fields: Field[]})
           <p className="text-muted-foreground text-lg m-auto">No hay productos</p>
         )}
         {Boolean(quantity) && (
-          <div className="flex items-center bottom-4 content-center sticky m-auto">
+          <div className="flex items-center bottom-4 content-center sticky sm:m-auto">
             <Button
-              className="shadow-xl w-full sm:w-fit"
+              className="shadow-lg w-full sm:w-fit"
               data-testid="show-cart"
               size="lg"
               variant="brand"

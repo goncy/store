@@ -108,9 +108,9 @@ describe("getCartItemPrice", () => {
 
 describe("getCartTotal", () => {
   it("debería devolver el precio correcto cuando hay una unidad", () => {
-    const cart = new Map<symbol, CartItem>();
+    const cart = new Map<number, CartItem>();
 
-    cart.set(Symbol(), item);
+    cart.set(Date.now(), item);
 
     const actual = getCartTotal(cart);
     const expected = 100;
@@ -119,10 +119,10 @@ describe("getCartTotal", () => {
   });
 
   it("debería devolver el precio correcto cuando hay más de una unidad", () => {
-    const cart = new Map<symbol, CartItem>();
+    const cart = new Map<number, CartItem>();
 
-    cart.set(Symbol(), item);
-    cart.set(Symbol(), item);
+    cart.set(Date.now(), item);
+    cart.set(Date.now(), item);
 
     const actual = getCartTotal(cart);
     const expected = 200;
@@ -181,10 +181,10 @@ describe("getCartItemOptionsSummary", () => {
 
 describe("getCartMessage", () => {
   it("debería mostrar un mensaje cuando no hay options", () => {
-    const cart = new Map<symbol, CartItem>();
+    const cart = new Map<number, CartItem>();
     const checkout = new Map<string, string>();
 
-    cart.set(Symbol(), item);
+    cart.set(Date.now(), item);
     checkout.set("Forma de pago", "Efectivo");
 
     const actual: string = getCartMessage(cart, checkout);
@@ -196,10 +196,10 @@ Total: $\u00a0100,00`;
   });
 
   it("debería mostrar un mensaje cuando hay options", () => {
-    const cart = new Map<symbol, CartItem>();
+    const cart = new Map<number, CartItem>();
     const checkout = new Map<string, string>();
 
-    cart.set(Symbol(), {
+    cart.set(Date.now(), {
       ...item,
       options: {
         Peso: [

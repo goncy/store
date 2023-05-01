@@ -17,9 +17,9 @@ interface Context {
     message: string;
   };
   actions: {
-    addItem: (id: symbol, value: CartItem) => void;
-    removeItem: (id: symbol) => void;
-    updateItem: (id: symbol, value: CartItem) => void;
+    addItem: (id: number, value: CartItem) => void;
+    removeItem: (id: number) => void;
+    updateItem: (id: number, value: CartItem) => void;
     updateField: (id: string, value: string) => void;
   };
 }
@@ -37,7 +37,7 @@ function CartProvider(props: {fields: Field[]; children: React.ReactNode}) {
   const message = useMemo(() => getCartMessage(cart, checkout), [cart, checkout]);
 
   const addItem = useCallback(
-    (id: symbol, value: CartItem) => {
+    (id: number, value: CartItem) => {
       cart.set(id, value);
 
       setCart(new Map(cart));
@@ -46,7 +46,7 @@ function CartProvider(props: {fields: Field[]; children: React.ReactNode}) {
   );
 
   const removeItem = useCallback(
-    (id: symbol) => {
+    (id: number) => {
       cart.delete(id);
 
       setCart(new Map(cart));
@@ -55,7 +55,7 @@ function CartProvider(props: {fields: Field[]; children: React.ReactNode}) {
   );
 
   const updateItem = useCallback(
-    (id: symbol, value: CartItem) => {
+    (id: number, value: CartItem) => {
       cart.set(id, value);
 
       setCart(new Map(cart));

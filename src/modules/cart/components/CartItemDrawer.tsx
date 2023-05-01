@@ -6,6 +6,7 @@ import type {ComponentProps} from "react";
 import {useState, useMemo} from "react";
 
 import {RadioGroup, RadioGroupItem} from "~/ui/components/form/radio-group";
+import {Label} from "~/ui/components/form/label";
 import {
   Sheet,
   SheetContent,
@@ -49,41 +50,46 @@ function CartItemDrawer({
 
   return (
     <Sheet onOpenChange={(isOpen) => !isOpen && onClose()} {...props}>
-      <SheetContent position="right">
-        <SheetHeader className="mb-4">
-          <div className="flex items-center justify-between">
-            <SheetTitle className="text-2xl sm:text-3xl font-medium">{item.title}</SheetTitle>
-          </div>
+      <SheetContent className="grid grid-cols-1 grid-rows-[auto_1fr_auto]" size="sm">
+        <SheetHeader className="text-left pr-8">
+          <SheetTitle className="text-2xl sm:text-3xl font-medium">{item.title}</SheetTitle>
         </SheetHeader>
 
-        <div data-testid="cart-item-drawer">
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <img alt={item.title} className="h-[240px] object-cover w-full" src={item.image} />
-              <SheetDescription className="text-muted-foreground">
+        <div className="overflow-y-auto" data-testid="cart-item-drawer">
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-4">
+              <img
+                alt={item.title}
+                className="h-[240px] object-contain bg-secondary w-full"
+                src={item.image}
+              />
+              <SheetDescription className="text-muted-foreground text-md">
                 {item.description}
               </SheetDescription>
             </div>
             {options.length ? (
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-8">
                 {options.map((category) => (
-                  <div key={category.title} className="flex flex-col gap-2 w-full">
+                  <div key={category.title} className="flex flex-col gap-4 w-full">
                     <p className="text-xl font-medium">{category.title}</p>
                     <RadioGroup value={formData.options?.[category.title]?.[0]?.title}>
-                      <div className="flex flex-col gap-2">
+                      <div className="flex flex-col gap-4">
                         {category.options.map((option) => (
-                          <RadioGroupItem
-                            key={option.title}
-                            value={option.title}
-                            onChange={() => handleSelectOption(option)}
-                          >
-                            <div className="flex justify-between w-full">
-                              <p>{option.title}</p>
-                              {Boolean(option.price) && (
-                                <p className="font-medium">{parseCurrency(option.price)}</p>
-                              )}
-                            </div>
-                          </RadioGroupItem>
+                          <div key={option.title} className="flex items-center space-x-3">
+                            <RadioGroupItem
+                              id={option.id}
+                              value={option.title}
+                              onClick={() => handleSelectOption(option)}
+                            />
+                            <Label htmlFor={option.id}>
+                              <div className="flex justify-between w-full">
+                                <p>{option.title}</p>
+                                {Boolean(option.price) && (
+                                  <p className="font-medium">{parseCurrency(option.price)}</p>
+                                )}
+                              </div>
+                            </Label>
+                          </div>
                         ))}
                       </div>
                     </RadioGroup>

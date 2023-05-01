@@ -29,7 +29,7 @@ function CartDrawer({
   const [{total, message, cart, checkout}, {removeItem, updateItem, updateField}] = useCart();
   const [currentStep, setCurrentStep] = useState<"details" | "fields">("details");
 
-  function handleUpdateCart(id: symbol, item: CartItem) {
+  function handleUpdateCart(id: number, item: CartItem) {
     if (!item.quantity) {
       return removeItem(id);
     }
@@ -55,25 +55,11 @@ function CartDrawer({
 
   return (
     <Sheet open={isOpen} onOpenChange={(_isOpen) => !_isOpen && onClose()} {...props}>
-      <SheetContent {...props}>
+      <SheetContent className="grid grid-cols-1 grid-rows-[auto_1fr_auto]" size="sm">
         <SheetHeader>
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              {currentStep === "fields" && (
-                <Button
-                  aria-label="Go back"
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => setCurrentStep("details")}
-                >
-                  <span>←</span>
-                </Button>
-              )}
-              <SheetTitle className="text-2xl sm:text-3xl font-medium">Tu pedido</SheetTitle>
-            </div>
-          </div>
+          <SheetTitle className="text-2xl sm:text-3xl font-medium">Tu pedido</SheetTitle>
         </SheetHeader>
-        <div data-testid="cart">
+        <div className="overflow-y-auto" data-testid="cart">
           {currentStep === "details" && <Details cart={cart} onChange={handleUpdateCart} />}
           {fields && currentStep === "fields" ? (
             <Fields checkout={checkout} fields={fields} onChange={handleUpdateField} />
@@ -99,21 +85,33 @@ function CartDrawer({
             </div>
           ) : null}
           {(currentStep === "fields" || !fields) && (
-            <a
-              className="w-full"
-              href={`https://wa.me/5491141414141?text=${encodeURIComponent(message)}`}
-              rel="noopener noreferrer"
-            >
-              <Button className="w-full" data-testid="complete-order" size="lg" variant="brand">
-                <div className="inline-flex gap-2 items-center">
-                  <img
-                    alt="Whatsapp logo"
-                    src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff"
-                  />
-                  <span>Completar pedido</span>
-                </div>
+            <div className="flex flex-col gap-4 w-full">
+              <hr />
+              <Button
+                className="w-full"
+                size="lg"
+                variant="ghost"
+                onClick={() => setCurrentStep("details")}
+              >
+                Revisar pedido
               </Button>
-            </a>
+              <a
+                className="w-full"
+                href={`https://wa.me/5491141414141?text=${encodeURIComponent(message)}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Button className="w-full" data-testid="complete-order" size="lg" variant="brand">
+                  <div className="inline-flex gap-2 items-center">
+                    <img
+                      alt="Whatsapp logo"
+                      src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff"
+                    />
+                    <span>Completar pedido</span>
+                  </div>
+                </Button>
+              </a>
+            </div>
           )}
         </SheetFooter>
       </SheetContent>

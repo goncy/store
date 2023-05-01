@@ -5,9 +5,9 @@ import {parseCurrency} from "~/currency/utils";
 
 import {getCartItemPrice, getCartItemOptionsSummary} from "../../utils";
 
-function Details({cart, onChange}: {cart: Cart; onChange: (id: symbol, item: CartItem) => void}) {
+function Details({cart, onChange}: {cart: Cart; onChange: (id: number, item: CartItem) => void}) {
   return (
-    <div className="flex flex-col gap-4 divide-y">
+    <div className="flex flex-col gap-8">
       {Array.from(cart.entries()).map(([id, item]) => (
         <div key={id.toString()} className="flex gap-2" data-testid={`cart-item-${item.id}`}>
           <div className="flex flex-col gap-2 w-full">
@@ -22,7 +22,7 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: symbol, item: Car
             </div>
             <div className="flex gap-2">
               <Button
-                className="rounded-full"
+                className="rounded-full w-6 h-6 text-md"
                 data-testid="decrement"
                 size="xs"
                 variant="brand"
@@ -31,11 +31,11 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: symbol, item: Car
                 {" "}
                 -{" "}
               </Button>
-              <p className="font-medium" data-testid="quantity">
+              <p className="font-medium min-w-[24px] text-center" data-testid="quantity">
                 {item.quantity}
               </p>
               <Button
-                className="rounded-full"
+                className="rounded-full w-6 h-6 text-md"
                 data-testid="increment"
                 size="xs"
                 variant="brand"
