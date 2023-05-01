@@ -1,6 +1,8 @@
 import type {Metadata} from "next";
 
 import api from "~/store/api";
+import WhatsappIcon from "~/ui/components/icons/whatsapp";
+import InstagramIcon from "~/ui/components/icons/instagram";
 
 import Providers from "./providers";
 
@@ -43,20 +45,14 @@ const App = async ({children}: {children: React.ReactNode}) => {
                       {store.instagram ? (
                         <a href={store.instagram} rel="noopener noreferrer" target="_blank">
                           <div className="flex items-center bg-teal-600 rounded-full h-10 w-10 justify-center text-white">
-                            <img
-                              alt="Instagram logo"
-                              src="https://icongr.am/fontawesome/instagram.svg?size=24&color=ffffff"
-                            />
+                            <InstagramIcon />
                           </div>
                         </a>
                       ) : null}
                       {store.whatsapp ? (
                         <a href={store.whatsapp} rel="noopener noreferrer" target="_blank">
                           <div className="flex items-center bg-teal-600 rounded-full h-10 w-10 justify-center text-white">
-                            <img
-                              alt="Whatsapp logo"
-                              src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff"
-                            />
+                            <WhatsappIcon />
                           </div>
                         </a>
                       ) : null}

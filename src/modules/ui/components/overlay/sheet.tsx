@@ -112,12 +112,12 @@ const sheetVariants = cva(
       {
         position: ["right", "left"],
         size: "default",
-        class: "w-full sm:w-1/3",
+        class: "w-full sm:w-1/3 sm:min-w-[480px]",
       },
       {
         position: ["right", "left"],
         size: "sm",
-        class: "w-full sm:w-1/4",
+        class: "w-full sm:w-1/4 sm:min-w-[480px]",
       },
       {
         position: ["right", "left"],

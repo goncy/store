@@ -22,7 +22,7 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
         <div className="flex gap-4 p-2 w-full">
           <img
             alt={product.title}
-            className="bg-black/500 rounded-md h-24 sm:h-36 w-24 sm:w-36 min-w-24 sm:min-w-36 object-contain"
+            className="bg-black/500 rounded-md h-24 sm:h-36 w-24 sm:w-36 min-w-24 sm:min-w-36 object-contain aspect-square"
             loading="lazy"
             src={product.image}
           />

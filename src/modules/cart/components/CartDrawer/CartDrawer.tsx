@@ -10,6 +10,7 @@ import {
   SheetTitle,
 } from "~/ui/components/overlay/sheet";
 import {Button} from "~/ui/components/control/button";
+import WhatsappIcon from "~/ui/components/icons/whatsapp";
 
 import {useCart} from "../../context";
 
@@ -103,10 +104,7 @@ function CartDrawer({
               >
                 <Button className="w-full" data-testid="complete-order" size="lg" variant="brand">
                   <div className="inline-flex gap-2 items-center">
-                    <img
-                      alt="Whatsapp logo"
-                      src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff"
-                    />
+                    <WhatsappIcon />
                     <span>Completar pedido</span>
                   </div>
                 </Button>
