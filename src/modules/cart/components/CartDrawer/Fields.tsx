@@ -1,13 +1,14 @@
-import type {InputProps} from "@chakra-ui/react";
 import type {Checkout, Field} from "../../types";
 
-import {Input, Alert, RadioGroup, Radio} from "@chakra-ui/react";
+import {Alert} from "~/ui/components/feedback/alert";
+import {Input} from "~/ui/components/form/input";
+import {RadioGroup, RadioGroupItem} from "~/ui/components/form/radio-group";
 
 function TextField({
   value,
   onChange,
   ...props
-}: Omit<InputProps, "onChange"> & {
+}: Omit<React.ComponentProps<typeof Input>, "onChange"> & {
   onChange: (value: string) => void;
 }) {
   return <Input value={value} onChange={(e) => onChange(e.target.value)} {...props} />;
@@ -23,12 +24,12 @@ function RadioField({
   value: string;
 }) {
   return (
-    <RadioGroup colorScheme="primary" value={value} onChange={onChange}>
+    <RadioGroup value={value} onValueChange={onChange}>
       <div className="flex flex-col gap-2">
         {options.map((option) => (
-          <Radio key={option} value={option}>
+          <RadioGroupItem key={option} value={option}>
             {option}
-          </Radio>
+          </RadioGroupItem>
         ))}
       </div>
     </RadioGroup>
@@ -64,7 +65,7 @@ function Fields({
                 onChange={(value: string) => onChange(field.title, value)}
               />
             )}
-            {field.note ? <Alert colorScheme="primary">{field.note}</Alert> : null}
+            {field.note ? <Alert>{field.note}</Alert> : null}
           </div>
         </div>
       ))}

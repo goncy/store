@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -12,6 +14,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        brand: colors.teal,
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -24,6 +27,10 @@ module.exports = {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        incentive: {
+          DEFAULT: "hsl(var(--incentive))",
+          foreground: "hsl(var(--incentive-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

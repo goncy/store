@@ -4,7 +4,7 @@ import api from "~/store/api";
 
 import Providers from "./providers";
 
-import "../globals.css";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Tiency",
@@ -37,7 +37,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
                   <div className="flex flex-col items-center sm:items-start gap-4 text-center sm:text-left">
                     <div className="flex flex-col gap-1">
                       <p className="font-bold text-4xl">{store.title}</p>
-                      <p className="text-white/50 font-medium">{store.subtitle}</p>
+                      <p className="text-muted-foreground font-medium">{store.subtitle}</p>
                     </div>
                     <div className="flex gap-2">
                       {store.instagram ? (
@@ -69,8 +69,13 @@ const App = async ({children}: {children: React.ReactNode}) => {
             <hr className="my-4" />
             {/* Inicio de copyright - Cambiar el contenido de los mismos viola el contenido de los terminos de licencia */}
             <p className="text-center">
-              © Copyright {new Date().getFullYear()}. Hecho con ♥ para la comunidad, por{" "}
-              <a href="https://gonzalopozzo.com" rel="noopener noreferrer" target="_blank">
+              © Copyright {new Date().getFullYear()}. Hecho con ❤ y Next.js, por{" "}
+              <a
+                className="underline"
+                href="https://twitter.com/goncy"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 goncy
               </a>
               .

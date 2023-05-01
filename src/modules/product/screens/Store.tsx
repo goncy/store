@@ -5,8 +5,8 @@ import type {Field} from "~/cart/types";
 import type {Product} from "../types";
 
 import {useState} from "react";
-import {Button} from "@chakra-ui/react";
 
+import {Button} from "~/ui/components/control/button";
 import CartDrawer from "~/cart/components/CartDrawer";
 import {useCart} from "~/cart/context";
 
@@ -30,16 +30,15 @@ function StoreScreen({products, fields}: {products: Product[]; fields: Field[]})
             ))}
           </div>
         ) : (
-          <p className="text-white/50 text-lg m-auto">No hay productos</p>
+          <p className="text-muted-foreground text-lg m-auto">No hay productos</p>
         )}
         {Boolean(quantity) && (
           <div className="flex items-center bottom-4 content-center sticky m-auto">
             <Button
-              boxShadow="xl"
-              colorScheme="primary"
+              className="shadow-xl w-full sm:w-fit"
               data-testid="show-cart"
               size="lg"
-              width={{base: "100%", sm: "fit-content"}}
+              variant="brand"
               onClick={() => setIsCartOpen(true)}
             >
               <div className="flex items-center gap-6">

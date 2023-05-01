@@ -3,8 +3,8 @@ import type {CartItem} from "~/cart/types";
 import type {Product} from "../types";
 
 import {useState, useMemo} from "react";
-import {Button} from "@chakra-ui/react";
 
+import {Button} from "~/ui/components/control/button";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {parseCurrency} from "~/currency/utils";
 
@@ -29,10 +29,12 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
           <div className="flex flex-col justify-between gap-1 w-full">
             <div className="flex flex-col gap-1">
               <p className="font-medium">{product.title}</p>
-              <p className="text-sm text-white/50">{product.description}</p>
+              <p className="text-sm text-muted-foreground line-clamp-[2] sm:line-clamp-4">
+                {product.description}
+              </p>
             </div>
             <div className="flex items-end justify-between">
-              <p className="text-green-500 text-sm font-medium">{parseCurrency(product.price)}</p>
+              <p className="text-incentive text-sm font-medium">{parseCurrency(product.price)}</p>
               <Button
                 size="xs"
                 onClick={() => (product.options ? setIsModalOpen(true) : onAdd(cartItem))}
@@ -45,7 +47,7 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
       </div>
       {isModalOpen ? (
         <CartItemDrawer
-          isOpen
+          open
           item={cartItem}
           onClose={() => setIsModalOpen(false)}
           onSubmit={(item: CartItem) => {

@@ -1,7 +1,6 @@
 import type {Cart, CartItem} from "../../types";
 
-import {Button} from "@chakra-ui/react";
-
+import {Button} from "~/ui/components/control/button";
 import {parseCurrency} from "~/currency/utils";
 
 import {getCartItemPrice, getCartItemOptionsSummary} from "../../utils";
@@ -16,17 +15,17 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: symbol, item: Car
               <div className="flex flex-col">
                 <p className="text-lg font-medium">{item.title}</p>
                 {Boolean(item.options) && (
-                  <p className="text-white/50">{getCartItemOptionsSummary(item.options)}</p>
+                  <p className="text-muted-foreground">{getCartItemOptionsSummary(item.options)}</p>
                 )}
               </div>
               <p className="font-medium">{parseCurrency(getCartItemPrice(item))}</p>
             </div>
             <div className="flex gap-2">
               <Button
-                borderRadius={9999}
-                colorScheme="primary"
+                className="rounded-full"
                 data-testid="decrement"
                 size="xs"
+                variant="brand"
                 onClick={() => onChange(id, {...item, quantity: item.quantity - 1})}
               >
                 {" "}
@@ -36,10 +35,10 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: symbol, item: Car
                 {item.quantity}
               </p>
               <Button
-                borderRadius={9999}
-                colorScheme="primary"
+                className="rounded-full"
                 data-testid="increment"
                 size="xs"
+                variant="brand"
                 onClick={() => onChange(id, {...item, quantity: item.quantity + 1})}
               >
                 {" "}

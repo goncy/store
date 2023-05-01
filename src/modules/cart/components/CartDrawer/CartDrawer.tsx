@@ -1,19 +1,15 @@
-import type {DrawerProps} from "@chakra-ui/react";
 import type {CartItem, Field} from "../../types";
 
 import {useEffect, useState} from "react";
+
 import {
-  CloseButton,
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-  IconButton,
-  DrawerFooter,
-  Button,
-  DrawerBody,
-} from "@chakra-ui/react";
-import {ChevronLeftIcon} from "@chakra-ui/icons";
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from "~/ui/components/overlay/sheet";
+import {Button} from "~/ui/components/control/button";
 
 import {useCart} from "../../context";
 
@@ -25,7 +21,11 @@ function CartDrawer({
   isOpen,
   fields,
   ...props
-}: Omit<DrawerProps, "children"> & {fields?: Field[]}) {
+}: Omit<React.ComponentProps<typeof Sheet>, "children"> & {
+  fields?: Field[];
+  isOpen: boolean;
+  onClose: VoidFunction;
+}) {
   const [{total, message, cart, checkout}, {removeItem, updateItem, updateField}] = useCart();
   const [currentStep, setCurrentStep] = useState<"details" | "fields">("details");
 
@@ -54,74 +54,70 @@ function CartDrawer({
   }, [isOpen]);
 
   return (
-    <Drawer isOpen={isOpen} placement="right" size="sm" onClose={onClose} {...props}>
-      <DrawerOverlay>
-        <DrawerContent paddingTop={4} {...props}>
-          <DrawerHeader paddingX={4}>
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                {currentStep === "fields" && (
-                  <IconButton
-                    aria-label="Go back"
-                    icon={<ChevronLeftIcon height={8} width={8} />}
-                    size="sm"
-                    variant="ghost"
-                    onClick={() => setCurrentStep("details")}
-                  />
-                )}
-                <p className="text-2xl sm:text-3xl font-medium">Tu pedido</p>
-              </div>
-              <CloseButton onClick={onClose} />
-            </div>
-          </DrawerHeader>
-          <DrawerBody data-testid="cart" paddingX={4}>
-            {currentStep === "details" && <Details cart={cart} onChange={handleUpdateCart} />}
-            {fields && currentStep === "fields" ? (
-              <Fields checkout={checkout} fields={fields} onChange={handleUpdateField} />
-            ) : null}
-          </DrawerBody>
-          <DrawerFooter paddingX={4}>
-            {fields && currentStep === "details" ? (
-              <div className="flex flex-col gap-4 w-full">
-                <hr />
-                <div className="items-center flex gap-2 text-lg font-medium justify-between">
-                  <p>Total</p>
-                  <p>{total}</p>
-                </div>
+    <Sheet open={isOpen} onOpenChange={(_isOpen) => !_isOpen && onClose()} {...props}>
+      <SheetContent {...props}>
+        <SheetHeader>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              {currentStep === "fields" && (
                 <Button
-                  colorScheme="primary"
-                  data-testid="continue-order"
-                  size="lg"
-                  width="100%"
-                  onClick={() => setCurrentStep("fields")}
+                  aria-label="Go back"
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setCurrentStep("details")}
                 >
-                  Continuar
+                  <span>←</span>
                 </Button>
+              )}
+              <SheetTitle className="text-2xl sm:text-3xl font-medium">Tu pedido</SheetTitle>
+            </div>
+          </div>
+        </SheetHeader>
+        <div data-testid="cart">
+          {currentStep === "details" && <Details cart={cart} onChange={handleUpdateCart} />}
+          {fields && currentStep === "fields" ? (
+            <Fields checkout={checkout} fields={fields} onChange={handleUpdateField} />
+          ) : null}
+        </div>
+        <SheetFooter>
+          {fields && currentStep === "details" ? (
+            <div className="flex flex-col gap-4 w-full">
+              <hr />
+              <div className="items-center flex gap-2 text-lg font-medium justify-between">
+                <p>Total</p>
+                <p>{total}</p>
               </div>
-            ) : null}
-            {(currentStep === "fields" || !fields) && (
               <Button
-                as="a"
-                colorScheme="whatsapp"
-                data-testid="complete-order"
-                href={`https://wa.me/5491141414141?text=${encodeURIComponent(message)}`}
-                leftIcon={
+                className="w-full"
+                data-testid="continue-order"
+                size="lg"
+                variant="brand"
+                onClick={() => setCurrentStep("fields")}
+              >
+                Continuar
+              </Button>
+            </div>
+          ) : null}
+          {(currentStep === "fields" || !fields) && (
+            <a
+              className="w-full"
+              href={`https://wa.me/5491141414141?text=${encodeURIComponent(message)}`}
+              rel="noopener noreferrer"
+            >
+              <Button className="w-full" data-testid="complete-order" size="lg" variant="brand">
+                <div className="inline-flex gap-2 items-center">
                   <img
                     alt="Whatsapp logo"
-                    src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=000"
+                    src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff"
                   />
-                }
-                rel="noopener noreferrer"
-                size="lg"
-                width="100%"
-              >
-                Completar pedido
+                  <span>Completar pedido</span>
+                </div>
               </Button>
-            )}
-          </DrawerFooter>
-        </DrawerContent>
-      </DrawerOverlay>
-    </Drawer>
+            </a>
+          )}
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 }
 

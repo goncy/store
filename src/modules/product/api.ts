@@ -35,6 +35,7 @@ class Product implements IProduct {
   }
 
   addOption(option: RawOption) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!this.options![option.category]) {
       this.options![option.category] = [];
     }
