@@ -1,6 +1,5 @@
 import type {Option as IOption, Product as IProduct} from "./types";
 
-import axios from "axios";
 import Papa from "papaparse";
 
 interface RawOption extends IOption {
@@ -97,24 +96,21 @@ function normalize(data: (RawProduct | RawOption)[]) {
 
 export default {
   list: async (): Promise<IProduct[]> => {
-    return axios
-      .get(process.env.PRODUCTS_CSV!, {
-        responseType: "blob",
-      })
-      .then(
-        (response) =>
-          new Promise<IProduct[]>((resolve, reject) => {
-            Papa.parse(response.data, {
-              header: true,
-              complete: (results) => {
-                const data = normalize(results.data as (RawProduct | RawOption)[]);
+    return fetch(process.env.PRODUCTS_CSV!).then(async (response) => {
+      const csv = await response.text();
 
-                return resolve(data);
-              },
-              error: (error) => reject(error.message),
-            });
-          }),
-      );
+      return new Promise<IProduct[]>((resolve, reject) => {
+        Papa.parse(csv, {
+          header: true,
+          complete: (results) => {
+            const data = normalize(results.data as (RawProduct | RawOption)[]);
+
+            return resolve(data);
+          },
+          error: (error: Error) => reject(error.message),
+        });
+      });
+    });
   },
   mock: {
     list: (mock: string): Promise<IProduct[]> =>

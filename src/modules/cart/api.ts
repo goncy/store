@@ -1,6 +1,5 @@
 import type {Field as IField, RadioField, TextField} from "./types";
 
-import axios from "axios";
 import Papa from "papaparse";
 
 interface RawField {
@@ -13,48 +12,49 @@ interface RawField {
 
 function normalize(data: RawField[]): IField[] {
   return data.map((field) => {
-    if (field.type === "radio") {
-      return {
-        title: field.title,
-        options: field.text.split(",").map((option) => option.trim()),
-        required: field.required,
-        note: field.note || "",
-        type: "radio",
-      } as RadioField;
-    } else if (field.type === "text") {
-      return {
-        title: field.title,
-        placeholder: field.text,
-        required: field.required,
-        note: field.note || "",
-        type: "text",
-      } as TextField;
-    }
+    switch (field.type) {
+      case "radio":
+        return {
+          title: field.title,
+          options: field.text.split(",").map((option) => option.trim()),
+          required: field.required,
+          note: field.note || "",
+          type: "radio",
+        } as RadioField;
 
-    throw new Error("Unknown field type");
+      case "text":
+        return {
+          title: field.title,
+          placeholder: field.text,
+          required: field.required,
+          note: field.note || "",
+          type: "text",
+        } as TextField;
+
+      default: {
+        throw new Error("Unknown field type");
+      }
+    }
   }, []);
 }
 
 export default {
   list: async (): Promise<IField[]> => {
-    return axios
-      .get(process.env.FIELDS_CSV!, {
-        responseType: "blob",
-      })
-      .then(
-        (response) =>
-          new Promise<IField[]>((resolve, reject) => {
-            Papa.parse(response.data, {
-              header: true,
-              complete: (results) => {
-                const data = normalize(results.data as RawField[]);
+    return fetch(process.env.FIELDS_CSV!).then(async (response) => {
+      const csv = await response.text();
 
-                return resolve(data);
-              },
-              error: (error) => reject(error.message),
-            });
-          }),
-      );
+      return new Promise<IField[]>((resolve, reject) => {
+        Papa.parse(csv, {
+          header: true,
+          complete: (results) => {
+            const data = normalize(results.data as RawField[]);
+
+            return resolve(data);
+          },
+          error: (error: Error) => reject(error.message),
+        });
+      });
+    });
   },
   mock: {
     list: (mock: string): Promise<IField[]> =>

@@ -27,7 +27,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
                   src={store.banner}
                 />
                 <div className="flex items-center flex-col sm:flex-row gap-3 sm:gap-6">
-                  <div className="rounded-full -mt-12 sm:-mt-16 min-w-24 sm:min-w-32 p-1">
+                  <div className="rounded-full -mt-16 sm:-mt-20 min-w-24 sm:min-w-32 p-1">
                     <img
                       alt={store.title}
                       className="rounded-full h-24 w-24 sm:h-32 sm:w-32"
