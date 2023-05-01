@@ -4,7 +4,6 @@ import type {Product} from "../types";
 
 import {useState, useMemo} from "react";
 
-import {Button} from "~/ui/components/control/button";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {parseCurrency} from "~/currency/utils";
 
@@ -16,8 +15,9 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
     <>
       <div
         key={product.id}
-        className="flex items-center border-white/300 rounded-md border justify-between gap-3"
+        className="flex items-center border-white/300 rounded-md border justify-between gap-3 cursor-pointer"
         data-testid="product"
+        onClick={() => setIsModalOpen(true)}
       >
         <div className="flex gap-4 p-2 w-full">
           <img
@@ -33,14 +33,8 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
                 {product.description}
               </p>
             </div>
-            <div className="flex items-end justify-between">
+            <div className="flex items-end">
               <p className="text-incentive text-sm font-medium">{parseCurrency(product.price)}</p>
-              <Button
-                size="xs"
-                onClick={() => (product.options ? setIsModalOpen(true) : onAdd(cartItem))}
-              >
-                Agregar
-              </Button>
             </div>
           </div>
         </div>

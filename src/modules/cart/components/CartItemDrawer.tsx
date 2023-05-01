@@ -33,7 +33,10 @@ function CartItemDrawer({
   const [formData, setFormData] = useState<CartItem>(() => ({...item, options: {}}));
   const total = useMemo(() => parseCurrency(getCartItemPrice(formData)), [formData]);
   const options = useMemo(
-    () => Object.entries(item.options!).map(([title, _options]) => ({title, options: _options})),
+    () =>
+      item.options
+        ? Object.entries(item.options).map(([title, _options]) => ({title, options: _options}))
+        : [],
     [item],
   );
   const isValid = useMemo(
@@ -67,7 +70,7 @@ function CartItemDrawer({
                 {item.description}
               </SheetDescription>
             </div>
-            {options.length ? (
+            {Boolean(options.length) && (
               <div className="flex flex-col gap-8">
                 {options.map((category) => (
                   <div key={category.title} className="flex flex-col gap-4 w-full">
@@ -96,8 +99,6 @@ function CartItemDrawer({
                   </div>
                 ))}
               </div>
-            ) : (
-              <p className="text-muted-foreground">No hay elementos en tu carrito</p>
             )}
           </div>
         </div>

@@ -63,6 +63,8 @@ module.exports = {
     ],
     "no-console": "warn",
     "jsx-a11y/heading-has-content": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
     "react/prop-types": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
