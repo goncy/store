@@ -10,6 +10,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Tiency",
+  description: "Tienda de prueba hecha con Next.js 13 y app directory por Goncy",
+  themeColor: "#ffffff",
 };
 
 const App = async ({children}: {children: React.ReactNode}) => {
@@ -25,7 +27,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
               <header className="flex flex-col gap-4">
                 <img
                   alt={store.title}
-                  className="rounded-lg h-full max-h-64 object-cover"
+                  className="rounded-lg h-64 object-cover"
                   src={store.banner}
                 />
                 <div className="flex items-center flex-col sm:flex-row gap-2 sm:gap-4">
