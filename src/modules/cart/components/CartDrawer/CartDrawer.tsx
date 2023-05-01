@@ -3,20 +3,15 @@ import type {CartItem, Field} from "../../types";
 
 import React from "react";
 import {
-  Text,
-  Image,
   CloseButton,
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Stack,
   IconButton,
   DrawerFooter,
   Button,
-  Link,
   DrawerBody,
-  Divider,
 } from "@chakra-ui/react";
 import {ChevronLeftIcon} from "@chakra-ui/icons";
 
@@ -63,8 +58,8 @@ function CartDrawer({
       <DrawerOverlay>
         <DrawerContent paddingTop={4} {...props}>
           <DrawerHeader paddingX={4}>
-            <Stack alignItems="center" direction="row" justifyContent="space-between">
-              <Stack alignItems="center" direction="row">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
                 {currentStep === "fields" && (
                   <IconButton
                     aria-label="Go back"
@@ -74,12 +69,10 @@ function CartDrawer({
                     onClick={() => setCurrentStep("details")}
                   />
                 )}
-                <Text fontSize={{base: "2xl", sm: "3xl"}} fontWeight="500">
-                  Tu pedido
-                </Text>
-              </Stack>
+                <p className="text-2xl sm:text-3xl font-medium">Tu pedido</p>
+              </div>
               <CloseButton onClick={onClose} />
-            </Stack>
+            </div>
           </DrawerHeader>
           <DrawerBody data-testid="cart" paddingX={4}>
             {currentStep === "details" && <Details cart={cart} onChange={handleUpdateCart} />}
@@ -89,18 +82,12 @@ function CartDrawer({
           </DrawerBody>
           <DrawerFooter paddingX={4}>
             {fields && currentStep === "details" ? (
-              <Stack spacing={4} width="100%">
-                <Divider />
-                <Stack
-                  alignItems="center"
-                  direction="row"
-                  fontSize="lg"
-                  fontWeight="500"
-                  justifyContent="space-between"
-                >
-                  <Text>Total</Text>
-                  <Text>{total}</Text>
-                </Stack>
+              <div className="flex flex-col gap-4 w-full">
+                <hr />
+                <div className="items-center flex gap-2 text-lg font-medium justify-between">
+                  <p>Total</p>
+                  <p>{total}</p>
+                </div>
                 <Button
                   colorScheme="primary"
                   data-testid="continue-order"
@@ -110,18 +97,21 @@ function CartDrawer({
                 >
                   Continuar
                 </Button>
-              </Stack>
+              </div>
             ) : null}
             {(currentStep === "fields" || !fields) && (
               <Button
-                isExternal
-                as={Link}
+                as="a"
                 colorScheme="whatsapp"
                 data-testid="complete-order"
                 href={`https://wa.me/5491141414141?text=${encodeURIComponent(message)}`}
                 leftIcon={
-                  <Image src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff" />
+                  <img
+                    alt="Whatsapp logo"
+                    src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=000"
+                  />
                 }
+                rel="noopener noreferrer"
                 size="lg"
                 width="100%"
               >

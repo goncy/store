@@ -1,3 +1,5 @@
+import type {Option} from "~/product/types";
+
 import type {CartItem} from "../types";
 import type {DrawerProps} from "@chakra-ui/react";
 
@@ -9,19 +11,13 @@ import {
   CloseButton,
   DrawerHeader,
   DrawerBody,
-  Stack,
-  Divider,
   Button,
   DrawerFooter,
-  Text,
-  Image,
   RadioGroup,
   Radio,
 } from "@chakra-ui/react";
 
-import type {Option} from "~/product/types";
-
-import {parseCurrency} from "@/utils/currency";
+import {parseCurrency} from "~/currency/utils";
 
 import {getCartItemPrice} from "../utils";
 
@@ -58,76 +54,60 @@ function CartItemDrawer({
       <DrawerOverlay>
         <DrawerContent paddingTop={4}>
           <DrawerHeader paddingX={4}>
-            <Stack alignItems="center" direction="row" justifyContent="space-between">
-              <Text fontSize={{base: "2xl", sm: "3xl"}} fontWeight="500">
-                {item.title}
-              </Text>
+            <div className="flex items-center justify-between">
+              <p className="text-2xl sm:text-3xl font-medium">{item.title}</p>
               <CloseButton onClick={onClose} />
-            </Stack>
+            </div>
           </DrawerHeader>
 
           <DrawerBody data-testid="cart-item-drawer" paddingX={4}>
-            <Stack divider={<Divider />} spacing={6}>
-              <Stack>
-                <Image
-                  alt={item.title}
-                  height={240}
-                  objectFit="cover"
-                  src={item.image}
-                  width="100%"
-                />
-                <Text color="gray.500">{item.description}</Text>
-              </Stack>
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <img alt={item.title} className="h-[240px] object-cover w-full" src={item.image} />
+                <p className="text-white/50">{item.description}</p>
+              </div>
               {options.length ? (
-                <Stack divider={<Divider />} spacing={4}>
+                <div className="flex flex-col gap-4">
                   {options.map((category) => (
-                    <Stack key={category.title} width="100%">
-                      <Text fontSize="xl" fontWeight="500">
-                        {category.title}
-                      </Text>
+                    <div key={category.title} className="flex flex-col gap-2 w-full">
+                      <p className="text-xl font-medium">{category.title}</p>
                       <RadioGroup
                         colorScheme="primary"
                         value={formData.options?.[category.title]?.[0]?.title}
                       >
-                        <Stack>
+                        <div className="flex flex-col gap-2">
                           {category.options.map((option) => (
                             <Radio
                               key={option.title}
                               value={option.title}
                               onChange={() => handleSelectOption(option)}
                             >
-                              <Stack direction="row" justifyContent="space-between" width="100%">
-                                <Text>{option.title}</Text>
+                              <div className="flex justify-between w-full">
+                                <p>{option.title}</p>
                                 {Boolean(option.price) && (
-                                  <Text fontWeight="500">{parseCurrency(option.price)}</Text>
+                                  <p className="font-medium">{parseCurrency(option.price)}</p>
                                 )}
-                              </Stack>
+                              </div>
                             </Radio>
                           ))}
-                        </Stack>
+                        </div>
                       </RadioGroup>
-                    </Stack>
+                    </div>
                   ))}
-                </Stack>
+                </div>
               ) : (
-                <Text color="gray.400">No hay elementos en tu carrito</Text>
+                <p className="text-white/40">No hay elementos en tu carrito</p>
               )}
-            </Stack>
+            </div>
           </DrawerBody>
 
           <DrawerFooter paddingX={4}>
-            <Stack spacing={4} width="100%">
-              <Divider />
-              <Stack
-                alignItems="center"
-                direction="row"
-                fontSize="lg"
-                fontWeight="500"
-                justifyContent="space-between"
-              >
-                <Text>Total</Text>
-                <Text>{total}</Text>
-              </Stack>
+            <div className="flex flex-col gap-4 w-full">
+              <hr />
+              <div className="flex items-center text-lg font-medium justify-between">
+                <p>Total</p>
+                <p>{total}</p>
+              </div>
               <Button
                 colorScheme="primary"
                 isDisabled={!isValid}
@@ -137,7 +117,7 @@ function CartItemDrawer({
               >
                 Agregar al pedido
               </Button>
-            </Stack>
+            </div>
           </DrawerFooter>
         </DrawerContent>
       </DrawerOverlay>

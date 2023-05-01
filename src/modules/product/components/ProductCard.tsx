@@ -1,12 +1,12 @@
+import type {CartItem} from "~/cart/types";
+
 import type {Product} from "../types";
 
 import React from "react";
-import {Stack, Button, Text, Image} from "@chakra-ui/react";
+import {Button} from "@chakra-ui/react";
 
-import type {CartItem} from "~/cart/types";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
-
-import {parseCurrency} from "@/utils/currency";
+import {parseCurrency} from "~/currency/utils";
 
 function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Product) => void}) {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -14,49 +14,35 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
 
   return (
     <>
-      <Stack
+      <div
         key={product.id}
-        alignItems="center"
-        borderColor="whiteAlpha.300"
-        borderRadius="md"
-        borderWidth={1}
+        className="flex items-center border-white/300 rounded-md border justify-between gap-3"
         data-testid="product"
-        direction="row"
-        justifyContent="space-between"
-        spacing={3}
       >
-        <Stack direction="row" padding={2} spacing={4} width="100%">
-          <Image
-            backgroundColor="blackAlpha.500"
-            borderRadius="md"
-            height={{base: 24, sm: 36}}
+        <div className="flex gap-4 p-2 w-full">
+          <img
+            alt={product.title}
+            className="bg-black/500 rounded-md h-24 sm:h-36 w-24 sm:w-36 min-w-24 sm:min-w-36 object-contain"
             loading="lazy"
-            minWidth={{base: 24, sm: 36}}
-            objectFit="contain"
             src={product.image}
-            width={{base: 24, sm: 36}}
           />
-          <Stack justifyContent="space-between" spacing={1} width="100%">
-            <Stack spacing={1}>
-              <Text fontWeight="500">{product.title}</Text>
-              <Text color="gray.500" fontSize="sm">
-                {product.description}
-              </Text>
-            </Stack>
-            <Stack alignItems="flex-end" direction="row" justifyContent="space-between">
-              <Text color="green.500" fontSize="sm" fontWeight="500">
-                {parseCurrency(product.price)}
-              </Text>
+          <div className="flex flex-col justify-between gap-1 w-full">
+            <div className="flex flex-col gap-1">
+              <p className="font-medium">{product.title}</p>
+              <p className="text-sm text-white/50">{product.description}</p>
+            </div>
+            <div className="flex items-end justify-between">
+              <p className="text-green-500 text-sm font-medium">{parseCurrency(product.price)}</p>
               <Button
                 size="xs"
                 onClick={() => (product.options ? setIsModalOpen(true) : onAdd(cartItem))}
               >
                 Agregar
               </Button>
-            </Stack>
-          </Stack>
-        </Stack>
-      </Stack>
+            </div>
+          </div>
+        </div>
+      </div>
       {isModalOpen ? (
         <CartItemDrawer
           isOpen

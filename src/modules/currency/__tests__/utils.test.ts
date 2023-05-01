@@ -1,4 +1,4 @@
-import {parseCurrency} from "../currency";
+import {parseCurrency} from "../utils";
 
 describe("currency", () => {
   describe("parseCurrency", () => {

@@ -1,6 +1,6 @@
 import type {Cart, CartItem, Checkout} from "./types";
 
-import {parseCurrency} from "@/utils/currency";
+import {parseCurrency} from "~/currency/utils";
 
 export function getCartItemPrice(item: CartItem): number {
   const optionsPrice = item.options

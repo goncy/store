@@ -42,6 +42,11 @@ module.exports = {
         groups: ["type", "builtin", "object", "external", "internal", "parent", "sibling", "index"],
         pathGroups: [
           {
+            pattern: "~/**/types",
+            group: "type",
+            position: "before",
+          },
+          {
             pattern: "~/**",
             group: "external",
             position: "after",
@@ -70,7 +75,9 @@ module.exports = {
         reservedFirst: true,
       },
     ],
+    "@next/next/no-img-element": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",

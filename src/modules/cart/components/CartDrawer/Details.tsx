@@ -1,29 +1,27 @@
 import type {Cart, CartItem} from "../../types";
 
-import {Stack, Divider, Button, Text} from "@chakra-ui/react";
+import {Button} from "@chakra-ui/react";
 
-import {parseCurrency} from "@/utils/currency";
+import {parseCurrency} from "~/currency/utils";
 
 import {getCartItemPrice, getCartItemOptionsSummary} from "../../utils";
 
 function Details({cart, onChange}: {cart: Cart; onChange: (id: symbol, item: CartItem) => void}) {
   return (
-    <Stack divider={<Divider />} spacing={4}>
+    <div className="flex flex-col gap-4 divide-y">
       {Array.from(cart.entries()).map(([id, item]) => (
-        <Stack key={id.toString()} data-testid={`cart-item-${item.id}`} direction="row">
-          <Stack width="100%">
-            <Stack alignItems="flex-start" direction="row" justifyContent="space-between">
-              <Stack spacing={0}>
-                <Text fontSize="lg" fontWeight="500">
-                  {item.title}
-                </Text>
+        <div key={id.toString()} className="flex gap-2" data-testid={`cart-item-${item.id}`}>
+          <div className="flex flex-col gap-2 w-full">
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col">
+                <p className="text-lg font-medium">{item.title}</p>
                 {Boolean(item.options) && (
-                  <Text color="gray.500">{getCartItemOptionsSummary(item.options)}</Text>
+                  <p className="text-white/50">{getCartItemOptionsSummary(item.options)}</p>
                 )}
-              </Stack>
-              <Text fontWeight="500">{parseCurrency(getCartItemPrice(item))}</Text>
-            </Stack>
-            <Stack direction="row">
+              </div>
+              <p className="font-medium">{parseCurrency(getCartItemPrice(item))}</p>
+            </div>
+            <div className="flex gap-2">
               <Button
                 borderRadius={9999}
                 colorScheme="primary"
@@ -34,9 +32,9 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: symbol, item: Car
                 {" "}
                 -{" "}
               </Button>
-              <Text data-testid="quantity" fontWeight="500">
+              <p className="font-medium" data-testid="quantity">
                 {item.quantity}
-              </Text>
+              </p>
               <Button
                 borderRadius={9999}
                 colorScheme="primary"
@@ -47,11 +45,11 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: symbol, item: Car
                 {" "}
                 +{" "}
               </Button>
-            </Stack>
-          </Stack>
-        </Stack>
+            </div>
+          </div>
+        </div>
       ))}
-    </Stack>
+    </div>
   );
 }
 

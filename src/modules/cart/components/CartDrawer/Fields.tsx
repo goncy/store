@@ -1,7 +1,7 @@
 import type {InputProps} from "@chakra-ui/react";
 import type {Checkout, Field} from "../../types";
 
-import {Stack, Text, Input, Alert, RadioGroup, Radio} from "@chakra-ui/react";
+import {Input, Alert, RadioGroup, Radio} from "@chakra-ui/react";
 
 function TextField({
   value,
@@ -24,13 +24,13 @@ function RadioField({
 }) {
   return (
     <RadioGroup colorScheme="primary" value={value} onChange={onChange}>
-      <Stack>
+      <div className="flex flex-col gap-2">
         {options.map((option) => (
           <Radio key={option} value={option}>
             {option}
           </Radio>
         ))}
-      </Stack>
+      </div>
     </RadioGroup>
   );
 }
@@ -45,11 +45,11 @@ function Fields({
   onChange: (id: string, value: string) => void;
 }) {
   return (
-    <Stack spacing={6}>
+    <div className="flex flex-col gap-6">
       {fields.map((field) => (
-        <Stack key={field.type}>
-          <Text fontWeight={500}>{field.title}</Text>
-          <Stack spacing={4}>
+        <div key={field.type} className="flex flex-col gap-2">
+          <p className="font-medium">{field.title}</p>
+          <div className="flex flex-col gap-4">
             {field.type === "text" && (
               <TextField
                 placeholder={field.placeholder}
@@ -65,10 +65,10 @@ function Fields({
               />
             )}
             {field.note ? <Alert colorScheme="primary">{field.note}</Alert> : null}
-          </Stack>
-        </Stack>
+          </div>
+        </div>
       ))}
-    </Stack>
+    </div>
   );
 }
 

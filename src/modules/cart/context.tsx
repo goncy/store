@@ -4,7 +4,7 @@ import type {Cart, CartItem, Checkout, Field} from "./types";
 
 import {useState, useMemo, useCallback, useContext, createContext} from "react";
 
-import {parseCurrency} from "@/utils/currency";
+import {parseCurrency} from "~/currency/utils";
 
 import {getCartMessage, getCartTotal} from "./utils";
 
