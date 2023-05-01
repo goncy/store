@@ -2,6 +2,8 @@
   "name": "almacency",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@7.32.2",
+  "engines": { "node": "18.x" },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
