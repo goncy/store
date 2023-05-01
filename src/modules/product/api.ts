@@ -76,14 +76,16 @@ function normalize(data: (RawProduct | RawOption)[]) {
       products.set(item.id, new Product());
     }
 
-    if (item.type === "product") {
-      const product = products.get(item.id)!;
+    const product = products.get(item.id)!;
 
-      product.set(item);
-    } else if (item.type === "option") {
-      const product = products.get(item.id);
+    switch (item.type) {
+      case "product":
+        product.set(item);
+        break;
 
-      product!.addOption(item);
+      case "option":
+        product.addOption(item);
+        break;
     }
   }
 
