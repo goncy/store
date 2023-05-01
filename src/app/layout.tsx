@@ -27,20 +27,20 @@ const App = async ({children}: {children: React.ReactNode}) => {
               <header className="flex flex-col gap-4">
                 <img
                   alt={store.title}
-                  className="rounded-lg h-64 object-cover"
+                  className="rounded-lg h-32 sm:h-64 object-cover"
                   src={store.banner}
                 />
                 <div className="flex items-center flex-col sm:flex-row gap-2 sm:gap-4">
                   <div className="rounded-full -mt-20 sm:-mt-16 min-w-24 sm:min-w-32 p-1">
                     <img
                       alt={store.title}
-                      className="rounded-full h-32 w-32 sm:h-32 sm:w-32 shadow border-8 border-background"
+                      className="rounded-full h-32 w-32 shadow border-8 border-background"
                       src={store.logo}
                     />
                   </div>
                   <div className="flex flex-col items-center sm:items-start gap-4 sm:gap-2 text-center sm:text-left">
                     <div className="flex flex-col gap-1">
-                      <p className="font-bold text-4xl">{store.title}</p>
+                      <p className="font-bold text-3xl sm:text-4xl">{store.title}</p>
                       <p className="text-muted-foreground font-medium">{store.subtitle}</p>
                     </div>
                     <div className="flex gap-2">

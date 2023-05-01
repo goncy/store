@@ -58,7 +58,7 @@ function CartDrawer({
     <Sheet open={isOpen} onOpenChange={(_isOpen) => !_isOpen && onClose()} {...props}>
       <SheetContent className="grid grid-cols-1 grid-rows-[auto_1fr_auto]" size="sm">
         <SheetHeader>
-          <SheetTitle className="text-2xl sm:text-3xl font-medium">Tu pedido</SheetTitle>
+          <SheetTitle className="text-2xl sm:text-3xl font-medium text-left">Tu pedido</SheetTitle>
         </SheetHeader>
         <div className="overflow-y-auto" data-testid="cart">
           {currentStep === "details" && <Details cart={cart} onChange={handleUpdateCart} />}
