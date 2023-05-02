@@ -35,7 +35,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
                   <div className="-mt-20 rounded-full p-1 sm:-mt-16">
                     <img
                       alt={store.title}
-                      className="h-32 w-32 rounded-full border-8"
+                      className="border-background h-32 w-32 rounded-full border-8"
                       src={store.logo}
                     />
                   </div>

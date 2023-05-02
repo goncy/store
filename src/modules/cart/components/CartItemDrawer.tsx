@@ -53,9 +53,9 @@ function CartItemDrawer({
 
   return (
     <Sheet onOpenChange={(isOpen) => !isOpen && onClose()} {...props}>
-      <SheetContent className="grid grid-cols-1 grid-rows-[auto_1fr_auto]" size="sm">
-        <SheetHeader className="text-left pr-8">
-          <SheetTitle className="text-2xl sm:text-3xl font-medium">{item.title}</SheetTitle>
+      <SheetContent className="grid grid-rows-[auto_1fr_auto]" size="sm">
+        <SheetHeader className="pr-8 text-left">
+          <SheetTitle className="text-2xl font-medium sm:text-3xl">{item.title}</SheetTitle>
         </SheetHeader>
 
         <div className="overflow-y-auto" data-testid="cart-item-drawer">
@@ -63,7 +63,7 @@ function CartItemDrawer({
             <div className="flex flex-col gap-4">
               <img
                 alt={item.title}
-                className="h-[240px] object-contain bg-secondary w-full"
+                className="bg-secondary h-[240px] w-full object-contain"
                 src={item.image}
               />
               <SheetDescription className="text-muted-foreground text-lg">
@@ -73,7 +73,7 @@ function CartItemDrawer({
             {Boolean(options.length) && (
               <div className="flex flex-col gap-8">
                 {options.map((category) => (
-                  <div key={category.title} className="flex flex-col gap-4 w-full">
+                  <div key={category.title} className="flex w-full flex-col gap-4">
                     <p className="text-xl font-medium">{category.title}</p>
                     <RadioGroup value={formData.options?.[category.title]?.[0]?.title}>
                       <div className="flex flex-col gap-4">
@@ -85,10 +85,12 @@ function CartItemDrawer({
                               onClick={() => handleSelectOption(option)}
                             />
                             <Label htmlFor={option.id}>
-                              <div className="flex justify-between w-full">
+                              <div className="flex w-full justify-between">
                                 <p>{option.title}</p>
                                 {Boolean(option.price) && (
-                                  <p className="font-medium">{parseCurrency(option.price)}</p>
+                                  <p className="before:text-muted-foreground font-medium before:mr-2 before:text-lg before:leading-tight before:content-['+']">
+                                    {parseCurrency(option.price)}
+                                  </p>
                                 )}
                               </div>
                             </Label>
@@ -104,9 +106,9 @@ function CartItemDrawer({
         </div>
 
         <SheetFooter>
-          <div className="flex flex-col gap-4 w-full">
+          <div className="flex w-full flex-col gap-4">
             <hr />
-            <div className="flex items-center text-lg font-medium justify-between">
+            <div className="flex items-center justify-between text-lg font-medium">
               <p>Total</p>
               <p>{total}</p>
             </div>
