@@ -20,7 +20,7 @@ function StoreScreen({products, fields}: {products: Product[]; fields: Field[]})
     <>
       <div className="flex flex-col gap-4">
         {products.length ? (
-          <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(320px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(360px,_1fr))]))]">
+          <div className="sm:grid-cols-[repeat(auto-fill,_minmax(360px,_1fr))]))] grid grid-cols-[repeat(auto-fill,_minmax(320px,_1fr))] gap-4">
             {products.map((product) => (
               <ProductCard
                 key={product.id}
@@ -30,12 +30,12 @@ function StoreScreen({products, fields}: {products: Product[]; fields: Field[]})
             ))}
           </div>
         ) : (
-          <p className="text-muted-foreground text-lg m-auto">No hay productos</p>
+          <p className="text-muted-foreground m-auto text-lg">No hay productos</p>
         )}
         {Boolean(quantity) && (
-          <div className="flex items-center bottom-4 content-center sticky sm:m-auto">
+          <div className="sticky bottom-4 flex content-center items-center sm:m-auto">
             <Button
-              className="shadow-lg w-full sm:w-fit"
+              className="w-full shadow-lg sm:w-fit"
               data-testid="show-cart"
               size="lg"
               variant="brand"
@@ -44,7 +44,7 @@ function StoreScreen({products, fields}: {products: Product[]; fields: Field[]})
               <div className="flex items-center gap-6">
                 <div className="flex items-center gap-3">
                   <p className="leading-6">Ver pedido</p>
-                  <p className="bg-black/25 rounded-sm text-white/90 text-xs font-semibold px-2 py-1">
+                  <p className="rounded-sm bg-black/25 px-2 py-1 text-xs font-semibold text-white/90">
                     {quantity} items
                   </p>
                 </div>

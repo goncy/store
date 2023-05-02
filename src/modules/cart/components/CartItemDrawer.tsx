@@ -55,7 +55,7 @@ function CartItemDrawer({
     <Sheet onOpenChange={(isOpen) => !isOpen && onClose()} {...props}>
       <SheetContent className="grid grid-rows-[auto_1fr_auto]" size="sm">
         <SheetHeader className="pr-8 text-left">
-          <SheetTitle className="text-2xl font-medium sm:text-3xl">{item.title}</SheetTitle>
+          <SheetTitle className="text-2xl font-medium">{item.title}</SheetTitle>
         </SheetHeader>
 
         <div className="overflow-y-auto" data-testid="cart-item-drawer">

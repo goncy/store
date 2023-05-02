@@ -15,21 +15,21 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
     <>
       <div
         key={product.id}
-        className="flex items-center border-white/300 rounded-md border justify-between gap-3 cursor-pointer"
+        className="border-white/300 flex cursor-pointer items-center justify-between gap-3 rounded-md border"
         data-testid="product"
         onClick={() => setIsModalOpen(true)}
       >
-        <div className="flex gap-4 p-2 w-full">
+        <div className="flex w-full gap-4 p-2">
           <img
             alt={product.title}
-            className="bg-black/500 rounded-md h-24 sm:h-36 w-24 sm:w-36 min-w-24 sm:min-w-36 object-contain aspect-square"
+            className="bg-black/500 min-w-24 sm:min-w-36 aspect-square h-24 w-24 rounded-md object-cover sm:h-36 sm:w-36"
             loading="lazy"
             src={product.image}
           />
-          <div className="flex flex-col justify-between gap-1 w-full">
+          <div className="flex w-full flex-col justify-between gap-1">
             <div className="flex flex-col gap-1">
               <p className="font-medium">{product.title}</p>
-              <p className="text-sm text-muted-foreground line-clamp-[2] sm:line-clamp-4">
+              <p className="text-muted-foreground line-clamp-[2] text-sm sm:line-clamp-4">
                 {product.description}
               </p>
             </div>

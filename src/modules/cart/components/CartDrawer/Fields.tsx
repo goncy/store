@@ -53,7 +53,7 @@ function Fields({
     <div className="flex flex-col gap-8">
       {fields.map((field) => (
         <div key={field.type} className="flex flex-col gap-4">
-          <p className="text-xl font-medium">{field.title}</p>
+          <p className="font-medium">{field.title}</p>
           <div className="flex flex-col gap-4">
             {field.type === "text" && (
               <TextField
