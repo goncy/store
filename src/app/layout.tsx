@@ -4,8 +4,8 @@ import api from "~/store/api";
 import WhatsappIcon from "~/ui/components/icons/whatsapp";
 import InstagramIcon from "~/ui/components/icons/instagram";
 
-import Providers from "./providers";
-import {ThemeToggle} from "./theme-toggle";
+import Providers from "./_components/providers";
+import {ThemeToggle} from "./_components/theme-toggle";
 
 import "./globals.css";
 
