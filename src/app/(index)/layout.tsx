@@ -5,6 +5,7 @@ import WhatsappIcon from "~/ui/components/icons/whatsapp";
 import InstagramIcon from "~/ui/components/icons/instagram";
 
 import Providers from "./providers";
+import {ThemeToggle} from "./theme-toggle";
 
 import "./globals.css";
 
@@ -34,7 +35,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
                   <div className="rounded-full -mt-20 sm:-mt-16 min-w-24 sm:min-w-32 p-1">
                     <img
                       alt={store.title}
-                      className="rounded-full h-32 w-32 shadow border-8 border-background"
+                      className="rounded-full h-32 w-32 border-8 border-background"
                       src={store.logo}
                     />
                   </div>
@@ -67,7 +68,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
             <hr className="my-4" />
             {/* Inicio de copyright - Cambiar el contenido de los mismos viola el contenido de los terminos de licencia */}
             <p className="text-center text-sm sm:text-md text-muted-foreground">
-              © Copyright {new Date().getFullYear()}. Hecho con ❤ y Next.js, por{" "}
+              © Copyright {new Date().getFullYear()}. Hecho con <ThemeToggle /> y Next.js, por{" "}
               <a
                 className="underline"
                 href="https://twitter.com/goncy"

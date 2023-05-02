@@ -66,7 +66,7 @@ function CartItemDrawer({
                 className="h-[240px] object-contain bg-secondary w-full"
                 src={item.image}
               />
-              <SheetDescription className="text-muted-foreground text-md">
+              <SheetDescription className="text-muted-foreground text-lg">
                 {item.description}
               </SheetDescription>
             </div>
