@@ -62,7 +62,7 @@ function StoreScreen({
             <Button
               className="w-full shadow-lg sm:w-fit"
               data-testid="show-cart"
-              size="xl"
+              size="lg"
               variant="brand"
               onClick={() => setIsCartOpen(true)}
             >
