@@ -20,16 +20,18 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
         onClick={() => setIsModalOpen(true)}
       >
         <div className="flex w-full gap-4 p-2">
-          <img
-            alt={product.title}
-            className="bg-black/500 min-w-24 sm:min-w-36 aspect-square h-24 w-24 rounded-md object-cover sm:h-36 sm:w-36"
-            loading="lazy"
-            src={product.image}
-          />
+          {product.image ? (
+            <img
+              alt={product.title}
+              className="bg-black/500 min-w-24 sm:min-w-36 aspect-square h-24 w-24 rounded-md object-cover sm:h-36 sm:w-36"
+              loading="lazy"
+              src={product.image}
+            />
+          ) : null}
           <div className="flex w-full flex-col justify-between gap-1">
             <div className="flex flex-col gap-1">
-              <p className="font-medium">{product.title}</p>
-              <p className="text-muted-foreground line-clamp-[2] text-sm sm:line-clamp-4">
+              <p className="line-clamp-[1] font-medium sm:line-clamp-[2]">{product.title}</p>
+              <p className="text-muted-foreground line-clamp-[2] text-sm sm:line-clamp-3">
                 {product.description}
               </p>
             </div>
