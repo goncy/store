@@ -1,3 +1,5 @@
+import type {Store} from "~/store/types";
+
 import type {CartItem, Field} from "../../types";
 
 import {useEffect, useState} from "react";
@@ -20,11 +22,13 @@ import Fields from "./Fields";
 function CartDrawer({
   onClose,
   isOpen,
+  store,
   fields,
   ...props
 }: Omit<React.ComponentProps<typeof Sheet>, "children"> & {
   fields?: Field[];
   isOpen: boolean;
+  store: Store;
   onClose: VoidFunction;
 }) {
   const [{total, message, cart, checkout}, {removeItem, updateItem, updateField}] = useCart();
@@ -98,7 +102,7 @@ function CartDrawer({
               </Button>
               <a
                 className="w-full"
-                href={`https://wa.me/5491141414141?text=${encodeURIComponent(message)}`}
+                href={`https://wa.me/${store.phone}?text=${encodeURIComponent(message)}`}
                 rel="noopener noreferrer"
                 target="_blank"
               >

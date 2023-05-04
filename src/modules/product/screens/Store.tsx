@@ -1,6 +1,7 @@
 "use client";
 
 import type {Field} from "~/cart/types";
+import type {Store} from "~/store/types";
 
 import type {Product} from "../types";
 
@@ -15,9 +16,11 @@ import ProductCard from "../components/ProductCard";
 function StoreScreen({
   fields,
   categories,
+  store,
 }: {
   fields: Field[];
   categories: [Product["category"], Product[]][];
+  store: Store;
 }) {
   const [{total, quantity}, {addItem}] = useCart();
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -79,7 +82,12 @@ function StoreScreen({
           </div>
         )}
       </div>
-      <CartDrawer fields={fields} isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CartDrawer
+        fields={fields}
+        isOpen={isCartOpen}
+        store={store}
+        onClose={() => setIsCartOpen(false)}
+      />
     </>
   );
 }
