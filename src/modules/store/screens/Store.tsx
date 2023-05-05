@@ -94,12 +94,20 @@ function StoreScreen({
             )}
           </div>
           <div className="flex gap-2">
-            <Toggle pressed={layout === "list"} onClick={() => setLayout("list")}>
+            <Toggle
+              aria-label="Vista de lista"
+              pressed={layout === "list"}
+              onClick={() => setLayout("list")}
+            >
               <div className="text-2xl">
                 <StretchHorizontal className="h-6 w-6 cursor-pointer opacity-40" />
               </div>
             </Toggle>
-            <Toggle pressed={layout === "grid"} onClick={() => setLayout("grid")}>
+            <Toggle
+              aria-label="Vista de grilla"
+              pressed={layout === "grid"}
+              onClick={() => setLayout("grid")}
+            >
               <div className="text-2xl">
                 <Table className="h-6 w-6 cursor-pointer opacity-40" />
               </div>
@@ -155,6 +163,7 @@ function StoreScreen({
         {Boolean(quantity) && (
           <div className="sticky bottom-4 flex content-center items-center sm:m-auto">
             <Button
+              aria-label="Ver pedido"
               className="w-full shadow-lg sm:w-fit"
               data-testid="show-cart"
               size="lg"

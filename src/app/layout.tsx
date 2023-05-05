@@ -45,14 +45,24 @@ const App = async ({children}: {children: React.ReactNode}) => {
                   </div>
                   <div className="flex gap-2">
                     {store.instagram ? (
-                      <a href={store.instagram} rel="noopener noreferrer" target="_blank">
+                      <a
+                        aria-label="Instagram"
+                        href={store.instagram}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-teal-600 text-white">
                           <InstagramIcon />
                         </div>
                       </a>
                     ) : null}
                     {store.whatsapp ? (
-                      <a href={store.whatsapp} rel="noopener noreferrer" target="_blank">
+                      <a
+                        aria-label="Whatsapp"
+                        href={store.whatsapp}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-teal-600 text-white">
                           <WhatsappIcon />
                         </div>
