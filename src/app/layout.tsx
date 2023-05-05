@@ -24,7 +24,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
       <body>
         <div className="m-auto max-w-screen-xl rounded-sm">
           <Providers>
-            <header className="mb-4 flex flex-col gap-4 px-4 sm:mb-8">
+            <header className="mb-4 flex flex-col gap-4 px-4 pt-4 sm:mb-8">
               <img
                 alt={store.title}
                 className="h-32 rounded-lg object-cover sm:h-64"
