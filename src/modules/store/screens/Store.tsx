@@ -112,7 +112,7 @@ function StoreScreen({
             categories.map(([category, categoryProducts]) => (
               <div
                 key={category}
-                className="flex flex-col gap-8 border-t py-8 last-of-type:border-b"
+                className="flex flex-col gap-8 border-t py-4 last-of-type:border-b sm:py-8"
                 id={category}
               >
                 <div
