@@ -21,13 +21,11 @@ import Fields from "./Fields";
 
 function CartDrawer({
   onClose,
-  isOpen,
   store,
   fields,
   ...props
 }: Omit<React.ComponentProps<typeof Sheet>, "children"> & {
   fields?: Field[];
-  isOpen: boolean;
   store: Store;
   onClose: VoidFunction;
 }) {
@@ -52,14 +50,8 @@ function CartDrawer({
     }
   }, [cart.size, onClose]);
 
-  useEffect(() => {
-    if (!isOpen) {
-      setCurrentStep("details");
-    }
-  }, [isOpen]);
-
   return (
-    <Sheet open={isOpen} onOpenChange={(_isOpen) => !_isOpen && onClose()} {...props}>
+    <Sheet open onOpenChange={(_isOpen) => !_isOpen && onClose()} {...props}>
       <SheetContent className="grid grid-cols-1 grid-rows-[auto_1fr_auto]" size="sm">
         <SheetHeader>
           <SheetTitle className="text-left text-2xl font-medium">Tu pedido</SheetTitle>

@@ -10,7 +10,6 @@ module.exports = {
     require.resolve("@vercel/style-guide/eslint/react"),
     require.resolve("@vercel/style-guide/eslint/next"),
     "plugin:prettier/recommended",
-    "plugin:tailwindcss/recommended",
   ],
   parserOptions: {
     ecmaVersion: "latest",
@@ -35,6 +34,7 @@ module.exports = {
         bracketSpacing: false,
         arrowParens: "always",
         endOfLine: "auto",
+        plugins: ["prettier-plugin-tailwindcss"],
       },
     ],
     "import/order": [

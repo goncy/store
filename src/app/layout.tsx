@@ -23,7 +23,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
       <head />
       <body className="m-auto max-w-screen-xl rounded-sm">
         <Providers>
-          <header className="mb-4 flex flex-col gap-4 p-4 sm:mb-8">
+          <header className="mb-4 flex flex-col gap-4 px-4 pt-4 sm:mb-8">
             <img
               alt={store.title}
               className="h-32 rounded-lg object-cover sm:h-64"
@@ -33,14 +33,14 @@ const App = async ({children}: {children: React.ReactNode}) => {
               <div className="-mt-20 rounded-full p-1 sm:-mt-16">
                 <img
                   alt={store.title}
-                  className="border-background h-32 w-32 rounded-full border-8"
+                  className="h-32 w-32 rounded-full border-8 border-background"
                   src={store.logo}
                 />
               </div>
               <div className="flex flex-col items-center gap-4 text-center sm:items-start sm:gap-2 sm:text-left">
                 <div className="flex flex-col gap-1">
                   <p className="text-3xl font-bold sm:text-4xl">{store.title}</p>
-                  <p className="text-muted-foreground font-medium">{store.subtitle}</p>
+                  <p className="font-medium text-muted-foreground">{store.subtitle}</p>
                 </div>
                 <div className="flex gap-2">
                   {store.instagram ? (
@@ -62,9 +62,9 @@ const App = async ({children}: {children: React.ReactNode}) => {
             </div>
           </header>
           <main className="px-4">{children}</main>
-          <footer className="mt-4 border-t p-4 sm:mt-8">
+          <footer className="mt-4 px-4 sm:mt-8">
             {/* Inicio de copyright - Cambiar el contenido de los mismos viola el contenido de los terminos de licencia */}
-            <p className="sm:text-md text-muted-foreground text-center text-sm">
+            <p className="sm:text-md border-t py-4 text-center text-sm text-muted-foreground">
               © Copyright {new Date().getFullYear()}. Hecho con <ThemeToggle /> y Next.js, por{" "}
               <a
                 className="underline"

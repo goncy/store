@@ -78,7 +78,7 @@ function CartItemDrawer({
                     <RadioGroup value={formData.options?.[category.title]?.[0]?.title}>
                       <div className="flex flex-col gap-4">
                         {category.options.map((option) => (
-                          <div key={option.title} className="flex items-center space-x-3">
+                          <div key={option.title} className="flex items-center gap-x-3">
                             <RadioGroupItem
                               id={option.id}
                               value={option.title}

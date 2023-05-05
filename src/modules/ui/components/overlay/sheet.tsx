@@ -158,7 +158,7 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       {children}
-      <SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-2 top-2 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
+      <SheetPrimitive.Close className="absolute right-2 top-2 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
         <X className="h-6 w-6" />
         <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
@@ -170,7 +170,7 @@ SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 function SheetHeader({className, ...props}: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("flex flex-col space-y-2 text-center sm:text-left", className)} {...props} />
+    <div className={cn("flex flex-col gap-y-2 text-center sm:text-left", className)} {...props} />
   );
 }
 SheetHeader.displayName = "SheetHeader";
@@ -178,7 +178,7 @@ SheetHeader.displayName = "SheetHeader";
 function SheetFooter({className, ...props}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
+      className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:gap-x-2", className)}
       {...props}
     />
   );

@@ -28,7 +28,7 @@ function RadioField({
     <RadioGroup value={value} onValueChange={onChange}>
       <div className="flex flex-col gap-4">
         {options.map((option) => (
-          <div key={option} className="flex items-center space-x-3">
+          <div key={option} className="flex items-center gap-x-3">
             <RadioGroupItem id={option} value={option}>
               {option}
             </RadioGroupItem>
