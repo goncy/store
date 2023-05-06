@@ -77,7 +77,7 @@ function StoreScreen({
     <>
       <div className="flex flex-col">
         {/* Filters */}
-        <div className="sticky top-0 z-10 mb-2 flex items-center justify-between gap-4 bg-background py-2 sm:relative sm:mb-8 sm:py-0">
+        <div className="sticky top-0 z-10 mb-2 flex items-center justify-between gap-4 bg-background py-2 sm:py-2">
           <div className="relative flex w-full items-center sm:max-w-xs">
             <SearchIcon className="absolute left-3 h-4 w-4 opacity-40" />
             <Input

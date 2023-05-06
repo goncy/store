@@ -21,6 +21,17 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
         onClick={() => setIsModalOpen(true)}
       >
         <div className="flex h-full w-full gap-4 p-2">
+          <div className="flex w-full flex-col justify-between gap-1">
+            <div className="flex flex-col gap-1">
+              <p className="line-clamp-[1] font-medium sm:line-clamp-[2]">{product.title}</p>
+              <p className="line-clamp-[2] text-sm text-muted-foreground sm:line-clamp-3">
+                {product.description}
+              </p>
+            </div>
+            <div className="flex items-end">
+              <p className="text-sm font-medium text-incentive">{parseCurrency(product.price)}</p>
+            </div>
+          </div>
           {product.image ? (
             <img
               alt={product.title}
@@ -33,17 +44,6 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
               <ImageOff className="m-auto h-12 w-12 opacity-10 sm:h-16 sm:w-16" />
             </div>
           )}
-          <div className="flex w-full flex-col justify-between gap-1">
-            <div className="flex flex-col gap-1">
-              <p className="line-clamp-[1] font-medium sm:line-clamp-[2]">{product.title}</p>
-              <p className="line-clamp-[2] text-sm text-muted-foreground sm:line-clamp-3">
-                {product.description}
-              </p>
-            </div>
-            <div className="flex items-end">
-              <p className="text-sm font-medium text-incentive">{parseCurrency(product.price)}</p>
-            </div>
-          </div>
         </div>
       </div>
       {isModalOpen ? (

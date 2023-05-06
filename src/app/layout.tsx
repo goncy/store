@@ -9,13 +9,17 @@ import {ThemeToggle} from "./_components/theme-toggle";
 
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Tiency",
-  description: "Tienda de prueba hecha con Next.js 13 y app directory por Goncy",
-  themeColor: "#ffffff",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const store = await api.fetch();
 
-const App = async ({children}: {children: React.ReactNode}) => {
+  return {
+    title: store.title,
+    description: store.subtitle,
+    themeColor: "#ffffff",
+  };
+}
+
+const RootLayout = async ({children}: {children: React.ReactNode}) => {
   const store = await api.fetch();
 
   return (
@@ -24,7 +28,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
       <body>
         <div className="m-auto max-w-screen-xl rounded-sm">
           <Providers>
-            <header className="mb-4 flex flex-col gap-4 px-4 pt-4 sm:mb-8">
+            <header className="mb-4 flex flex-col gap-4 px-4 pt-4">
               <img
                 alt={store.title}
                 className="h-32 rounded-lg object-cover sm:h-64"
@@ -51,7 +55,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
                         rel="noopener noreferrer"
                         target="_blank"
                       >
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-teal-600 text-white">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-600 text-white">
                           <InstagramIcon />
                         </div>
                       </a>
@@ -63,7 +67,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
                         rel="noopener noreferrer"
                         target="_blank"
                       >
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-teal-600 text-white">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-600 text-white">
                           <WhatsappIcon />
                         </div>
                       </a>
@@ -96,4 +100,4 @@ const App = async ({children}: {children: React.ReactNode}) => {
   );
 };
 
-export default App;
+export default RootLayout;
