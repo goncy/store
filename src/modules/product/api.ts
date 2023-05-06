@@ -10,6 +10,10 @@ interface RawProduct extends IProduct {
   type: "product";
 }
 
+interface RawUnknown extends IProduct {
+  type: string;
+}
+
 class Product implements IProduct {
   id: IProduct["id"];
   title: IProduct["title"];
@@ -69,7 +73,7 @@ class Product implements IProduct {
   }
 }
 
-function normalize(data: (RawProduct | RawOption)[]) {
+function normalize(data: (RawProduct | RawOption | RawUnknown)[]) {
   const products = new Map<RawProduct["id"], Product>();
 
   for (const item of data) {
@@ -81,11 +85,15 @@ function normalize(data: (RawProduct | RawOption)[]) {
 
     switch (item.type) {
       case "product":
-        product.set(item);
+        product.set(item as RawProduct);
         break;
 
       case "option":
-        product.addOption(item);
+        product.addOption(item as RawOption);
+        break;
+
+      default:
+        products.delete(item.id);
         break;
     }
   }
@@ -106,7 +114,7 @@ export default {
         Papa.parse(csv, {
           header: true,
           complete: (results) => {
-            const data = normalize(results.data as (RawProduct | RawOption)[]);
+            const data = normalize(results.data as (RawProduct | RawOption | RawUnknown)[]);
 
             return resolve(data);
           },
