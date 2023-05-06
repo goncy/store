@@ -75,9 +75,9 @@ function StoreScreen({
 
   return (
     <>
-      <div className="flex flex-col gap-4 sm:gap-8">
+      <div className="flex flex-col">
         {/* Filters */}
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-background py-2 sm:relative sm:py-0">
+        <div className="sticky top-0 z-10 mb-2 flex items-center justify-between gap-4 bg-background py-2 sm:relative sm:mb-8 sm:py-0">
           <div className="relative flex w-full items-center sm:max-w-xs">
             <SearchIcon className="absolute left-3 h-4 w-4 opacity-40" />
             <Input
@@ -120,7 +120,7 @@ function StoreScreen({
             categories.map(([category, categoryProducts]) => (
               <div
                 key={category}
-                className="flex flex-col gap-8 border-t py-4 last-of-type:border-b sm:py-8"
+                className="flex flex-col gap-8 border-t py-4 sm:py-8"
                 id={category}
               >
                 <div
