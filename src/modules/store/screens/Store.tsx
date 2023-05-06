@@ -65,11 +65,17 @@ function StoreScreen({
 
     // Scroll to the category
     queueMicrotask(() => {
-      const categoryElement = document.getElementById(category);
+      const categoryElement = document.getElementById(category)!;
+      const filtersElement = document.getElementById("filters")!;
+      const offset = filtersElement.getBoundingClientRect().height;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = categoryElement.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
 
-      if (categoryElement) {
-        categoryElement.scrollIntoView({block: "start", inline: "start"});
-      }
+      window.scrollTo({
+        top: offsetPosition,
+      });
     });
   }
 
@@ -77,7 +83,10 @@ function StoreScreen({
     <>
       <div className="flex flex-col">
         {/* Filters */}
-        <div className="sticky top-0 z-10 mb-2 flex items-center justify-between gap-4 bg-background py-2 sm:py-2">
+        <div
+          className="sticky top-0 z-10 mb-2 flex items-center justify-between gap-4 bg-background py-2 sm:py-2"
+          id="filters"
+        >
           <div className="relative flex w-full items-center sm:max-w-xs">
             <SearchIcon className="absolute left-3 h-4 w-4 opacity-40" />
             <Input
