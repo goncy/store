@@ -75,7 +75,7 @@ function CartItemDrawer({
                 {options.map((category) => {
                   return (
                     <div key={category.title} className="flex w-full flex-col gap-4">
-                      <p className="text-xl font-medium">{category.title}</p>
+                      <p className="text-lg font-medium">{category.title}</p>
                       <RadioGroup value={formData.options?.[category.title]?.[0]?.title}>
                         <div className="flex flex-col gap-4">
                           {category.options.map((option) => (
