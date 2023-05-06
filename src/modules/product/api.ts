@@ -82,6 +82,8 @@ function normalize(data: (RawProduct | RawOption | RawUnknown)[]) {
         const baseProduct = new Product();
 
         baseProduct.set(item as RawProduct);
+
+        products.set(baseProduct.id, baseProduct);
         break;
 
       case "option":

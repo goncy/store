@@ -154,8 +154,10 @@ function StoreScreen({
                         />
                       ))
                     ) : (
-                      <div className="flex flex-col gap-4">
-                        <h2 className="text-2xl font-semibold">No hay productos</h2>
+                      <div className="my-12 flex flex-col gap-4">
+                        <h2 className="text-center text-xl text-muted-foreground">
+                          No hay productos
+                        </h2>
                       </div>
                     )}
                   </div>
@@ -163,8 +165,8 @@ function StoreScreen({
               </div>
             ))
           ) : (
-            <div className="flex flex-col gap-4">
-              <h2 className="text-2xl font-semibold">No hay productos</h2>
+            <div className="my-12 flex flex-col gap-4">
+              <h2 className="text-center text-xl text-muted-foreground">No hay productos</h2>
             </div>
           )}
         </div>
