@@ -120,7 +120,7 @@ function StoreScreen({
             categories.map(([category, categoryProducts]) => (
               <div
                 key={category}
-                className="flex flex-col gap-8 border-t py-4 sm:py-8"
+                className="flex flex-col gap-4 border-t py-4 sm:gap-8 sm:py-8"
                 id={category}
               >
                 <div
@@ -161,7 +161,7 @@ function StoreScreen({
         </div>
         {/* Cart button */}
         {Boolean(quantity) && (
-          <div className="sticky bottom-4 flex content-center items-center sm:m-auto">
+          <div className="sticky bottom-0 flex content-center items-center pb-4 sm:m-auto sm:pb-8">
             <Button
               aria-label="Ver pedido"
               className="w-full shadow-lg sm:w-fit"

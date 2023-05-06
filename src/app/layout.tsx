@@ -73,7 +73,7 @@ const App = async ({children}: {children: React.ReactNode}) => {
               </div>
             </header>
             <main className="px-4">{children}</main>
-            <footer className="mt-4 px-4 sm:mt-8">
+            <footer className="px-4">
               {/* Inicio de copyright - Cambiar el contenido de los mismos viola el contenido de los terminos de licencia */}
               <p className="sm:text-md border-t py-4 text-center text-sm text-muted-foreground">
                 © Copyright {new Date().getFullYear()}. Hecho con <ThemeToggle /> y Next.js, por{" "}
