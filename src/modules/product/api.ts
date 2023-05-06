@@ -77,23 +77,19 @@ function normalize(data: (RawProduct | RawOption | RawUnknown)[]) {
   const products = new Map<RawProduct["id"], Product>();
 
   for (const item of data) {
-    if (!products.has(item.id)) {
-      products.set(item.id, new Product());
-    }
-
-    const product = products.get(item.id)!;
-
     switch (item.type) {
       case "product":
-        product.set(item as RawProduct);
+        const baseProduct = new Product();
+
+        baseProduct.set(item as RawProduct);
         break;
 
       case "option":
-        product.addOption(item as RawOption);
-        break;
+        const existingProduct = products.get(item.id);
 
-      default:
-        products.delete(item.id);
+        if (existingProduct) {
+          existingProduct.addOption(item as RawOption);
+        }
         break;
     }
   }
