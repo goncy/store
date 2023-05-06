@@ -30,7 +30,7 @@ function StoreScreen({
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
   const [layout, setLayout] = useState<"list" | "grid">(() =>
-    products.length > 50 ? "list" : "grid",
+    products.length > 30 ? "list" : "grid",
   );
   const [selectedCategory, setSelectedCategory] = useState<Product["category"] | null>(null);
   const categories = useMemo<[Product["category"], Product[]][]>(() => {
@@ -77,7 +77,7 @@ function StoreScreen({
     <>
       <div className="flex flex-col gap-4 sm:gap-8">
         {/* Filters */}
-        <div className="flex items-center justify-between gap-4">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-background py-2 sm:relative sm:py-0">
           <div className="relative flex w-full items-center sm:max-w-xs">
             <SearchIcon className="absolute left-3 h-4 w-4 opacity-40" />
             <Input

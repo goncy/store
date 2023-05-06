@@ -63,43 +63,50 @@ function CartItemDrawer({
             <div className="flex flex-col gap-4">
               <img
                 alt={item.title}
-                className="bg-secondary h-[240px] w-full object-contain"
+                className="h-[240px] w-full bg-secondary object-contain"
                 src={item.image}
               />
-              <SheetDescription className="text-muted-foreground text-lg">
+              <SheetDescription className="text-md text-muted-foreground sm:text-lg">
                 {item.description}
               </SheetDescription>
             </div>
             {Boolean(options.length) && (
               <div className="flex flex-col gap-8">
-                {options.map((category) => (
-                  <div key={category.title} className="flex w-full flex-col gap-4">
-                    <p className="text-xl font-medium">{category.title}</p>
-                    <RadioGroup value={formData.options?.[category.title]?.[0]?.title}>
-                      <div className="flex flex-col gap-4">
-                        {category.options.map((option) => (
-                          <div key={option.title} className="flex items-center gap-x-3">
-                            <RadioGroupItem
-                              id={option.id}
-                              value={option.title}
-                              onClick={() => handleSelectOption(option)}
-                            />
-                            <Label htmlFor={option.id}>
-                              <div className="flex w-full justify-between">
-                                <p>{option.title}</p>
-                                {Boolean(option.price) && (
-                                  <p className="before:text-muted-foreground font-medium before:mr-2 before:text-lg before:leading-tight before:content-['+']">
-                                    {parseCurrency(option.price)}
-                                  </p>
-                                )}
-                              </div>
-                            </Label>
-                          </div>
-                        ))}
-                      </div>
-                    </RadioGroup>
-                  </div>
-                ))}
+                {options.map((category) => {
+                  return (
+                    <div key={category.title} className="flex w-full flex-col gap-4">
+                      <p className="text-xl font-medium">{category.title}</p>
+                      <RadioGroup value={formData.options?.[category.title]?.[0]?.title}>
+                        <div className="flex flex-col gap-4">
+                          {category.options.map((option) => (
+                            <div key={option.title} className="flex items-center gap-x-3">
+                              <RadioGroupItem
+                                id={option.title}
+                                value={option.title}
+                                onClick={() => handleSelectOption(option)}
+                              />
+                              <Label htmlFor={option.title}>
+                                <div className="flex w-full justify-between">
+                                  <p>{option.title}</p>
+                                  {Boolean(option.price) && (
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-lg leading-tight text-muted-foreground">
+                                        {option.price < 0 ? "-" : "+"}
+                                      </span>
+                                      <p className="font-medium">
+                                        {parseCurrency(Math.abs(option.price))}
+                                      </p>
+                                    </div>
+                                  )}
+                                </div>
+                              </Label>
+                            </div>
+                          ))}
+                        </div>
+                      </RadioGroup>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
