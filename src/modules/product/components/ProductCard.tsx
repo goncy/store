@@ -35,7 +35,7 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
           {product.image ? (
             <img
               alt={product.title}
-              className="min-w-24 sm:min-w-36 aspect-square h-24 w-24 rounded-md bg-black/50 object-cover sm:h-36 sm:w-36"
+              className="min-w-24 sm:min-w-36 aspect-square h-24 w-24 rounded-md bg-muted/50 object-cover sm:h-36 sm:w-36"
               loading="lazy"
               src={product.image}
             />

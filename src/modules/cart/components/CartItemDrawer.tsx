@@ -78,7 +78,7 @@ function CartItemDrawer({
                 />
               )}
               <SheetTitle className="text-2xl font-medium">{item.title}</SheetTitle>
-              <SheetDescription className="text-md text-muted-foreground sm:text-lg">
+              <SheetDescription className="text-md whitespace-pre-wrap text-muted-foreground sm:text-lg">
                 {item.description}
               </SheetDescription>
             </div>
