@@ -39,8 +39,6 @@ const rows = data.flatMap((row) => {
   return draft;
 });
 
-console.log("rows:", rows);
-
 const csv = Papa.unparse(rows, {header: false});
 
 fs.writeFileSync("products.csv", csv, "utf8");

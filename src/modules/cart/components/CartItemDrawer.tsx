@@ -43,10 +43,6 @@ function CartItemDrawer({
         : [],
     [item],
   );
-  const isValid = useMemo(
-    () => options.length === Object.keys(formData.options!).length,
-    [formData, options],
-  );
 
   function handleSelectOption(option: Option) {
     setFormData((_formData) => ({
@@ -131,13 +127,7 @@ function CartItemDrawer({
               <p>Total</p>
               <p>{total}</p>
             </div>
-            <Button
-              className="w-full"
-              disabled={!isValid}
-              size="lg"
-              variant="brand"
-              onClick={() => onSubmit(formData)}
-            >
+            <Button className="w-full" size="lg" variant="brand" onClick={() => onSubmit(formData)}>
               Agregar al pedido
             </Button>
           </div>
