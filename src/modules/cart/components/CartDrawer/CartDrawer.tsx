@@ -3,9 +3,11 @@ import type {Store} from "~/store/types";
 import type {CartItem, Field} from "../../types";
 
 import {useEffect, useState} from "react";
+import {X} from "lucide-react";
 
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
@@ -54,14 +56,19 @@ function CartDrawer({
     <Sheet open onOpenChange={(_isOpen) => !_isOpen && onClose()} {...props}>
       <SheetContent className="grid grid-cols-1 grid-rows-[auto_1fr_auto]" size="sm">
         <SheetHeader>
+          <SheetClose className="-mx-4 ml-auto h-12 w-14 rounded-l-lg border border-border bg-background py-2 pl-2 pr-4 shadow-lg">
+            <X className="h-8 w-8" />
+          </SheetClose>
           <SheetTitle className="text-left text-2xl font-medium">Tu pedido</SheetTitle>
         </SheetHeader>
+
         <div className="overflow-y-auto" data-testid="cart">
           {currentStep === "details" && <Details cart={cart} onChange={handleUpdateCart} />}
           {fields && currentStep === "fields" ? (
             <Fields checkout={checkout} fields={fields} onChange={handleUpdateField} />
           ) : null}
         </div>
+
         <SheetFooter>
           {fields && currentStep === "details" ? (
             <div className="flex w-full flex-col gap-4">

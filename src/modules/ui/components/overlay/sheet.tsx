@@ -5,7 +5,6 @@ import type {VariantProps} from "class-variance-authority";
 import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import {cva} from "class-variance-authority";
-import {X} from "lucide-react";
 
 import {cn} from "../../utils";
 
@@ -55,7 +54,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
-  "bg-background fixed z-50 scale-100 gap-4 sm:gap-8 border p-4 opacity-100 shadow-lg",
+  "bg-background fixed z-50 scale-100 gap-4 border p-4 opacity-100 shadow-lg",
   {
     variants: {
       position: {
@@ -158,15 +157,27 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       {children}
-      <SheetPrimitive.Close className="absolute right-2 top-2 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <X className="h-8 w-8" />
-        <span className="sr-only">Close</span>
-      </SheetPrimitive.Close>
     </SheetPrimitive.Content>
   </SheetPortal>
 ));
 
 SheetContent.displayName = SheetPrimitive.Content.displayName;
+
+function SheetClose({className, children, ...props}: SheetPrimitive.DialogCloseProps) {
+  return (
+    <SheetPrimitive.Close
+      className={cn(
+        "ring-offset-background transition-opacity focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+      <span className="sr-only">Close</span>
+    </SheetPrimitive.Close>
+  );
+}
+SheetClose.displayName = "SheetClose";
 
 function SheetHeader({className, ...props}: React.HTMLAttributes<HTMLDivElement>) {
   return (
@@ -211,4 +222,13 @@ const SheetDescription = React.forwardRef<
 
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
-export {Sheet, SheetTrigger, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription};
+export {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetClose,
+  SheetHeader,
+  SheetFooter,
+  SheetTitle,
+  SheetDescription,
+};

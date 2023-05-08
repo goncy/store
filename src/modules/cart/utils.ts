@@ -28,7 +28,9 @@ export function getCartMessage(cart: Cart, checkout: Checkout): string {
     .map(
       (item) =>
         `* ${item.title}${item.quantity > 1 ? ` (X${item.quantity})` : ``}${
-          item.options ? ` [${getCartItemOptionsSummary(item.options)}]` : ``
+          item.options && Object.keys(item.options).length > 0
+            ? ` [${getCartItemOptionsSummary(item.options)}]`
+            : ``
         } - ${parseCurrency(getCartItemPrice(item))}\n`,
     )
     .join("\n");

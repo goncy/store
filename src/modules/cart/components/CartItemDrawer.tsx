@@ -4,6 +4,7 @@ import type {CartItem} from "../types";
 import type {ComponentProps} from "react";
 
 import {useState, useMemo} from "react";
+import {X} from "lucide-react";
 
 import {RadioGroup, RadioGroupItem} from "~/ui/components/form/radio-group";
 import {Label} from "~/ui/components/form/label";
@@ -11,12 +12,15 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetClose,
   SheetFooter,
   SheetHeader,
   SheetTitle,
 } from "~/ui/components/overlay/sheet";
 import {Button} from "~/ui/components/control/button";
 import {parseCurrency} from "~/currency/utils";
+
+import {cn} from "@/modules/ui/utils";
 
 import {getCartItemPrice} from "../utils";
 
@@ -54,18 +58,26 @@ function CartItemDrawer({
   return (
     <Sheet onOpenChange={(isOpen) => !isOpen && onClose()} {...props}>
       <SheetContent className="grid grid-rows-[auto_1fr_auto]" size="sm">
-        <SheetHeader className="pr-8 text-left">
-          <SheetTitle className="text-2xl font-medium">{item.title}</SheetTitle>
+        <SheetHeader className="z-20 -mx-4">
+          <SheetClose className="ml-auto h-12 w-14 rounded-l-lg border border-border bg-background py-2 pl-2 pr-4 shadow-lg">
+            <X className="h-8 w-8" />
+          </SheetClose>
         </SheetHeader>
 
-        <div className="overflow-y-auto" data-testid="cart-item-drawer">
+        <div
+          className={cn("overflow-y-auto", {"-mt-16": item.image})}
+          data-testid="cart-item-drawer"
+        >
           <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-4">
-              <img
-                alt={item.title}
-                className="h-[240px] w-full bg-secondary object-contain"
-                src={item.image}
-              />
+            <div className="flex flex-col gap-2">
+              {Boolean(item.image) && (
+                <img
+                  alt={item.title}
+                  className="h-[240px] w-full bg-secondary object-contain sm:h-[320px]"
+                  src={item.image}
+                />
+              )}
+              <SheetTitle className="text-2xl font-medium">{item.title}</SheetTitle>
               <SheetDescription className="text-md text-muted-foreground sm:text-lg">
                 {item.description}
               </SheetDescription>

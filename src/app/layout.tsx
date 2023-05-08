@@ -34,11 +34,11 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
                 className="h-32 rounded-lg object-cover sm:h-64"
                 src={store.banner}
               />
-              <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
-                <div className="-mt-20 rounded-full p-1 sm:-mt-16">
+              <div className="flex flex-col items-center gap-2 sm:flex-row sm:items-start sm:gap-4">
+                <div className="-mt-20 rounded-full p-1 sm:-mt-12">
                   <img
                     alt={store.title}
-                    className="h-32 w-32 rounded-full border-8 border-background"
+                    className="h-32 w-32 min-w-[128px] rounded-full border-8 border-background"
                     src={store.logo}
                   />
                 </div>
