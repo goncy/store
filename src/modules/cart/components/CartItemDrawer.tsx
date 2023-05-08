@@ -19,8 +19,7 @@ import {
 } from "~/ui/components/overlay/sheet";
 import {Button} from "~/ui/components/control/button";
 import {parseCurrency} from "~/currency/utils";
-
-import {cn} from "@/modules/ui/utils";
+import {cn} from "~/ui/utils";
 
 import {getCartItemPrice} from "../utils";
 

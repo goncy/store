@@ -13,9 +13,8 @@ import CartDrawer from "~/cart/components/CartDrawer";
 import {useCart} from "~/cart/context";
 import ProductCard from "~/product/components/ProductCard";
 import {Input} from "~/ui/components/form/input";
-
-import {Toggle} from "@/modules/ui/components/form/toggle";
-import {cn} from "@/modules/ui/utils";
+import {Toggle} from "~/ui/components/form/toggle";
+import {cn} from "~/ui/utils";
 
 function StoreScreen({
   fields,
