@@ -14,7 +14,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        brand: colors.zinc,
+        brand: colors[process.env.BRAND_COLOR] || colors.teal,
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
