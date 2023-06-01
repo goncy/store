@@ -31,13 +31,13 @@ export function getCartMessage(cart: Cart, checkout: Checkout): string {
           item.options && Object.keys(item.options).length > 0
             ? ` [${getCartItemOptionsSummary(item.options)}]`
             : ``
-        } - ${parseCurrency(getCartItemPrice(item))}\n`,
+        } - ${parseCurrency(getCartItemPrice(item))}`,
     )
     .join("\n");
   const fields = Array.from(checkout.entries())
-    .map(([key, value]) => `* ${key}: ${value}\n`)
+    .map(([key, value]) => `* ${key}: ${value}`)
     .join("\n");
   const total = `Total: ${parseCurrency(getCartTotal(cart))}`;
 
-  return [items, fields, total].join("\n");
+  return [items, fields, total].join("\n\n");
 }
