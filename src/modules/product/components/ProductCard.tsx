@@ -20,7 +20,7 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
         data-testid="product"
         onClick={() => setIsModalOpen(true)}
       >
-        <div className="flex h-full w-full gap-4 p-2">
+        <div className="flex h-full w-full gap-4 p-4">
           <div className="flex w-full flex-col justify-between gap-1">
             <div className="flex flex-col gap-1">
               <p className="line-clamp-[1] font-medium sm:line-clamp-[2]">{product.title}</p>
