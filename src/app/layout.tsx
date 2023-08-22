@@ -26,9 +26,9 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
     <html lang="es">
       <head />
       <body>
-        <div className="m-auto max-w-screen-xl rounded-sm">
-          <ThemeProvider>
-            <header className="mb-4 flex flex-col gap-4 px-4 pt-4">
+        <ThemeProvider>
+          <div className="m-auto max-w-screen-xl rounded-sm">
+            <header className="flex flex-col gap-4 p-4">
               <img
                 alt={store.title}
                 className="h-32 rounded-lg object-cover sm:h-64"
@@ -95,8 +95,8 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
               </p>
               {/* Fin de copyright */}
             </footer>
-          </ThemeProvider>
-        </div>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

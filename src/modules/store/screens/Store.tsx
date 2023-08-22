@@ -111,18 +111,14 @@ function StoreScreen({products}: {products: Product[]}) {
       <div className="flex flex-col">
         {categories.length ? (
           categories.map(([category, categoryProducts]) => (
-            <div
-              key={category}
-              className="flex flex-col gap-4 border-t py-4 sm:gap-8 sm:py-8"
-              id={category}
-            >
+            <div key={category} className="flex flex-col gap-4 border-t py-4" id={category}>
               <div
                 className={cn("flex items-center justify-between gap-4", {
                   "cursor-pointer": layout === "list",
                 })}
                 onClick={() => handleSelectCategory(category)}
               >
-                <h2 className="text-xl font-semibold sm:text-2xl">
+                <h2 className="text-xl font-medium sm:text-2xl">
                   {category} <span className="opacity-70">({categoryProducts.length})</span>
                 </h2>
                 {layout === "list" && <ChevronDown className="h-6 w-6 opacity-40" />}
