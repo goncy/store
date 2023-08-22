@@ -3,9 +3,11 @@
 import type {Product} from "~/product/types";
 
 import {useRouter} from "next/navigation";
+import Link from "next/link";
 
 import ProductCard from "~/product/components/ProductCard";
 import {useCart} from "~/cart/context/client";
+import {Button} from "~/ui/components/control/button";
 
 export default function ProductPageClient({product}: {product: Product}) {
   const [, {addItem}] = useCart();
@@ -16,5 +18,12 @@ export default function ProductPageClient({product}: {product: Product}) {
     router.push("/");
   }
 
-  return <ProductCard key={product.id} product={product} onAdd={handleAddToCart} />;
+  return (
+    <div className="flex flex-col gap-4 py-4">
+      <ProductCard key={product.id} product={product} onAdd={handleAddToCart} />
+      <Link className="text-center" href="/">
+        <Button variant="link">Volver al catálogo</Button>
+      </Link>
+    </div>
+  );
 }
