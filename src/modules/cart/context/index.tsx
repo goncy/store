@@ -1,11 +1,18 @@
-import api from "~/cart/api";
+import storeApi from "~/store/api";
+
+import cartApi from "../api";
 
 import CartProviderClient from "./client";
 
 const CartProvider = async ({children}: {children: React.ReactNode}) => {
-  const fields = await api.list();
+  const fields = await cartApi.list();
+  const store = await storeApi.fetch();
 
-  return <CartProviderClient fields={fields}>{children}</CartProviderClient>;
+  return (
+    <CartProviderClient fields={fields} store={store}>
+      {children}
+    </CartProviderClient>
+  );
 };
 
 export default CartProvider;

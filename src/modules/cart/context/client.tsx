@@ -1,11 +1,15 @@
 "use client";
 
+import type {Store} from "~/store/types";
+
 import type {Cart, CartItem, Checkout, Field} from "../types";
 
 import {useState, useMemo, useCallback, useContext, createContext} from "react";
 
+import {Button} from "~/ui/components/control/button";
 import {parseCurrency} from "~/currency/utils";
 
+import CartDrawer from "../components/CartDrawer";
 import {getCartMessage, getCartTotal} from "../utils";
 
 interface Context {
@@ -26,9 +30,18 @@ interface Context {
 
 const CartContext = createContext({} as Context);
 
-function CartProviderClient(props: {fields: Field[]; children: React.ReactNode}) {
+function CartProviderClient({
+  fields,
+  children,
+  store,
+}: {
+  fields: Field[];
+  children: React.ReactNode;
+  store: Store;
+}) {
   const [checkout, setCheckout] = useState<Checkout>(() => new Map());
   const [cart, setCart] = useState<Cart>(() => new Map());
+  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const total = useMemo(() => parseCurrency(getCartTotal(cart)), [cart]);
   const quantity = useMemo(
     () => Array.from(cart.values()).reduce((acc, item) => acc + item.quantity, 0),
@@ -81,7 +94,40 @@ function CartProviderClient(props: {fields: Field[]; children: React.ReactNode})
     [updateItem, updateField, addItem, removeItem],
   );
 
-  return <CartContext.Provider value={{state, actions}}>{props.children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={{state, actions}}>
+      <>
+        {children}
+        {/* Cart button */}
+        {Boolean(quantity) && (
+          <div className="sticky bottom-0 flex content-center items-center pb-4 sm:m-auto sm:pb-8">
+            <Button
+              aria-label="Ver pedido"
+              className="m-auto w-full shadow-lg sm:w-fit"
+              data-testid="show-cart"
+              size="lg"
+              variant="brand"
+              onClick={() => setIsCartOpen(true)}
+            >
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3">
+                  <p className="leading-6">Ver pedido</p>
+                  <p className="rounded-sm bg-black/25 px-2 py-1 text-xs font-semibold text-white/90">
+                    {quantity} item
+                  </p>
+                </div>
+                <p className="leading-6">{total}</p>
+              </div>
+            </Button>
+          </div>
+        )}
+        {/* Cart Drawer */}
+        {Boolean(isCartOpen) && (
+          <CartDrawer fields={fields} store={store} onClose={() => setIsCartOpen(false)} />
+        )}
+      </>
+    </CartContext.Provider>
+  );
 }
 
 export function useCart(): [Context["state"], Context["actions"]] {
