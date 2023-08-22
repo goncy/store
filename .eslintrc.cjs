@@ -38,6 +38,7 @@ module.exports = {
         plugins: ["prettier-plugin-tailwindcss"],
       },
     ],
+    "react/no-array-index-key": "off",
     "@typescript-eslint/no-shadow": "off",
     "import/order": [
       "warn",
