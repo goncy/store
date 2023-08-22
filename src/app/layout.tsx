@@ -3,9 +3,9 @@ import type {Metadata} from "next";
 import api from "~/store/api";
 import WhatsappIcon from "~/ui/components/icons/whatsapp";
 import InstagramIcon from "~/ui/components/icons/instagram";
-
-import Providers from "./_components/providers";
-import {ThemeToggle} from "./_components/theme-toggle";
+import CartProvider from "~/cart/context";
+import ThemeProvider from "~/theme/context";
+import ThemeToggle from "~/theme/components/ThemeToggle";
 
 import "./globals.css";
 
@@ -27,7 +27,7 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
       <head />
       <body>
         <div className="m-auto max-w-screen-xl rounded-sm">
-          <Providers>
+          <ThemeProvider>
             <header className="mb-4 flex flex-col gap-4 px-4 pt-4">
               <img
                 alt={store.title}
@@ -76,7 +76,9 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
                 </div>
               </div>
             </header>
-            <main className="px-4">{children}</main>
+            <main className="px-4">
+              <CartProvider>{children}</CartProvider>
+            </main>
             <footer className="px-4">
               {/* Inicio de copyright - Cambiar el contenido de los mismos viola el contenido de los terminos de licencia */}
               <p className="sm:text-md border-t py-4 text-center text-sm text-muted-foreground">
@@ -93,7 +95,7 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
               </p>
               {/* Fin de copyright */}
             </footer>
-          </Providers>
+          </ThemeProvider>
         </div>
       </body>
     </html>

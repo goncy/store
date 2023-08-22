@@ -1,6 +1,7 @@
 import type {Option as IOption, Product as IProduct} from "./types";
 
 import Papa from "papaparse";
+import {notFound} from "next/navigation";
 
 interface RawOption extends IOption {
   type: "option";
@@ -103,7 +104,7 @@ function normalize(data: (RawProduct | RawOption | RawUnknown)[]) {
   return normalized;
 }
 
-export default {
+const api = {
   list: async (): Promise<IProduct[]> => {
     return fetch(process.env.PRODUCTS_CSV!).then(async (response) => {
       const csv = await response.text();
@@ -121,6 +122,14 @@ export default {
       });
     });
   },
+  fetch: async (id: IProduct["id"]): Promise<IProduct> => {
+    const products = await api.list();
+    const product = products.find((product) => product.id === id);
+
+    if (!product) return notFound();
+
+    return product;
+  },
   mock: {
     list: (mock: string): Promise<IProduct[]> =>
       import(`./mocks/${mock}.json`).then((result: {default: (RawProduct | RawOption)[]}) =>
@@ -128,3 +137,5 @@ export default {
       ),
   },
 };
+
+export default api;

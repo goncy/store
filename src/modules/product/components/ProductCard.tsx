@@ -1,3 +1,5 @@
+"use client";
+
 import type {CartItem} from "~/cart/types";
 
 import type {Product} from "../types";

@@ -16,7 +16,7 @@ import {
 import {Button} from "~/ui/components/control/button";
 import WhatsappIcon from "~/ui/components/icons/whatsapp";
 
-import {useCart} from "../../context";
+import {useCart} from "../../context/client";
 
 import Details from "./Details";
 import Fields from "./Fields";

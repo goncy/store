@@ -1,12 +1,12 @@
 "use client";
 
-import type {Cart, CartItem, Checkout, Field} from "./types";
+import type {Cart, CartItem, Checkout, Field} from "../types";
 
 import {useState, useMemo, useCallback, useContext, createContext} from "react";
 
 import {parseCurrency} from "~/currency/utils";
 
-import {getCartMessage, getCartTotal} from "./utils";
+import {getCartMessage, getCartTotal} from "../utils";
 
 interface Context {
   state: {
@@ -26,7 +26,7 @@ interface Context {
 
 const CartContext = createContext({} as Context);
 
-function CartProvider(props: {fields: Field[]; children: React.ReactNode}) {
+function CartProviderClient(props: {fields: Field[]; children: React.ReactNode}) {
   const [checkout, setCheckout] = useState<Checkout>(() => new Map());
   const [cart, setCart] = useState<Cart>(() => new Map());
   const total = useMemo(() => parseCurrency(getCartTotal(cart)), [cart]);
@@ -90,4 +90,4 @@ export function useCart(): [Context["state"], Context["actions"]] {
   return [state, actions];
 }
 
-export default CartProvider;
+export default CartProviderClient;

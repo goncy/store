@@ -4,7 +4,7 @@ import * as React from "react";
 import {render, screen, within} from "@testing-library/react";
 
 import CartDrawer from "../CartDrawer";
-import * as cartContext from "../../../context";
+import * as cartContext from "../../../context/client";
 
 jest.mock("../../../context");
 

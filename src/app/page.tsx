@@ -1,7 +1,6 @@
 import productApi from "~/product/api";
 import cartApi from "~/cart/api";
 import storeApi from "~/store/api";
-import CartProvider from "~/cart/context";
 import StoreScreen from "~/store/screens/Store";
 
 const IndexRoute = async () => {
@@ -9,11 +8,7 @@ const IndexRoute = async () => {
   const fields = await cartApi.list();
   const store = await storeApi.fetch();
 
-  return (
-    <CartProvider fields={fields}>
-      <StoreScreen fields={fields} products={products} store={store} />
-    </CartProvider>
-  );
+  return <StoreScreen fields={fields} products={products} store={store} />;
 };
 
 export default IndexRoute;

@@ -10,7 +10,7 @@ import {SearchIcon, X, Table, StretchHorizontal, ChevronDown} from "lucide-react
 
 import {Button} from "~/ui/components/control/button";
 import CartDrawer from "~/cart/components/CartDrawer";
-import {useCart} from "~/cart/context";
+import {useCart} from "~/cart/context/client";
 import ProductCard from "~/product/components/ProductCard";
 import {Input} from "~/ui/components/form/input";
 import {Toggle} from "~/ui/components/form/toggle";

@@ -2,9 +2,8 @@ import productApi from "~/product/api";
 import cartApi from "~/cart/api";
 import storeApi from "~/store/api";
 import StoreScreen from "~/store/screens/Store";
-import CartProvider from "~/cart/context";
 
-const IndexMockRoute = async ({
+const IndexMockPage = async ({
   params: {mock},
 }: {
   params: {
@@ -15,11 +14,7 @@ const IndexMockRoute = async ({
   const store = await storeApi.mock.fetch(mock);
   const fields = await cartApi.mock.list(mock);
 
-  return (
-    <CartProvider fields={fields}>
-      <StoreScreen fields={fields} products={products} store={store} />
-    </CartProvider>
-  );
+  return <StoreScreen fields={fields} products={products} store={store} />;
 };
 
-export default IndexMockRoute;
+export default IndexMockPage;
