@@ -40,7 +40,7 @@ function normalize(data: RawField[]): IField[] {
 
 export default {
   list: async (): Promise<IField[]> => {
-    return fetch(process.env.FIELDS_CSV!).then(async (response) => {
+    return fetch(process.env.FIELDS_CSV!, {next: {tags: ["fields"]}}).then(async (response) => {
       const csv = await response.text();
 
       return new Promise<IField[]>((resolve, reject) => {
