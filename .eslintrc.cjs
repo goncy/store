@@ -84,9 +84,11 @@ module.exports = {
     ],
     "@next/next/no-img-element": "off",
     "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/prefer-promise-reject-errors": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unused-vars": [

@@ -20,7 +20,9 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
         key={product.id}
         className="border-white/300 flex cursor-pointer items-center justify-between gap-3 rounded-md border"
         data-testid="product"
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+          setIsModalOpen(true);
+        }}
       >
         <div className="flex h-full w-full gap-4 p-4">
           <div className="flex w-full flex-col justify-between gap-1">
@@ -37,12 +39,12 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
           {product.image ? (
             <img
               alt={product.title}
-              className="min-w-24 sm:min-w-36 aspect-square h-24 w-24 rounded-md bg-muted/50 object-cover sm:h-36 sm:w-36"
+              className="aspect-square h-24 w-24 min-w-24 rounded-md bg-muted/50 object-cover sm:h-36 sm:w-36 sm:min-w-36"
               loading="lazy"
               src={product.image}
             />
           ) : (
-            <div className="min-w-24 sm:min-w-36 flex aspect-square h-24 w-24 items-center justify-center rounded-md bg-muted/50 object-cover sm:h-36 sm:w-36">
+            <div className="flex aspect-square h-24 w-24 min-w-24 items-center justify-center rounded-md bg-muted/50 object-cover sm:h-36 sm:w-36 sm:min-w-36">
               <ImageOff className="m-auto h-12 w-12 opacity-10 sm:h-16 sm:w-16" />
             </div>
           )}
@@ -52,7 +54,9 @@ function ProductCard({product, onAdd}: {product: Product; onAdd: (product: Produ
         <CartItemDrawer
           open
           item={cartItem}
-          onClose={() => setIsModalOpen(false)}
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
           onSubmit={(item: CartItem) => {
             onAdd(item);
             setIsModalOpen(false);

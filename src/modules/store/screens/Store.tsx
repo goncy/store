@@ -78,12 +78,16 @@ function StoreScreen({products}: {products: Product[]}) {
             className="px-9"
             placeholder="Buscar..."
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => {
+              setQuery(event.target.value);
+            }}
           />
           {Boolean(query) && (
             <X
               className="absolute right-3 h-4 w-4 cursor-pointer opacity-40"
-              onClick={() => setQuery("")}
+              onClick={() => {
+                setQuery("");
+              }}
             />
           )}
         </div>
@@ -91,7 +95,9 @@ function StoreScreen({products}: {products: Product[]}) {
           <Toggle
             aria-label="Vista de lista"
             pressed={layout === "list"}
-            onClick={() => setLayout("list")}
+            onClick={() => {
+              setLayout("list");
+            }}
           >
             <div className="text-2xl">
               <StretchHorizontal className="h-6 w-6 cursor-pointer opacity-40" />
@@ -100,7 +106,9 @@ function StoreScreen({products}: {products: Product[]}) {
           <Toggle
             aria-label="Vista de grilla"
             pressed={layout === "grid"}
-            onClick={() => setLayout("grid")}
+            onClick={() => {
+              setLayout("grid");
+            }}
           >
             <div className="text-2xl">
               <Table className="h-6 w-6 cursor-pointer opacity-40" />
@@ -117,7 +125,9 @@ function StoreScreen({products}: {products: Product[]}) {
                 className={cn("flex items-center justify-between gap-4", {
                   "cursor-pointer": layout === "list",
                 })}
-                onClick={() => handleSelectCategory(category)}
+                onClick={() => {
+                  handleSelectCategory(category);
+                }}
               >
                 <h2 className="text-xl font-medium sm:text-2xl">
                   {category} <span className="opacity-70">({categoryProducts.length})</span>
@@ -131,7 +141,9 @@ function StoreScreen({products}: {products: Product[]}) {
                       <ProductCard
                         key={product.id}
                         product={product}
-                        onAdd={(item: Product) => addItem(Date.now(), {...item, quantity: 1})}
+                        onAdd={(item: Product) => {
+                          addItem(Date.now(), {...item, quantity: 1});
+                        }}
                       />
                     ))
                   ) : (

@@ -36,14 +36,16 @@ function CartDrawer({
 
   function handleUpdateCart(id: number, item: CartItem) {
     if (!item.quantity) {
-      return removeItem(id);
+      removeItem(id);
+
+      return;
     }
 
-    return updateItem(id, item);
+    updateItem(id, item);
   }
 
   function handleUpdateField(id: string, value: string) {
-    return updateField(id, value);
+    updateField(id, value);
   }
 
   useEffect(() => {
@@ -82,7 +84,9 @@ function CartDrawer({
                 data-testid="continue-order"
                 size="lg"
                 variant="brand"
-                onClick={() => setCurrentStep("fields")}
+                onClick={() => {
+                  setCurrentStep("fields");
+                }}
               >
                 Continuar
               </Button>
@@ -95,7 +99,9 @@ function CartDrawer({
                 className="w-full"
                 size="lg"
                 variant="ghost"
-                onClick={() => setCurrentStep("details")}
+                onClick={() => {
+                  setCurrentStep("details");
+                }}
               >
                 Revisar pedido
               </Button>

@@ -108,7 +108,9 @@ function CartProviderClient({
               data-testid="show-cart"
               size="lg"
               variant="brand"
-              onClick={() => setIsCartOpen(true)}
+              onClick={() => {
+                setIsCartOpen(true);
+              }}
             >
               <div className="flex items-center gap-6">
                 <div className="flex items-center gap-3">
@@ -124,7 +126,13 @@ function CartProviderClient({
         )}
         {/* Cart Drawer */}
         {Boolean(isCartOpen) && (
-          <CartDrawer fields={fields} store={store} onClose={() => setIsCartOpen(false)} />
+          <CartDrawer
+            fields={fields}
+            store={store}
+            onClose={() => {
+              setIsCartOpen(false);
+            }}
+          />
         )}
       </>
     </CartContext.Provider>

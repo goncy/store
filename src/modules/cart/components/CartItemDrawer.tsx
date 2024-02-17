@@ -91,7 +91,9 @@ function CartItemDrawer({
                               <RadioGroupItem
                                 id={option.title}
                                 value={option.title}
-                                onClick={() => handleSelectOption(option)}
+                                onClick={() => {
+                                  handleSelectOption(option);
+                                }}
                               />
                               <Label htmlFor={option.title}>
                                 <div className="flex w-full justify-between">
@@ -127,7 +129,14 @@ function CartItemDrawer({
               <p>Total</p>
               <p>{total}</p>
             </div>
-            <Button className="w-full" size="lg" variant="brand" onClick={() => onSubmit(formData)}>
+            <Button
+              className="w-full"
+              size="lg"
+              variant="brand"
+              onClick={() => {
+                onSubmit(formData);
+              }}
+            >
               Agregar al pedido
             </Button>
           </div>

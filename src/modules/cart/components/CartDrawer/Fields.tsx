@@ -12,7 +12,15 @@ function TextField({
 }: Omit<React.ComponentProps<typeof Input>, "onChange"> & {
   onChange: (value: string) => void;
 }) {
-  return <Input value={value} onChange={(e) => onChange(e.target.value)} {...props} />;
+  return (
+    <Input
+      value={value}
+      onChange={(e) => {
+        onChange(e.target.value);
+      }}
+      {...props}
+    />
+  );
 }
 
 function RadioField({
@@ -59,14 +67,18 @@ function Fields({
               <TextField
                 placeholder={field.placeholder}
                 value={checkout.get(field.title) || ""}
-                onChange={(value: string) => onChange(field.title, value)}
+                onChange={(value: string) => {
+                  onChange(field.title, value);
+                }}
               />
             )}
             {field.type === "radio" && (
               <RadioField
                 options={field.options}
                 value={checkout.get(field.title) || ""}
-                onChange={(value: string) => onChange(field.title, value)}
+                onChange={(value: string) => {
+                  onChange(field.title, value);
+                }}
               />
             )}
             {field.note ? <Alert>{field.note}</Alert> : null}

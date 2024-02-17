@@ -1,7 +1,8 @@
 import type {Cart, CartItem} from "../../types";
 
-import {Button} from "@/components/ui/button";
 import {parseCurrency} from "~/currency/utils";
+
+import {Button} from "@/components/ui/button";
 
 import {getCartItemPrice, getCartItemOptionsSummary} from "../../utils";
 
@@ -26,9 +27,10 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: number, item: Car
               <Button
                 className="text-md h-6 w-6 rounded-full"
                 data-testid="decrement"
-                size="xs"
                 variant="brand"
-                onClick={() => onChange(id, {...item, quantity: item.quantity - 1})}
+                onClick={() => {
+                  onChange(id, {...item, quantity: item.quantity - 1});
+                }}
               >
                 {" "}
                 -{" "}
@@ -39,9 +41,10 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: number, item: Car
               <Button
                 className="text-md h-6 w-6 rounded-full"
                 data-testid="increment"
-                size="xs"
                 variant="brand"
-                onClick={() => onChange(id, {...item, quantity: item.quantity + 1})}
+                onClick={() => {
+                  onChange(id, {...item, quantity: item.quantity + 1});
+                }}
               >
                 {" "}
                 +{" "}
