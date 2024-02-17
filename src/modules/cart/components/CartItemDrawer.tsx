@@ -95,14 +95,14 @@ function CartItemDrawer({
                                   handleSelectOption(option);
                                 }}
                               />
-                              <Label htmlFor={option.title}>
-                                <div className="flex w-full justify-between">
+                              <Label className="w-full" htmlFor={option.title}>
+                                <div className="flex w-full items-center justify-between gap-2">
                                   <p>{option.title}</p>
                                   {Boolean(option.price) && (
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-lg leading-tight text-muted-foreground">
+                                    <div className="flex items-center gap-1">
+                                      <p className="text-muted-foreground">
                                         {option.price < 0 ? "-" : "+"}
-                                      </span>
+                                      </p>
                                       <p className="font-medium">
                                         {parseCurrency(Math.abs(option.price))}
                                       </p>
