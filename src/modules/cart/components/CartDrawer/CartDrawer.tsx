@@ -12,9 +12,9 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "~/ui/components/overlay/sheet";
-import {Button} from "~/ui/components/control/button";
-import WhatsappIcon from "~/ui/components/icons/whatsapp";
+} from "@/components/ui/sheet";
+import {Button} from "@/components/ui/button";
+import WhatsappIcon from "@/components/icons/whatsapp";
 
 import {useCart} from "../../context/client";
 
@@ -54,9 +54,9 @@ function CartDrawer({
 
   return (
     <Sheet open onOpenChange={(_isOpen) => !_isOpen && onClose()} {...props}>
-      <SheetContent className="grid grid-cols-1 grid-rows-[auto_1fr_auto]" size="sm">
+      <SheetContent className="grid grid-cols-1 grid-rows-[auto_1fr_auto]">
         <SheetHeader>
-          <SheetClose className="-mx-4 ml-auto h-12 w-14 rounded-l-lg border border-border bg-background py-2 pl-2 pr-4 shadow-lg">
+          <SheetClose className="-mx-6 ml-auto h-12 w-14 rounded-l-lg border border-border bg-background py-2 pl-2 pr-4 shadow-lg">
             <X className="h-8 w-8" />
           </SheetClose>
           <SheetTitle className="text-left text-2xl font-medium">Tu pedido</SheetTitle>

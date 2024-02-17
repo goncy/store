@@ -7,9 +7,10 @@ import {SearchIcon, X, Table, StretchHorizontal, ChevronDown} from "lucide-react
 
 import {useCart} from "~/cart/context/client";
 import ProductCard from "~/product/components/ProductCard";
-import {Input} from "~/ui/components/form/input";
-import {Toggle} from "~/ui/components/form/toggle";
-import {cn} from "~/ui/utils";
+
+import {cn} from "@/lib/utils";
+import {Input} from "@/components/ui/input";
+import {Toggle} from "@/components/ui/toggle";
 
 function StoreScreen({products}: {products: Product[]}) {
   const [, {addItem}] = useCart();

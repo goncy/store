@@ -7,7 +7,8 @@ import Link from "next/link";
 
 import ProductCard from "~/product/components/ProductCard";
 import {useCart} from "~/cart/context/client";
-import {Button} from "~/ui/components/control/button";
+
+import {Button} from "@/components/ui/button";
 
 export default function ProductPageClient({product}: {product: Product}) {
   const [, {addItem}] = useCart();

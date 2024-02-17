@@ -1,11 +1,12 @@
 import type {Metadata} from "next";
 
 import api from "~/store/api";
-import WhatsappIcon from "~/ui/components/icons/whatsapp";
-import InstagramIcon from "~/ui/components/icons/instagram";
 import CartProvider from "~/cart/context";
 import ThemeProvider from "~/theme/context";
 import ThemeToggle from "~/theme/components/ThemeToggle";
+
+import InstagramIcon from "@/components/icons/instagram";
+import WhatsappIcon from "@/components/icons/whatsapp";
 
 import "./globals.css";
 
@@ -15,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: store.title,
     description: store.subtitle,
-    themeColor: "#ffffff",
+    themeColor: "#09090b",
   };
 }
 
@@ -23,9 +24,9 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
   const store = await api.fetch();
 
   return (
-    <html lang="es">
+    <html suppressHydrationWarning lang="es">
       <head />
-      <body>
+      <body className="font-sans antialiased">
         <ThemeProvider>
           <div className="m-auto max-w-screen-xl rounded-sm">
             <header className="flex flex-col gap-4 p-4">

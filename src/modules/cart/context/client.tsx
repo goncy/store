@@ -6,8 +6,9 @@ import type {Cart, CartItem, Checkout, Field} from "../types";
 
 import {useState, useMemo, useCallback, useContext, createContext} from "react";
 
-import {Button} from "~/ui/components/control/button";
 import {parseCurrency} from "~/currency/utils";
+
+import {Button} from "@/components/ui/button";
 
 import CartDrawer from "../components/CartDrawer";
 import {getCartMessage, getCartTotal} from "../utils";

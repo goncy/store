@@ -1,9 +1,9 @@
 import type {Checkout, Field} from "../../types";
 
-import {Alert} from "~/ui/components/feedback/alert";
-import {Input} from "~/ui/components/form/input";
-import {RadioGroup, RadioGroupItem} from "~/ui/components/form/radio-group";
-import {Label} from "~/ui/components/form/label";
+import {Alert} from "@/components/ui/alert";
+import {Input} from "@/components/ui/input";
+import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
+import {Label} from "@/components/ui/label";
 
 function TextField({
   value,

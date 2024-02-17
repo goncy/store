@@ -6,8 +6,10 @@ import type {ComponentProps} from "react";
 import {useState, useMemo} from "react";
 import {X} from "lucide-react";
 
-import {RadioGroup, RadioGroupItem} from "~/ui/components/form/radio-group";
-import {Label} from "~/ui/components/form/label";
+import {parseCurrency} from "~/currency/utils";
+
+import {cn} from "@/lib/utils";
+import {Button} from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -16,10 +18,9 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "~/ui/components/overlay/sheet";
-import {Button} from "~/ui/components/control/button";
-import {parseCurrency} from "~/currency/utils";
-import {cn} from "~/ui/utils";
+} from "@/components/ui/sheet";
+import {Label} from "@/components/ui/label";
+import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 
 import {getCartItemPrice} from "../utils";
 
@@ -52,9 +53,9 @@ function CartItemDrawer({
 
   return (
     <Sheet onOpenChange={(isOpen) => !isOpen && onClose()} {...props}>
-      <SheetContent className="grid grid-rows-[auto_1fr_auto]" size="sm">
-        <SheetHeader className="z-20 -mx-4">
-          <SheetClose className="ml-auto h-12 w-14 rounded-l-lg border border-border bg-background py-2 pl-2 pr-4 shadow-lg">
+      <SheetContent className="grid grid-rows-[auto_1fr_auto]">
+        <SheetHeader>
+          <SheetClose className="z-20 -mx-6 ml-auto h-12 w-14 rounded-l-lg border border-border bg-background py-2 pl-2 pr-4 shadow-lg">
             <X className="h-8 w-8" />
           </SheetClose>
         </SheetHeader>

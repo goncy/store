@@ -1,9 +1,16 @@
-const colors = require("tailwindcss/colors");
+import type {Config} from "tailwindcss";
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import colors from "tailwindcss/colors";
+
+const config = {
   darkMode: ["class"],
-  content: ["./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
+  prefix: "",
   theme: {
     container: {
       center: true,
@@ -14,7 +21,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        brand: colors[process.env.COLOR] || colors.teal,
+        brand: colors[process.env.COLOR!] || colors.teal,
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -60,12 +67,12 @@ module.exports = {
       },
       keyframes: {
         "accordion-down": {
-          from: {height: 0},
+          from: {height: "0"},
           to: {height: "var(--radix-accordion-content-height)"},
         },
         "accordion-up": {
           from: {height: "var(--radix-accordion-content-height)"},
-          to: {height: 0},
+          to: {height: "0"},
         },
       },
       animation: {
@@ -75,4 +82,6 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-};
+} satisfies Config;
+
+export default config;

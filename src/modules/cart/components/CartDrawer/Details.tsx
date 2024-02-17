@@ -1,6 +1,6 @@
 import type {Cart, CartItem} from "../../types";
 
-import {Button} from "~/ui/components/control/button";
+import {Button} from "@/components/ui/button";
 import {parseCurrency} from "~/currency/utils";
 
 import {getCartItemPrice, getCartItemOptionsSummary} from "../../utils";
