@@ -4,7 +4,7 @@ import Papa from "papaparse";
 
 export default {
   fetch: async (): Promise<IStore> => {
-    return fetch(process.env.STORE_CSV!, {next: {tags: ["store"]}}).then(async (response) => {
+    return fetch(process.env.STORE!, {next: {tags: ["store"]}}).then(async (response) => {
       const csv = await response.text();
 
       return new Promise<IStore>((resolve, reject) => {

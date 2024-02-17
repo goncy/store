@@ -106,7 +106,7 @@ function normalize(data: (RawProduct | RawOption | RawUnknown)[]) {
 
 const api = {
   list: async (): Promise<IProduct[]> => {
-    return fetch(process.env.PRODUCTS_CSV!, {next: {tags: ["products"]}}).then(async (response) => {
+    return fetch(process.env.PRODUCTS!, {next: {tags: ["products"]}}).then(async (response) => {
       const csv = await response.text();
 
       return new Promise<IProduct[]>((resolve, reject) => {

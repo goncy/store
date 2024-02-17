@@ -1,9 +1,13 @@
+import type {NextRequest} from "next/server";
+
 import {revalidateTag} from "next/cache";
 import {NextResponse} from "next/server";
 
-export const dynamic = "force-dynamic";
+export function GET(request: NextRequest) {
+  if (request.nextUrl.searchParams.get("secret") !== process.env.SECRET!) {
+    return new Response("Unauthorized", {status: 401});
+  }
 
-export function GET() {
   revalidateTag("products");
   revalidateTag("store");
   revalidateTag("fields");
