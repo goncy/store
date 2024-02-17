@@ -1,5 +1,7 @@
 import type {Cart, CartItem} from "../../types";
 
+import {MinusIcon, PlusIcon} from "lucide-react";
+
 import {parseCurrency} from "~/currency/utils";
 
 import {Button} from "@/components/ui/button";
@@ -25,29 +27,27 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: number, item: Car
             </div>
             <div className="flex gap-2">
               <Button
-                className="text-md h-6 w-6 rounded-full"
+                className="text-md h-6 w-6 rounded-full p-0.5"
                 data-testid="decrement"
                 variant="brand"
                 onClick={() => {
                   onChange(id, {...item, quantity: item.quantity - 1});
                 }}
               >
-                {" "}
-                -{" "}
+                <MinusIcon className="h-6 w-6" />
               </Button>
               <p className="min-w-[24px] text-center font-medium" data-testid="quantity">
                 {item.quantity}
               </p>
               <Button
-                className="text-md h-6 w-6 rounded-full"
+                className="text-md h-6 w-6 rounded-full p-0.5"
                 data-testid="increment"
                 variant="brand"
                 onClick={() => {
                   onChange(id, {...item, quantity: item.quantity + 1});
                 }}
               >
-                {" "}
-                +{" "}
+                <PlusIcon className="h-6 w-6" />
               </Button>
             </div>
           </div>

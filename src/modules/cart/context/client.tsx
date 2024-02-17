@@ -112,8 +112,8 @@ function CartProviderClient({
                 setIsCartOpen(true);
               }}
             >
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
                   <p className="leading-6">Ver pedido</p>
                   <p className="rounded-sm bg-black/25 px-2 py-1 text-xs font-semibold text-white/90">
                     {quantity} item
