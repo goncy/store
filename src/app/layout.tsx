@@ -16,7 +16,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: store.title,
     description: store.subtitle,
-    themeColor: "#09090b",
   };
 }
 
