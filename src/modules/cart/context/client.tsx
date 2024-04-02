@@ -104,7 +104,7 @@ function CartProviderClient({
           <div className="sticky bottom-0 flex content-center items-center pb-4 sm:m-auto">
             <Button
               aria-label="Ver pedido"
-              className="m-auto w-full shadow-lg sm:w-fit"
+              className="m-auto w-full px-4 shadow-lg sm:w-fit"
               data-testid="show-cart"
               size="lg"
               variant="brand"
@@ -112,7 +112,7 @@ function CartProviderClient({
                 setIsCartOpen(true);
               }}
             >
-              <div className="flex items-center gap-4">
+              <div className="flex w-full items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
                   <p className="leading-6">Ver pedido</p>
                   <p className="rounded-sm bg-black/25 px-2 py-1 text-xs font-semibold text-white/90">
