@@ -7,7 +7,11 @@ import StoreScreen from "@/modules/store/screens/Store";
 export async function generateStaticParams() {
   const products = await api.list();
 
-  return products.map((product) => ({product: [product.id]}));
+  // Build index for the home page and then for each product
+  return [{}].concat(products.map((product) => ({product: [product.id]}))) as Record<
+    string,
+    string[]
+  >[];
 }
 
 export async function generateMetadata({
