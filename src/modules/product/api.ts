@@ -106,6 +106,11 @@ function normalize(data: (RawProduct | RawOption | RawUnknown)[]) {
 
 const api = {
   list: async (): Promise<IProduct[]> => {
+    // Uncomment to use the mock data
+    // return await import(`./mocks/default.json`).then(
+    //   (module: {default: IProduct[]}) => module.default,
+    // );
+
     return fetch(process.env.PRODUCTS!, {next: {tags: ["products"]}}).then(async (response) => {
       const csv = await response.text();
 
@@ -123,18 +128,17 @@ const api = {
     });
   },
   fetch: async (id: IProduct["id"]): Promise<IProduct> => {
+    // Uncomment to use the mock data
+    // return await import(`./mocks/default.json`).then(
+    //   (module: {default: IProduct[]}) => module.default.find((product) => product.id === id)!,
+    // );
+
     const products = await api.list();
     const product = products.find((product) => product.id === id);
 
     if (!product) return notFound();
 
     return product;
-  },
-  mock: {
-    list: (mock: string): Promise<IProduct[]> =>
-      import(`./mocks/${mock}.json`).then((result: {default: (RawProduct | RawOption)[]}) =>
-        normalize(result.default),
-      ),
   },
 };
 

@@ -14,7 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const store = await api.fetch();
 
   return {
-    title: store.title,
+    title: {
+      template: `${store.title} - %s`,
+      default: store.title,
+    },
     description: store.subtitle,
   };
 }

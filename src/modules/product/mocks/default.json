@@ -1,7 +1,6 @@
 [
   {
     "id": "0IuD9ykfUAoAELVEjNRH",
-    "type": "product",
     "title": "Mayonesa Natura",
     "category": "Almacén",
     "description": "x250g",
@@ -10,7 +9,6 @@
   },
   {
     "id": "0Wbm9yWGTVW4RGjfLufg",
-    "type": "product",
     "title": "Yogur con Cereal",
     "category": "Lácteos",
     "description": "Frutilla",
@@ -19,7 +17,6 @@
   },
   {
     "id": "11KvooBabTehkfk4trF2",
-    "type": "product",
     "title": "Tostadas Riera Arroz",
     "category": "Almacén",
     "description": "De Arroz",
@@ -28,7 +25,6 @@
   },
   {
     "id": "1JpfEtgsaijIyJFKrjk9",
-    "type": "product",
     "title": "Hamburguesas",
     "category": "Congelados",
     "description": "Paty Express x4",
@@ -37,7 +33,6 @@
   },
   {
     "id": "1UAl7EkjE2ATXJwU8n6u",
-    "type": "product",
     "title": "Hamburguesas Paladini",
     "category": "Congelados",
     "description": "x2",
@@ -46,7 +41,6 @@
   },
   {
     "id": "1oO0lKuuCsb28Hwa8zsf",
-    "type": "product",
     "title": "Café Dolca",
     "category": "Almacén",
     "description": "170gr",
@@ -55,7 +49,6 @@
   },
   {
     "id": "2cK6HzXhzrl4MD8bUq62",
-    "type": "product",
     "title": "Flan Casero Light",
     "category": "Lácteos",
     "description": "X2 unidades",
@@ -64,7 +57,6 @@
   },
   {
     "id": "2uCz6HlKa54WrcZh5JC4",
-    "type": "product",
     "title": "Sorrentinos",
     "category": "Almacén",
     "description": "Tapamanía  Jamón y queso x 600g",
@@ -73,7 +65,6 @@
   },
   {
     "id": "2zppU2JpsnkwHw4VeWiC",
-    "type": "product",
     "title": "Puré Tomate",
     "category": "Almacén",
     "description": "Molto 200gr",
@@ -82,7 +73,6 @@
   },
   {
     "id": "3ABGMBJqzJEwYdHcUtvw",
-    "type": "product",
     "title": "Leche Larga vida",
     "category": "Lácteos",
     "description": "Descremada 1lt",
@@ -91,7 +81,6 @@
   },
   {
     "id": "3MH8zxiWhgVsjMHb03ke",
-    "type": "product",
     "title": "Crematto Light",
     "category": "Lácteos",
     "description": "Milkaut Light 290gr",
@@ -100,7 +89,6 @@
   },
   {
     "id": "3V7jlo7p0f3GQ9fAdBFr",
-    "type": "product",
     "title": "Yogursino Bebible",
     "category": "Lácteos",
     "description": "Frutilla 1lts",
@@ -109,7 +97,6 @@
   },
   {
     "id": "3VgpTuxg4a7T3GSiNhtG",
-    "type": "product",
     "title": "Cosecha Tardía Tinto",
     "category": "Bebidas con Alcohol",
     "description": "Norton 750ml",
@@ -118,47 +105,48 @@
   },
   {
     "id": "3hXkJop3XdtBdCoSnk5C",
-    "type": "product",
     "title": "Dulce de leche",
     "category": "Lácteos",
     "description": "Milkaut 400gr",
     "image": "https://loremflickr.com/500/500",
+    "options": {
+      "Peso": [
+        {
+          "id": "3hXkJop3XdtBdCoSnk5C",
+          "title": "1 KG",
+          "category": "Peso",
+          "description": "Pote edición limitada de 1 KG",
+          "image": "https://loremflickr.com/500/500",
+          "price": 50
+        },
+        {
+          "id": "3hXkJop3XdtBdCoSnk5C",
+          "title": "500 GR",
+          "category": "Peso",
+          "description": "Pote edición limitada de 500 GR",
+          "image": "https://loremflickr.com/500/500",
+          "price": 30
+        }
+      ],
+      "Calidad": [
+        {
+          "id": "3hXkJop3XdtBdCoSnk5C",
+          "title": "Baja",
+          "category": "Calidad",
+          "description": "Calidad baja",
+          "image": "https://loremflickr.com/500/500",
+          "price": 0
+        },
+        {
+          "id": "3hXkJop3XdtBdCoSnk5C",
+          "title": "Alta",
+          "category": "Calidad",
+          "description": "Validad alta",
+          "image": "https://loremflickr.com/500/500",
+          "price": 50
+        }
+      ]
+    },
     "price": 169
-  },
-  {
-    "id": "3hXkJop3XdtBdCoSnk5C",
-    "type": "option",
-    "title": "1 KG",
-    "category": "Peso",
-    "description": "Pote edición limitada de 1 KG",
-    "image": "https://loremflickr.com/500/500",
-    "price": 50
-  },
-  {
-    "id": "3hXkJop3XdtBdCoSnk5C",
-    "type": "option",
-    "title": "500 GR",
-    "category": "Peso",
-    "description": "Pote edición limitada de 500 GR",
-    "image": "https://loremflickr.com/500/500",
-    "price": 30
-  },
-  {
-    "id": "3hXkJop3XdtBdCoSnk5C",
-    "type": "option",
-    "title": "Baja",
-    "category": "Calidad",
-    "description": "Calidad baja",
-    "image": "https://loremflickr.com/500/500",
-    "price": 0
-  },
-  {
-    "id": "3hXkJop3XdtBdCoSnk5C",
-    "type": "option",
-    "title": "Alta",
-    "category": "Calidad",
-    "description": "Validad alta",
-    "image": "https://loremflickr.com/500/500",
-    "price": 50
   }
 ]

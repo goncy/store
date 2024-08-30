@@ -3,6 +3,7 @@
 import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import {cva, type VariantProps} from "class-variance-authority";
+import dynamic from "next/dynamic";
 
 import {cn} from "@/lib/utils";
 
@@ -53,17 +54,26 @@ interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
     VariantProps<typeof sheetVariants> {}
 
-const SheetContent = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Content>,
-  SheetContentProps
->(({side = "right", className, children, ...props}, ref) => (
-  <SheetPortal>
-    <SheetOverlay />
-    <SheetPrimitive.Content ref={ref} className={cn(sheetVariants({side}), className)} {...props}>
-      {children}
-    </SheetPrimitive.Content>
-  </SheetPortal>
-));
+const SheetContent = dynamic(
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async () =>
+    // eslint-disable-next-line react/display-name
+    React.forwardRef<React.ElementRef<typeof SheetPrimitive.Content>, SheetContentProps>(
+      ({side = "right", className, children, ...props}, ref) => (
+        <SheetPortal>
+          <SheetOverlay />
+          <SheetPrimitive.Content
+            ref={ref}
+            className={cn(sheetVariants({side}), className)}
+            {...props}
+          >
+            {children}
+          </SheetPrimitive.Content>
+        </SheetPortal>
+      ),
+    ),
+  {ssr: false},
+);
 
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
