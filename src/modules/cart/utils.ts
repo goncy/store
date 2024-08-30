@@ -39,5 +39,5 @@ export function getCartMessage(cart: Cart, checkout: Checkout): string {
     .join("\n");
   const total = `Total: ${parseCurrency(getCartTotal(cart))}`;
 
-  return [items, fields, total].join("\n\n");
+  return [items, fields, total].filter(Boolean).join("\n\n");
 }

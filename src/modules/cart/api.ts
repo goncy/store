@@ -39,22 +39,24 @@ function normalize(data: RawField[]): IField[] {
 }
 
 export default {
-  list: async (): Promise<IField[]> => {
-    return fetch(process.env.FIELDS!, {next: {tags: ["fields"]}}).then(async (response) => {
-      const csv = await response.text();
+  field: {
+    list: async (): Promise<IField[]> => {
+      return fetch(process.env.FIELDS!, {next: {tags: ["fields"]}}).then(async (response) => {
+        const csv = await response.text();
 
-      return new Promise<IField[]>((resolve, reject) => {
-        Papa.parse(csv, {
-          header: true,
-          complete: (results) => {
-            const data = normalize(results.data as RawField[]);
+        return new Promise<IField[]>((resolve, reject) => {
+          Papa.parse(csv, {
+            header: true,
+            complete: (results) => {
+              const data = normalize(results.data as RawField[]);
 
-            return resolve(data);
-          },
-          error: (error: Error) => reject(error.message),
+              return resolve(data);
+            },
+            error: (error: Error) => reject(error.message),
+          });
         });
       });
-    });
+    },
   },
   mock: {
     list: (mock: string): Promise<IField[]> =>
