@@ -143,7 +143,7 @@ function StoreScreen({products, selected}: {products: Product[]; selected: null 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {categoryProducts.length ? (
                       categoryProducts.map((product) => (
-                        <Link key={product.id} href={`/${product.id}`}>
+                        <Link key={product.id} href={`/${product.id}`} scroll={false}>
                           <ProductCard product={product} />
                         </Link>
                       ))
@@ -169,10 +169,10 @@ function StoreScreen({products, selected}: {products: Product[]; selected: null 
         <CartItemDrawer
           open
           item={{...selected!, quantity: 1}}
-          onClose={() => router.push("/")}
+          onClose={() => router.push("/", {scroll: false})}
           onSubmit={(item) => {
             addItem(Date.now(), item);
-            router.push("/");
+            router.push("/", {scroll: false});
           }}
         />
       )}
