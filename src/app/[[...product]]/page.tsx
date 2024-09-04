@@ -11,8 +11,12 @@ export const dynamicParams = false;
 export async function generateStaticParams() {
   const products = await api.list();
 
-  // Build index for the home page and then for each product
-  return products.map((product) => ({product: [product.id]})).concat({product: []});
+  return [
+    // Build index for the home page...
+    {},
+    // ...and for each product
+    ...products.map((product) => ({product: [product.id]})),
+  ];
 }
 
 export async function generateMetadata({
