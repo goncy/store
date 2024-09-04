@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 
   return [
     // Build index for the home page...
-    {},
+    {product: []},
     // ...and for each product
     ...products.map((product) => ({product: [product.id]})),
   ];
