@@ -6,14 +6,13 @@ import StoreScreen from "@/modules/store/screens/Store";
 
 export const dynamic = "force-static";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const products = await api.list();
 
   // Build index for the home page and then for each product
-  return [{}].concat(products.map((product) => ({product: [product.id]}))) as Record<
-    string,
-    string[]
-  >[];
+  return products.map((product) => ({product: [product.id]})).concat({product: []});
 }
 
 export async function generateMetadata({
