@@ -6,8 +6,6 @@ import StoreScreen from "@/modules/store/screens/Store";
 
 export const dynamic = "force-static";
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   const products = await api.list();
 
