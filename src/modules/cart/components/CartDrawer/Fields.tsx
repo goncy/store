@@ -66,7 +66,7 @@ function Fields({
             {field.type === "text" && (
               <TextField
                 placeholder={field.placeholder}
-                value={checkout.get(field.title) || ""}
+                value={checkout.get(field.title) ?? ""}
                 onChange={(value: string) => {
                   onChange(field.title, value);
                 }}
@@ -75,7 +75,7 @@ function Fields({
             {field.type === "radio" && (
               <RadioField
                 options={field.options}
-                value={checkout.get(field.title) || ""}
+                value={checkout.get(field.title) ?? ""}
                 onChange={(value: string) => {
                   onChange(field.title, value);
                 }}

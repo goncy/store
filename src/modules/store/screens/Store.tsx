@@ -143,12 +143,7 @@ function StoreScreen({products, selected}: {products: Product[]; selected: null 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {categoryProducts.length ? (
                       categoryProducts.map((product) => (
-                        <Link
-                          key={product.id}
-                          href={`/${product.id}`}
-                          prefetch={false}
-                          scroll={false}
-                        >
+                        <Link key={product.id} prefetch href={`/${product.id}`} scroll={false}>
                           <ProductCard product={product} />
                         </Link>
                       ))
