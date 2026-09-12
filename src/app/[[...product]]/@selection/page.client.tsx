@@ -1,13 +1,13 @@
 "use client";
 
-import type {Product} from "../types";
+import type {Product} from "~/product/types";
 
 import {useRouter} from "next/navigation";
 
 import {useCart} from "~/cart/context/client";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 
-export default function ProductSelection({product}: {product: Product}) {
+export default function PageClient({product}: {product: Product}) {
   const router = useRouter();
   const [, {addItem}] = useCart();
 

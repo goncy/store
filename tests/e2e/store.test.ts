@@ -65,11 +65,31 @@ test("un nuevo pedido empieza sin las opciones del pedido anterior", async ({pag
 
 test("un producto del catálogo carga directamente y por enlace", async ({page}) => {
   await page.goto(`/${product.id}`);
+  await expect(page).toHaveTitle(`${store.title} - ${product.title}`);
+  await expect(page.getByRole("dialog", {name: product.title})).toBeVisible();
+  await page.reload();
   await expect(page.getByRole("dialog", {name: product.title})).toBeVisible();
   await page.getByRole("button", {name: "Cerrar", exact: true}).click();
+  await expect(page).toHaveURL("/");
+  await expect(page).toHaveTitle(store.title);
+  await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page.getByTestId("product").filter({visible: true})).toHaveCount(products.length);
 
   await page.getByRole("link").filter({hasText: product.title}).click();
+  await expect(page).toHaveURL(`/${product.id}`);
+  await expect(page.getByRole("dialog", {name: product.title})).toBeVisible();
+});
+
+test("el historial cierra y vuelve a abrir la selección del producto", async ({page}) => {
+  await page.goto("/");
+  await page.getByRole("link").filter({hasText: product.title}).click();
+  await expect(page.getByRole("dialog", {name: product.title})).toBeVisible();
+
+  await page.goBack();
+  await expect(page).toHaveURL("/");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+
+  await page.goForward();
   await expect(page).toHaveURL(`/${product.id}`);
   await expect(page.getByRole("dialog", {name: product.title})).toBeVisible();
 });
