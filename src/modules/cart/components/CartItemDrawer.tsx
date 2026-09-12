@@ -52,10 +52,21 @@ function CartItemDrawer({
   }
 
   return (
-    <Sheet onOpenChange={(isOpen) => !isOpen && onClose()} {...props}>
-      <SheetContent className="grid grid-rows-[auto_1fr_auto]">
+    <Sheet
+      onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          setFormData({...item, options: {}});
+          onClose();
+        }
+      }}
+      {...props}
+    >
+      <SheetContent className="grid grid-rows-[auto_1fr_auto]" showCloseButton={false}>
         <SheetHeader>
-          <SheetClose className="z-20 -mx-6 ml-auto h-12 w-14 rounded-l-lg border border-border bg-background py-2 pl-2 pr-4 shadow-lg">
+          <SheetClose
+            aria-label="Cerrar"
+            className="z-20 -mx-6 ml-auto h-12 w-14 rounded-l-lg border border-border bg-background py-2 pr-4 pl-2 shadow-lg"
+          >
             <X className="h-8 w-8" />
           </SheetClose>
         </SheetHeader>
@@ -69,7 +80,7 @@ function CartItemDrawer({
               {Boolean(item.image) && (
                 <img
                   alt={item.title}
-                  className="h-[240px] w-full bg-secondary object-contain sm:h-[320px]"
+                  className="h-60 w-full bg-secondary object-contain sm:h-80"
                   src={item.image}
                 />
               )}
@@ -84,16 +95,22 @@ function CartItemDrawer({
                   return (
                     <div key={category.title} className="flex w-full flex-col gap-4">
                       <p className="text-lg font-medium">{category.title}</p>
-                      <RadioGroup value={formData.options?.[category.title]?.[0]?.title}>
+                      <RadioGroup
+                        aria-label={category.title}
+                        value={formData.options?.[category.title]?.[0]?.title ?? null}
+                        onValueChange={(value) => {
+                          const option = category.options.find((option) => option.title === value);
+
+                          if (option) handleSelectOption(option);
+                        }}
+                      >
                         <div className="flex flex-col gap-4">
                           {category.options.map((option) => (
                             <div key={option.title} className="flex items-center gap-x-3">
                               <RadioGroupItem
+                                aria-label={option.title}
                                 id={option.title}
                                 value={option.title}
-                                onClick={() => {
-                                  handleSelectOption(option);
-                                }}
                               />
                               <Label className="w-full" htmlFor={option.title}>
                                 <div className="flex w-full items-center justify-between gap-2">
@@ -135,6 +152,7 @@ function CartItemDrawer({
               variant="brand"
               onClick={() => {
                 onSubmit(formData);
+                setFormData({...item, options: {}});
               }}
             >
               Agregar al pedido

@@ -1,13 +1,17 @@
 import type {Option as IOption, Product as IProduct} from "./types";
 
 import Papa from "papaparse";
+import {cache} from "react";
+import {cacheLife, cacheTag} from "next/cache";
 import {notFound} from "next/navigation";
 
-interface RawOption extends IOption {
+interface RawOption extends Omit<IOption, "price"> {
+  price: string;
   type: "option";
 }
 
-interface RawProduct extends IProduct {
+interface RawProduct extends Omit<IProduct, "price"> {
+  price: string;
   type: "product";
 }
 
@@ -25,7 +29,7 @@ class Product implements IProduct {
   price: IProduct["price"];
 
   constructor() {
-    this.options = {} as Product["options"];
+    this.options = {};
   }
 
   set(product: RawProduct) {
@@ -63,7 +67,7 @@ class Product implements IProduct {
       description: this.description,
       image: this.image,
       options: this.options,
-      price: Number(this.price),
+      price: this.price,
     };
 
     if (Object.keys(product.options!).length === 0) {
@@ -79,21 +83,23 @@ function normalize(data: (RawProduct | RawOption | RawUnknown)[]) {
 
   for (const item of data) {
     switch (item.type) {
-      case "product":
+      case "product": {
         const baseProduct = new Product();
 
         baseProduct.set(item as RawProduct);
 
         products.set(baseProduct.id, baseProduct);
         break;
+      }
 
-      case "option":
+      case "option": {
         const existingProduct = products.get(item.id);
 
         if (existingProduct) {
           existingProduct.addOption(item as RawOption);
         }
         break;
+      }
     }
   }
 
@@ -106,12 +112,16 @@ function normalize(data: (RawProduct | RawOption | RawUnknown)[]) {
 
 const api = {
   list: async (): Promise<IProduct[]> => {
-    // Uncomment to use the mock data
-    // return await import(`./mocks/default.json`).then(
-    //   (module: {default: IProduct[]}) => module.default,
-    // );
+    "use cache";
 
-    return fetch(process.env.PRODUCTS!, {next: {tags: ["products"]}}).then(async (response) => {
+    cacheLife("max");
+    cacheTag("products");
+
+    if (process.env.USE_MOCKS === "true") {
+      return import("./mocks/default.json").then((result: {default: IProduct[]}) => result.default);
+    }
+
+    return fetch(process.env.PRODUCTS!).then(async (response) => {
       const csv = await response.text();
 
       return new Promise<IProduct[]>((resolve, reject) => {
@@ -127,19 +137,14 @@ const api = {
       });
     });
   },
-  fetch: async (id: IProduct["id"]): Promise<IProduct> => {
-    // Uncomment to use the mock data
-    // return await import(`./mocks/default.json`).then(
-    //   (module: {default: IProduct[]}) => module.default.find((product) => product.id === id)!,
-    // );
-
+  fetch: cache(async (id: IProduct["id"]): Promise<IProduct> => {
     const products = await api.list();
     const product = products.find((product) => product.id === id);
 
     if (!product) return notFound();
 
     return product;
-  },
+  }),
 };
 
 export default api;

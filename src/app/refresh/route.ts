@@ -8,9 +8,9 @@ export function GET(request: NextRequest) {
     return new Response("Unauthorized", {status: 401});
   }
 
-  revalidateTag("products");
-  revalidateTag("store");
-  revalidateTag("fields");
+  revalidateTag("products", "max");
+  revalidateTag("store", "max");
+  revalidateTag("fields", "max");
 
   return NextResponse.json({revalidated: true});
 }

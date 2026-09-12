@@ -1,85 +1,68 @@
 import type {CartItem} from "../../../types";
 
-import * as React from "react";
-import {render, screen, within} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import {expect, test} from "vitest";
 
-import CartDrawer from "../CartDrawer";
-import * as cartContext from "../../../context/client";
+import store from "~/store/mocks/default.json";
 
-jest.mock("../../../context");
+import CartProviderClient, {useCart} from "../../../context/client";
 
-const cartItem: CartItem = {
+const item: CartItem = {
   id: "id",
-  image: "image",
+  image: "",
   price: 100,
-  title: "title",
-  category: "category",
-  description: "description",
+  title: "Hamburguesa",
+  category: "Comidas",
+  description: "Con queso",
   quantity: 2,
 };
 
-test("deberia mostrar la cantidad de productos en un item en el detalle", () => {
-  const cart = new Map<CartItem["id"], CartItem>([[cartItem.id, cartItem]]);
+function AddItem() {
+  const [, {addItem}] = useCart();
 
-  jest.spyOn<any, any>(cartContext, "useCart").mockReturnValue([{cart}, {}]);
+  return (
+    <button type="button" onClick={() => addItem(1, item)}>
+      Agregar
+    </button>
+  );
+}
 
-  render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
+async function openCart() {
+  const user = userEvent.setup();
 
-  expect(screen.getByTestId("quantity")).toHaveTextContent(String(cartItem.quantity));
+  render(
+    <CartProviderClient fields={[]} store={store}>
+      <AddItem />
+    </CartProviderClient>,
+  );
+  await user.click(screen.getByRole("button", {name: "Agregar"}));
+  await user.click(screen.getByRole("button", {name: "Ver pedido"}));
+
+  return user;
+}
+
+test("actualiza la cantidad y elimina el último producto", async () => {
+  const user = await openCart();
+
+  expect(screen.getByTestId("quantity")).toHaveTextContent("2");
+  await user.click(screen.getByTestId("increment"));
+  expect(screen.getByTestId("quantity")).toHaveTextContent("3");
+  await user.click(screen.getByTestId("decrement"));
+  await user.click(screen.getByTestId("decrement"));
+  await user.click(screen.getByTestId("decrement"));
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  expect(screen.queryByRole("button", {name: "Ver pedido"})).not.toBeInTheDocument();
 });
 
-test("deberia mostrar la cantidad de productos en el detalle", () => {
-  const cart = new Map<CartItem["id"], CartItem>([[cartItem.id, cartItem]]);
+test("incluye la cantidad y el total en el enlace de WhatsApp", async () => {
+  const user = await openCart();
 
-  jest.spyOn<any, any>(cartContext, "useCart").mockReturnValue([{cart}, {}]);
+  await user.click(screen.getByTestId("continue-order"));
+  const link = screen.getByRole("link", {name: "Completar pedido"});
+  const url = new URL(link.getAttribute("href")!);
 
-  render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
-
-  const item = screen.getByTestId(`cart-item-${cartItem.id}`);
-  const quantityElement = within(item).getByTestId("quantity");
-  const quantity = within(quantityElement).getByText(String(cartItem.quantity));
-
-  expect(quantity).toBeInTheDocument();
+  expect(url.hostname).toBe("wa.me");
+  expect(url.searchParams.get("text")).toContain("Hamburguesa (X2)");
+  expect(url.searchParams.get("text")).toContain("200,00");
 });
-
-// test("deberia llamar a onDecrement cuando resto un producto", () => {
-//   const onDecrement = jest.fn();
-
-//   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
-
-//   fireEvent.click(screen.getByTestId("decrement"));
-
-//   expect(onDecrement).toHaveBeenCalled();
-// });
-
-// test("deberia llamar a onIncrement cuando incremento un producto", () => {
-//   const onIncrement = jest.fn();
-
-//   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
-
-//   fireEvent.click(screen.getByTestId("increment"));
-
-//   expect(onIncrement).toHaveBeenCalled();
-// });
-
-// test("deberia mostrar la cantidad de productos en el mensaje de whatsapp si es uno", () => {
-//   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
-
-//   const link = screen.getByTestId("complete-order");
-
-//   expect(link.getAttribute("href")).not.toMatch(`(X${String(cartItem.quantity)})`);
-// });
-
-// test("no deberia mostrar la cantidad de productos en el mensaje de whatsapp si es uno", () => {
-//   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
-
-//   const link = screen.getByTestId("complete-order");
-
-//   expect(link.getAttribute("href")).not.toMatch(`(X${String(cartItem.quantity)})`);
-// });
-
-// test("muestro un mensaje de que no hay items cuando el product esta vacio", () => {
-//   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
-
-//   expect(screen.getByText("No hay elementos en tu carrito")).toBeInTheDocument();
-// });

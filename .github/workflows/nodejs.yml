@@ -2,30 +2,27 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - run: npm install
-    - run: npm test -- --ci
-    - run: npm run dev & npx wait-on http://localhost:3000
-    - run: npm run integration
-
-    - name: Codecov
-      uses: codecov/codecov-action@v1.3.2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test -- --coverage
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm integration
+      - name: Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: ./coverage/lcov.info

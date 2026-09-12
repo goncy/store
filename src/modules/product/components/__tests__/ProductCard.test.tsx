@@ -1,64 +1,29 @@
 import type {Product} from "../../types";
 
-import * as React from "react";
-import {render, screen, fireEvent} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
+import {expect, test} from "vitest";
 
 import ProductCard from "../ProductCard";
 
 const product: Product = {
   id: "id",
-  image: "image",
+  image: "/product.png",
   price: 100,
-  title: "title",
-  category: "category",
-  description: "description",
+  title: "Hamburguesa",
+  category: "Comidas",
+  description: "Con queso",
 };
 
-test("deberia mostrar el titulo, precio y boton", () => {
-  render(<ProductCard product={product} onAdd={jest.fn()} />);
-
-  const priceRegex = new RegExp(String(product.price), "i");
-
-  expect(screen.getByText(product.title)).toBeInTheDocument();
-  expect(screen.getByText(priceRegex)).toBeInTheDocument();
-  expect(screen.getByText("Agregar")).toBeInTheDocument();
+test("muestra el título, descripción, precio e imagen", () => {
+  render(<ProductCard product={product} />);
+  expect(screen.getByText(product.title)).toBeVisible();
+  expect(screen.getByText(product.description)).toBeVisible();
+  expect(screen.getByText(/100/)).toBeVisible();
+  expect(screen.getByRole("img", {name: product.title})).toHaveAttribute("src", product.image);
 });
 
-test("deberia ejecutar onAdd cuando clickeo en agregar y no tengo opciones", () => {
-  const onAdd = jest.fn();
-
-  render(<ProductCard product={product} onAdd={onAdd} />);
-
-  fireEvent.click(screen.getByText("Agregar"));
-
-  expect(onAdd).toHaveBeenCalled();
-});
-
-test("deberia ejecutar onAdd cuando clickeo en agregar y tengo opciones", () => {
-  const onAdd = jest.fn();
-
-  render(
-    <ProductCard
-      product={{
-        ...product,
-        options: {
-          Peso: [
-            {
-              id: "",
-              category: "Peso",
-              title: "500 GR",
-              price: 100,
-              description: "",
-              image: "",
-            },
-          ],
-        },
-      }}
-      onAdd={onAdd}
-    />,
-  );
-
-  fireEvent.click(screen.getByText("Agregar"));
-
-  expect(screen.getByTestId("cart-item-drawer")).toBeInTheDocument();
+test("muestra el producto sin una imagen", () => {
+  render(<ProductCard product={{...product, image: ""}} />);
+  expect(screen.getByText(product.title)).toBeVisible();
+  expect(screen.queryByRole("img")).not.toBeInTheDocument();
 });

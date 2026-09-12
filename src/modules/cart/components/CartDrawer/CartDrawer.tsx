@@ -13,7 +13,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import {Button} from "@/components/ui/button";
+import {Button, buttonVariants} from "@/components/ui/button";
 import WhatsappIcon from "@/components/icons/whatsapp";
 
 import {useCart} from "../../context/client";
@@ -56,9 +56,12 @@ function CartDrawer({
 
   return (
     <Sheet open onOpenChange={(_isOpen) => !_isOpen && onClose()} {...props}>
-      <SheetContent className="grid grid-cols-1 grid-rows-[auto_1fr_auto]">
+      <SheetContent className="grid grid-cols-1 grid-rows-[auto_1fr_auto]" showCloseButton={false}>
         <SheetHeader>
-          <SheetClose className="-mx-6 ml-auto h-12 w-14 rounded-l-lg border border-border bg-background py-2 pl-2 pr-4 shadow-lg">
+          <SheetClose
+            aria-label="Cerrar"
+            className="-mx-6 ml-auto h-12 w-14 rounded-l-lg border border-border bg-background py-2 pr-4 pl-2 shadow-lg"
+          >
             <X className="h-8 w-8" />
           </SheetClose>
           <SheetTitle className="text-left text-2xl font-medium">Tu pedido</SheetTitle>
@@ -66,13 +69,13 @@ function CartDrawer({
 
         <div className="overflow-y-auto" data-testid="cart">
           {currentStep === "details" && <Details cart={cart} onChange={handleUpdateCart} />}
-          {fields && currentStep === "fields" ? (
-            <Fields checkout={checkout} fields={fields} onChange={handleUpdateField} />
-          ) : null}
+          {Boolean(fields) && currentStep === "fields" && (
+            <Fields checkout={checkout} fields={fields!} onChange={handleUpdateField} />
+          )}
         </div>
 
         <SheetFooter>
-          {fields && currentStep === "details" ? (
+          {Boolean(fields) && currentStep === "details" && (
             <div className="flex w-full flex-col gap-4">
               <hr />
               <div className="flex items-center justify-between gap-2 text-lg font-medium">
@@ -91,7 +94,7 @@ function CartDrawer({
                 Continuar
               </Button>
             </div>
-          ) : null}
+          )}
           {(currentStep === "fields" || !fields) && (
             <div className="flex w-full flex-col gap-4">
               <hr />
@@ -106,17 +109,16 @@ function CartDrawer({
                 Revisar pedido
               </Button>
               <a
-                className="w-full"
+                className={buttonVariants({className: "w-full", size: "lg", variant: "brand"})}
+                data-testid="complete-order"
                 href={`https://wa.me/${store.phone}?text=${encodeURIComponent(message)}`}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <Button className="w-full" data-testid="complete-order" size="lg" variant="brand">
-                  <div className="inline-flex items-center gap-2">
-                    <WhatsappIcon />
-                    <span>Completar pedido</span>
-                  </div>
-                </Button>
+                <div className="inline-flex items-center gap-2">
+                  <WhatsappIcon />
+                  <span>Completar pedido</span>
+                </div>
               </a>
             </div>
           )}
