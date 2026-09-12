@@ -1,6 +1,7 @@
-import type {Field as IField, RadioField, TextField} from "./types";
+import type {Field as IField} from "./types";
 
 import Papa from "papaparse";
+import {cacheLife, cacheTag} from "next/cache";
 
 interface RawField {
   title: string;
@@ -20,7 +21,7 @@ function normalize(data: RawField[]): IField[] {
           required: field.required,
           note: field.note || "",
           type: "radio",
-        } as RadioField;
+        };
 
       case "text":
         return {
@@ -29,19 +30,30 @@ function normalize(data: RawField[]): IField[] {
           required: field.required,
           note: field.note || "",
           type: "text",
-        } as TextField;
+        };
 
       default: {
         throw new Error("Unknown field type");
       }
     }
-  }, []);
+  });
 }
 
 export default {
   field: {
     list: async (): Promise<IField[]> => {
-      return fetch(process.env.FIELDS!, {next: {tags: ["fields"]}}).then(async (response) => {
+      "use cache";
+
+      cacheLife("max");
+      cacheTag("fields");
+
+      if (process.env.USE_MOCKS === "true") {
+        return import("./mocks/default.json").then((result) =>
+          normalize(result.default as RawField[]),
+        );
+      }
+
+      return fetch(process.env.FIELDS!).then(async (response) => {
         const csv = await response.text();
 
         return new Promise<IField[]>((resolve, reject) => {
@@ -57,11 +69,5 @@ export default {
         });
       });
     },
-  },
-  mock: {
-    list: (mock: string): Promise<IField[]> =>
-      import(`./mocks/${mock}.json`).then((result: {default: RawField[]}) =>
-        normalize(result.default),
-      ),
   },
 };

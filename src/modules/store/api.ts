@@ -1,10 +1,20 @@
 import type {Store as IStore} from "./types";
 
 import Papa from "papaparse";
+import {cacheLife, cacheTag} from "next/cache";
 
 export default {
   fetch: async (): Promise<IStore> => {
-    return fetch(process.env.STORE!, {next: {tags: ["store"]}}).then(async (response) => {
+    "use cache";
+
+    cacheLife("max");
+    cacheTag("store");
+
+    if (process.env.USE_MOCKS === "true") {
+      return import("./mocks/default.json").then((result: {default: IStore}) => result.default);
+    }
+
+    return fetch(process.env.STORE!).then(async (response) => {
       const csv = await response.text();
 
       return new Promise<IStore>((resolve, reject) => {
@@ -17,9 +27,5 @@ export default {
         });
       });
     });
-  },
-  mock: {
-    fetch: (mock: string): Promise<IStore> =>
-      import(`./mocks/${mock}.json`).then((result: {default: IStore}) => result.default),
   },
 };

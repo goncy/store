@@ -1,0 +1,4 @@
+- CartDrawer usa buttonVariants y no me gusta
+- CartItemDrawer tiene muchas cosas inline y pareceria ser controlled cuando antes era uncontrolled
+- StoreScreen perdió el modal y hay cosas inline y las cosas del modal se fueron a ProductSelection
+- El server de mocks no me gusta, se solucionaria con lo de arriba, lo mismo lo de playwright config

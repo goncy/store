@@ -10,14 +10,14 @@ function ProductCard({product}: {product: Product}) {
   return (
     <div
       key={product.id}
-      className="border-white/300 flex items-center justify-between gap-3 rounded-md border"
+      className="flex items-center justify-between gap-3 rounded-md border border-border"
       data-testid="product"
     >
       <div className="flex h-full w-full gap-4 p-4">
         <div className="flex w-full flex-col justify-between gap-1">
           <div className="flex flex-col gap-1">
-            <p className="line-clamp-[1] font-medium sm:line-clamp-[2]">{product.title}</p>
-            <p className="line-clamp-[2] text-sm text-muted-foreground sm:line-clamp-3">
+            <p className="line-clamp-1 font-medium sm:line-clamp-2">{product.title}</p>
+            <p className="line-clamp-2 text-sm text-muted-foreground sm:line-clamp-3">
               {product.description}
             </p>
           </div>

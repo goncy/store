@@ -1,5 +1,7 @@
 import type {CartItem} from "../types";
 
+import {describe, expect, it} from "vitest";
+
 import {getCartItemOptionsSummary, getCartItemPrice, getCartMessage, getCartTotal} from "../utils";
 
 const item: CartItem = {
@@ -121,8 +123,8 @@ describe("getCartTotal", () => {
   it("debería devolver el precio correcto cuando hay más de una unidad", () => {
     const cart = new Map<number, CartItem>();
 
-    cart.set(Date.now(), item);
-    cart.set(Date.now(), item);
+    cart.set(1, item);
+    cart.set(2, item);
 
     const actual = getCartTotal(cart);
     const expected = 200;
@@ -190,6 +192,8 @@ describe("getCartMessage", () => {
     const actual: string = getCartMessage(cart, checkout);
     const expected = `* title - $\u00a0100,00
 
+* Forma de pago: Efectivo
+
 Total: $\u00a0100,00`;
 
     expect(actual).toEqual(expected);
@@ -229,6 +233,8 @@ Total: $\u00a0100,00`;
 
     const actual: string = getCartMessage(cart, checkout);
     const expected = `* title [Peso: Medio kilo, Calidad: Alta] - $\u00a0200,00
+
+* Forma de pago: Efectivo
 
 Total: $\u00a0200,00`;
 

@@ -33,7 +33,7 @@ function RadioField({
   value: string;
 }) {
   return (
-    <RadioGroup value={value} onValueChange={onChange}>
+    <RadioGroup value={value} onValueChange={(value) => onChange(String(value))}>
       <div className="flex flex-col gap-4">
         {options.map((option) => (
           <div key={option} className="flex items-center gap-x-3">
@@ -81,7 +81,7 @@ function Fields({
                 }}
               />
             )}
-            {field.note ? <Alert>{field.note}</Alert> : null}
+            {Boolean(field.note) && <Alert>{field.note}</Alert>}
           </div>
         </div>
       ))}

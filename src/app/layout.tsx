@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const RootLayout = async ({children}: {children: React.ReactNode}) => {
+async function RootLayout({children}: {children: React.ReactNode}) {
   const store = await api.fetch();
 
   return (
@@ -30,7 +30,7 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
       <head />
       <body className="font-sans antialiased">
         <ThemeProvider>
-          <div className="m-auto max-w-screen-xl rounded-sm">
+          <div className="m-auto max-w-7xl rounded-sm">
             <header className="flex flex-col gap-4 p-4">
               <img
                 alt={store.title}
@@ -41,7 +41,7 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
                 <div className="-mt-20 rounded-full p-1 sm:-mt-12">
                   <img
                     alt={store.title}
-                    className="h-32 w-32 min-w-[128px] rounded-full border-8 border-background"
+                    className="h-32 w-32 min-w-32 rounded-full border-8 border-background"
                     src={store.logo}
                   />
                 </div>
@@ -51,7 +51,7 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
                     <p className="font-medium text-muted-foreground">{store.subtitle}</p>
                   </div>
                   <div className="flex gap-2">
-                    {store.instagram ? (
+                    {Boolean(store.instagram) && (
                       <a
                         aria-label="Instagram"
                         href={store.instagram}
@@ -62,8 +62,8 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
                           <InstagramIcon />
                         </div>
                       </a>
-                    ) : null}
-                    {store.whatsapp ? (
+                    )}
+                    {Boolean(store.whatsapp) && (
                       <a
                         aria-label="Whatsapp"
                         href={store.whatsapp}
@@ -74,7 +74,7 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
                           <WhatsappIcon />
                         </div>
                       </a>
-                    ) : null}
+                    )}
                   </div>
                 </div>
               </div>
@@ -85,7 +85,7 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
             <footer className="px-4">
               {/* Inicio de copyright - Cambiar el contenido de los mismos viola el contenido de los terminos de licencia */}
               <p className="sm:text-md border-t py-4 text-center text-sm text-muted-foreground">
-                © Copyright {new Date().getFullYear()}. Hecho con <ThemeToggle /> y Next.js, por{" "}
+                Hecho con <ThemeToggle /> y Next.js, por{" "}
                 <a
                   className="underline"
                   href="https://twitter.com/goncy"

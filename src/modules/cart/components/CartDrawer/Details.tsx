@@ -21,7 +21,7 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: number, item: Car
                   <p className="text-muted-foreground">{getCartItemOptionsSummary(item.options)}</p>
                 )}
               </div>
-              <p className="font-medium leading-[1.9rem]">
+              <p className="leading-[1.9rem] font-medium">
                 {parseCurrency(getCartItemPrice(item))}
               </p>
             </div>
@@ -36,7 +36,7 @@ function Details({cart, onChange}: {cart: Cart; onChange: (id: number, item: Car
               >
                 <MinusIcon className="h-6 w-6" />
               </Button>
-              <p className="min-w-[24px] text-center font-medium" data-testid="quantity">
+              <p className="min-w-6 text-center font-medium" data-testid="quantity">
                 {item.quantity}
               </p>
               <Button
