@@ -6,35 +6,44 @@ import {fetchCsv} from "@/lib/csv";
 
 interface RawField {
   title: string;
-  type: "radio" | "text";
+  type: string;
   text: string;
   note: string;
   required: boolean;
 }
 
+// Unknown field types are skipped instead of thrown: an error inside `"use cache"` fails the
+// prerender even when the caller catches it, so one bad row would break the build.
 function normalize(data: RawField[]): IField[] {
-  return data.map((field) => {
+  return data.flatMap((field): IField[] => {
     switch (field.type) {
       case "radio":
-        return {
-          title: field.title,
-          options: field.text.split(",").map((option) => option.trim()),
-          required: field.required,
-          note: field.note || "",
-          type: "radio",
-        };
+        return [
+          {
+            title: field.title,
+            options: field.text.split(",").map((option) => option.trim()),
+            required: field.required,
+            note: field.note || "",
+            type: "radio",
+          },
+        ];
 
       case "text":
-        return {
-          title: field.title,
-          placeholder: field.text,
-          required: field.required,
-          note: field.note || "",
-          type: "text",
-        };
+        return [
+          {
+            title: field.title,
+            placeholder: field.text,
+            required: field.required,
+            note: field.note || "",
+            type: "text",
+          },
+        ];
 
       default: {
-        throw new Error("Unknown field type");
+        // eslint-disable-next-line no-console
+        console.warn(`fields: skipping "${field.title}" with unknown type "${field.type}"`);
+
+        return [];
       }
     }
   });

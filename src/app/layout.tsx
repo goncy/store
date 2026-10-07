@@ -3,6 +3,8 @@ import type {Metadata} from "next";
 import {preload} from "react-dom";
 
 import api from "~/store/api";
+import productApi from "~/product/api";
+import cartApi from "~/cart/api";
 import CartProvider from "~/cart/context";
 import ThemeProvider from "~/theme/context";
 import ThemeToggle from "~/theme/components/ThemeToggle";
@@ -25,7 +27,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 async function RootLayout({children}: {children: React.ReactNode}) {
-  const store = await api.fetch();
+  // Fetch every sheet at once so nested layouts read filled cache entries instead of waiting in turn.
+  const [store] = await Promise.all([api.fetch(), productApi.list(), cartApi.field.list()]);
 
   // Let the browser discover the banner (likely LCP element) from <head>, using the original URL.
   if (store.banner) {
@@ -115,6 +118,6 @@ async function RootLayout({children}: {children: React.ReactNode}) {
       </body>
     </html>
   );
-};
+}
 
 export default RootLayout;
