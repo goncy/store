@@ -33,8 +33,17 @@ con el valor deseado para regenerar los datos prerenderizados.
 ## Caché
 
 Cache Components está habilitado. Productos, tienda y campos usan `use cache`,
-`cacheLife("max")` y etiquetas. `/refresh?secret=...` invalida las etiquetas
-con revalidación en segundo plano. El catálogo y los productos conocidos se
+`cacheLife("max")` y etiquetas. Un `POST /refresh` con el encabezado
+`Authorization: Bearer <SECRET>` invalida las etiquetas con revalidación en
+segundo plano (`GET` responde 405):
+
+```bash
+curl -X POST -H "Authorization: Bearer $SECRET" https://tu-tienda.com/refresh
+```
+
+Si una planilla responde con error, con un contenido que no es CSV o sin
+productos, la carga falla en lugar de guardar una tienda vacía en caché. Si
+fallan los campos del pedido, el carrito se muestra sin ellos. El catálogo y los productos conocidos se
 prerenderizan; los productos inexistentes muestran 404.
 Para productos agregados después de compilar, el catálogo se muestra antes de que
 termine de cargar el detalle del producto.

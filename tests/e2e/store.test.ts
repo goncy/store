@@ -34,15 +34,31 @@ test("busca, elige opciones y prepara el pedido", async ({page}) => {
 });
 
 test("la actualización de caché requiere el secreto", async ({request}) => {
-  expect((await request.get("/refresh?secret=invalid")).status()).toBe(401);
-  expect((await request.get("/refresh?secret=local-test-secret")).status()).toBe(200);
+  expect((await request.post("/refresh")).status()).toBe(401);
+  expect(
+    (await request.post("/refresh", {headers: {Authorization: "Bearer invalid"}})).status(),
+  ).toBe(401);
+  expect((await request.get("/refresh?secret=local-test-secret")).status()).toBe(405);
+
+  const response = await request.post("/refresh", {
+    headers: {Authorization: "Bearer local-test-secret"},
+  });
+
+  expect(response.status()).toBe(200);
+  expect(await response.json()).toEqual({revalidated: true});
 });
 
 test("muestra un error para productos inexistentes", async ({page}) => {
   for (const path of ["/no-existe", "/no-existe/extra"]) {
-    await page.goto(path);
+    const response = await page.goto(path);
+
+    expect(response?.status()).toBe(404);
     await expect(page.getByRole("heading", {name: "404", exact: true})).toBeVisible();
   }
+});
+
+test("un producto conocido responde 200", async ({request}) => {
+  expect((await request.get(`/${product.id}`)).status()).toBe(200);
 });
 
 test("un nuevo pedido empieza sin las opciones del pedido anterior", async ({page}) => {

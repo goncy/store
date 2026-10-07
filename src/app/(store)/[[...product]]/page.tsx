@@ -2,7 +2,7 @@ import type {Metadata} from "next";
 
 import api from "~/product/api";
 
-import PageClient from "./page.client";
+import ProductDrawer from "./drawer.client";
 
 export async function generateMetadata({
   params,
@@ -19,6 +19,8 @@ export async function generateMetadata({
   };
 }
 
+// Only the selected product reaches the client; the list is rendered by the `(store)` layout.
+// `api.fetch` runs outside Suspense so unknown ids respond with a 404 status.
 export default async function Page({params}: PageProps<"/[[...product]]">) {
   const {product: segments} = await params;
 
@@ -26,5 +28,5 @@ export default async function Page({params}: PageProps<"/[[...product]]">) {
 
   const product = await api.fetch(segments[0]);
 
-  return <PageClient product={product} />;
+  return <ProductDrawer product={product} />;
 }

@@ -1,7 +1,8 @@
 import type {Store as IStore} from "./types";
 
-import Papa from "papaparse";
 import {cacheLife, cacheTag} from "next/cache";
+
+import {fetchCsv} from "@/lib/csv";
 
 export default {
   fetch: async (): Promise<IStore> => {
@@ -14,18 +15,14 @@ export default {
       return import("./mocks/default.json").then((result: {default: IStore}) => result.default);
     }
 
-    return fetch(process.env.STORE!).then(async (response) => {
-      const csv = await response.text();
+    const rows = await fetchCsv<Partial<IStore>>(process.env.STORE, "store");
+    const store = rows.at(0);
 
-      return new Promise<IStore>((resolve, reject) => {
-        Papa.parse(csv, {
-          header: true,
-          complete: (results) => {
-            return resolve(results.data[0] as IStore);
-          },
-          error: (error: Error) => reject(error.message),
-        });
-      });
-    });
+    // A missing first row or title means the export is not the store sheet.
+    if (!store?.title) {
+      throw new Error("store: missing store row or title");
+    }
+
+    return store as IStore;
   },
 };

@@ -1,7 +1,8 @@
 import type {Field as IField} from "./types";
 
-import Papa from "papaparse";
 import {cacheLife, cacheTag} from "next/cache";
+
+import {fetchCsv} from "@/lib/csv";
 
 interface RawField {
   title: string;
@@ -53,21 +54,9 @@ export default {
         );
       }
 
-      return fetch(process.env.FIELDS!).then(async (response) => {
-        const csv = await response.text();
+      const rows = await fetchCsv<RawField>(process.env.FIELDS, "fields");
 
-        return new Promise<IField[]>((resolve, reject) => {
-          Papa.parse(csv, {
-            header: true,
-            complete: (results) => {
-              const data = normalize(results.data as RawField[]);
-
-              return resolve(data);
-            },
-            error: (error: Error) => reject(error.message),
-          });
-        });
-      });
+      return normalize(rows);
     },
   },
 };
