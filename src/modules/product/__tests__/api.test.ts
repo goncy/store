@@ -53,6 +53,6 @@ describe("product api list", () => {
   it("debería rechazar un CSV sin productos", async () => {
     mockFetch("type,id,title\nunknown,x,y", {status: 200, headers: {"content-type": "text/csv"}});
 
-    await expect(api.list()).rejects.toThrow("no product rows");
+    await expect(api.list()).rejects.toThrow('products: no rows with type "product" found');
   });
 });

@@ -46,6 +46,12 @@ describe("store api fetch", () => {
   it("debería rechazar un CSV sin título", async () => {
     mockFetch("subtitle,phone\nLa mejor,123", {status: 200, headers: {"content-type": "text/csv"}});
 
-    await expect(api.fetch()).rejects.toThrow("missing store row or title");
+    await expect(api.fetch()).rejects.toThrow('store: row 2 has an empty "title" column');
+  });
+
+  it("debería rechazar un CSV sin filas", async () => {
+    mockFetch("title,subtitle,phone", {status: 200, headers: {"content-type": "text/csv"}});
+
+    await expect(api.fetch()).rejects.toThrow("store: the sheet has no data rows");
   });
 });

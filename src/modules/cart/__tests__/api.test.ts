@@ -8,7 +8,6 @@ const csv = [
   "title,type,text,note,required",
   "Direccion de envio,text,Mi casa 123,,true",
   'Forma de pago,radio,"Efectivo, Tarjeta",,true',
-  "Notas,textarea,,,false",
 ].join("\n");
 
 function mockFetch(body: string, init: ResponseInit) {
@@ -26,9 +25,8 @@ describe("cart api field list", () => {
     vi.unstubAllGlobals();
   });
 
-  it("debería omitir los campos con un tipo desconocido y mantener el resto", async () => {
+  it("debería devolver los campos de un CSV válido", async () => {
     mockFetch(csv, {status: 200, headers: {"content-type": "text/csv"}});
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
 
     const fields = await api.field.list();
 
@@ -48,8 +46,16 @@ describe("cart api field list", () => {
         type: "radio",
       },
     ]);
-    expect(warn).toHaveBeenCalledExactlyOnceWith(
-      'fields: skipping "Notas" with unknown type "textarea"',
+  });
+
+  it("debería rechazar un campo con un tipo desconocido indicando la fila", async () => {
+    mockFetch([csv, "Notas,textarea,,,false"].join("\n"), {
+      status: 200,
+      headers: {"content-type": "text/csv"},
+    });
+
+    await expect(api.field.list()).rejects.toThrow(
+      'fields: row 4 ("Notas") has unknown type "textarea", expected "radio" or "text"',
     );
   });
 

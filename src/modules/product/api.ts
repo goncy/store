@@ -129,7 +129,7 @@ const api = {
     const products = normalize(rows);
 
     if (products.length === 0) {
-      throw new Error("products: no product rows found");
+      throw new Error('products: no rows with type "product" found');
     }
 
     return products;

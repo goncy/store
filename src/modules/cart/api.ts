@@ -13,34 +13,30 @@ interface RawField {
 }
 
 function normalize(data: RawField[]): IField[] {
-  return data.flatMap((field): IField[] => {
+  return data.map((field, index) => {
     switch (field.type) {
       case "radio":
-        return [
-          {
-            title: field.title,
-            options: field.text.split(",").map((option) => option.trim()),
-            required: field.required,
-            note: field.note || "",
-            type: "radio",
-          },
-        ];
+        return {
+          title: field.title,
+          options: field.text.split(",").map((option) => option.trim()),
+          required: field.required,
+          note: field.note || "",
+          type: "radio",
+        };
 
       case "text":
-        return [
-          {
-            title: field.title,
-            placeholder: field.text,
-            required: field.required,
-            note: field.note || "",
-            type: "text",
-          },
-        ];
+        return {
+          title: field.title,
+          placeholder: field.text,
+          required: field.required,
+          note: field.note || "",
+          type: "text",
+        };
 
       default: {
-        console.warn(`fields: skipping "${field.title}" with unknown type "${field.type}"`);
-
-        return [];
+        throw new Error(
+          `fields: row ${String(index + 2)} ("${field.title}") has unknown type "${field.type}", expected "radio" or "text"`,
+        );
       }
     }
   });

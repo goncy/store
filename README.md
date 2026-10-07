@@ -43,8 +43,9 @@ curl -X POST -H "Authorization: Bearer $SECRET" https://tu-tienda.com/refresh
 
 Si una planilla responde con error, con un contenido que no es CSV o sin
 productos, la carga falla en lugar de guardar una tienda vacía en caché: el
-build falla y, en producción, se sigue mostrando la última versión válida. Las
-filas de campos con un tipo desconocido se omiten (con un aviso en el log).
+build falla y, en producción, se sigue mostrando la última versión válida. Lo
+mismo pasa con un campo del pedido con un tipo desconocido; el error indica la
+planilla, la fila y el valor a corregir.
 
 El catálogo y los productos conocidos se prerenderizan; los productos
 inexistentes responden 404. Los productos agregados después de compilar se
