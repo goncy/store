@@ -12,7 +12,7 @@ import {cn} from "@/lib/utils";
 import {Input} from "@/components/ui/input";
 import {Toggle} from "@/components/ui/toggle";
 
-function LayoutClient({products}: {products: Product[]}) {
+function Listing({products}: {products: Product[]}) {
   const [query, setQuery] = useState<string>("");
   const [layout, setLayout] = useState<"list" | "grid">(() =>
     products.length > 30 ? "list" : "grid",
@@ -170,4 +170,4 @@ function LayoutClient({products}: {products: Product[]}) {
   );
 }
 
-export default LayoutClient;
+export default Listing;

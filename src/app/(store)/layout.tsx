@@ -1,13 +1,13 @@
 import api from "~/product/api";
 
-import LayoutClient from "./layout.client";
+import Listing from "./listing";
 
 export default async function StoreLayout({children}: {children: React.ReactNode}) {
   const products = await api.list();
 
   return (
     <>
-      <LayoutClient products={products} />
+      <Listing products={products} />
       {children}
     </>
   );
