@@ -38,7 +38,6 @@ function normalize(data: RawField[]): IField[] {
         ];
 
       default: {
-        // eslint-disable-next-line no-console
         console.warn(`fields: skipping "${field.title}" with unknown type "${field.type}"`);
 
         return [];
