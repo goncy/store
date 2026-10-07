@@ -2,7 +2,7 @@ import type {Field as IField} from "./types";
 
 import {cacheLife, cacheTag} from "next/cache";
 
-import {fetchCsv} from "@/lib/csv";
+import {fetchCsv} from "~/utils/csv";
 
 interface RawField {
   title: string;
@@ -12,8 +12,6 @@ interface RawField {
   required: boolean;
 }
 
-// Unknown field types are skipped instead of thrown: an error inside `"use cache"` fails the
-// prerender even when the caller catches it, so one bad row would break the build.
 function normalize(data: RawField[]): IField[] {
   return data.flatMap((field): IField[] => {
     switch (field.type) {

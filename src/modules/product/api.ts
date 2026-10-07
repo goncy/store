@@ -4,7 +4,7 @@ import {cache} from "react";
 import {cacheLife, cacheTag} from "next/cache";
 import {notFound} from "next/navigation";
 
-import {fetchCsv} from "@/lib/csv";
+import {fetchCsv} from "~/utils/csv";
 
 interface RawOption extends Omit<IOption, "price"> {
   price: string;
@@ -128,7 +128,6 @@ const api = {
     );
     const products = normalize(rows);
 
-    // An empty catalog is treated as an upstream failure so it is never cached.
     if (products.length === 0) {
       throw new Error("products: no product rows found");
     }
