@@ -2,7 +2,13 @@ import type {Metadata} from "next";
 
 import api from "~/product/api";
 
-import ProductDrawer from "./drawer.client";
+import PageClient from "./page.client";
+
+export async function generateStaticParams() {
+  const products = await api.list();
+
+  return [{product: []}, ...products.map((product) => ({product: [product.id]}))];
+}
 
 export async function generateMetadata({
   params,
@@ -28,5 +34,5 @@ export default async function Page({params}: PageProps<"/[[...product]]">) {
 
   const product = await api.fetch(segments[0]);
 
-  return <ProductDrawer product={product} />;
+  return <PageClient product={product} />;
 }
