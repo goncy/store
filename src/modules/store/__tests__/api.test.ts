@@ -28,6 +28,15 @@ describe("store api fetch", () => {
     await expect(api.fetch()).resolves.toMatchObject({title: "Mi tienda", phone: "123"});
   });
 
+  it("debería devolver la tienda de un TSV válido", async () => {
+    mockFetch("title\tsubtitle\tphone\nMi tienda\tLa mejor\t123", {
+      status: 200,
+      headers: {"content-type": "text/tab-separated-values"},
+    });
+
+    await expect(api.fetch()).resolves.toMatchObject({title: "Mi tienda", phone: "123"});
+  });
+
   it("debería rechazar una respuesta con error", async () => {
     mockFetch("Internal error", {status: 500, headers: {"content-type": "text/plain"}});
 

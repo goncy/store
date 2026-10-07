@@ -1,6 +1,6 @@
 import Papa from "papaparse";
 
-const CSV_CONTENT_TYPES = ["text/csv", "text/plain"];
+const CSV_CONTENT_TYPES = ["text/csv", "text/tab-separated-values", "text/plain"];
 
 export async function fetchCsv<T>(url: string | undefined, source: string): Promise<T[]> {
   if (!url) {
