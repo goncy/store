@@ -1,18 +1,19 @@
 import type {Field as IField} from "./types";
 
-import Papa from "papaparse";
 import {cacheLife, cacheTag} from "next/cache";
+
+import {fetchCsv} from "~/utils/csv";
 
 interface RawField {
   title: string;
-  type: "radio" | "text";
+  type: string;
   text: string;
   note: string;
   required: boolean;
 }
 
 function normalize(data: RawField[]): IField[] {
-  return data.map((field) => {
+  return data.map((field, index) => {
     switch (field.type) {
       case "radio":
         return {
@@ -33,7 +34,9 @@ function normalize(data: RawField[]): IField[] {
         };
 
       default: {
-        throw new Error("Unknown field type");
+        throw new Error(
+          `fields: row ${String(index + 2)} ("${field.title}") has unknown type "${field.type}", expected "radio" or "text"`,
+        );
       }
     }
   });
@@ -53,21 +56,9 @@ export default {
         );
       }
 
-      return fetch(process.env.FIELDS!).then(async (response) => {
-        const csv = await response.text();
+      const rows = await fetchCsv<RawField>(process.env.FIELDS, "fields");
 
-        return new Promise<IField[]>((resolve, reject) => {
-          Papa.parse(csv, {
-            header: true,
-            complete: (results) => {
-              const data = normalize(results.data as RawField[]);
-
-              return resolve(data);
-            },
-            error: (error: Error) => reject(error.message),
-          });
-        });
-      });
+      return normalize(rows);
     },
   },
 };

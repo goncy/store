@@ -1,10 +1,10 @@
-import type {NextRequest} from "next/server";
-
 import {revalidateTag} from "next/cache";
 import {NextResponse} from "next/server";
 
-export function GET(request: NextRequest) {
-  if (request.nextUrl.searchParams.get("secret") !== process.env.SECRET!) {
+export function POST(request: Request) {
+  const secret = process.env.SECRET;
+
+  if (!secret || request.headers.get("authorization") !== `Bearer ${secret}`) {
     return new Response("Unauthorized", {status: 401});
   }
 

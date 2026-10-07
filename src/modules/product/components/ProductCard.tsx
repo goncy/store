@@ -29,6 +29,7 @@ function ProductCard({product}: {product: Product}) {
           <img
             alt={product.title}
             className="aspect-square h-24 w-24 min-w-24 rounded-md bg-muted/50 object-cover sm:h-36 sm:w-36 sm:min-w-36"
+            decoding="async"
             loading="lazy"
             src={product.image}
           />

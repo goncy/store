@@ -34,15 +34,20 @@ async function RootLayout({children}: {children: React.ReactNode}) {
             <header className="flex flex-col gap-4 p-4">
               <img
                 alt={store.title}
-                className="h-32 rounded-lg object-cover sm:h-64"
+                className="h-32 w-full rounded-lg object-cover sm:h-64"
+                fetchPriority="high"
+                height={256}
                 src={store.banner}
+                width={1248}
               />
               <div className="flex flex-col items-center gap-2 sm:flex-row sm:items-start sm:gap-4">
                 <div className="-mt-20 rounded-full p-1 sm:-mt-12">
                   <img
                     alt={store.title}
                     className="h-32 w-32 min-w-32 rounded-full border-8 border-background"
+                    height={128}
                     src={store.logo}
+                    width={128}
                   />
                 </div>
                 <div className="flex flex-col items-center gap-4 text-center sm:items-start sm:gap-2 sm:text-left">
@@ -103,6 +108,6 @@ async function RootLayout({children}: {children: React.ReactNode}) {
       </body>
     </html>
   );
-};
+}
 
 export default RootLayout;

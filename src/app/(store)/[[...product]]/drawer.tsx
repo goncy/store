@@ -7,7 +7,7 @@ import {useRouter} from "next/navigation";
 import {useCart} from "~/cart/context/client";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 
-export default function PageClient({product}: {product: Product}) {
+export default function Drawer({product}: {product: Product}) {
   const router = useRouter();
   const [, {addItem}] = useCart();
 

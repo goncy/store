@@ -41,7 +41,7 @@ export default defineConfig([
       },
     },
     rules: {
-      "no-console": "warn",
+      "no-console": ["warn", {allow: ["error", "warn"]}],
       "import/order": [
         "warn",
         {

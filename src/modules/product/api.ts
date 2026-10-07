@@ -1,9 +1,10 @@
 import type {Option as IOption, Product as IProduct} from "./types";
 
-import Papa from "papaparse";
 import {cache} from "react";
 import {cacheLife, cacheTag} from "next/cache";
 import {notFound} from "next/navigation";
+
+import {fetchCsv} from "~/utils/csv";
 
 interface RawOption extends Omit<IOption, "price"> {
   price: string;
@@ -121,21 +122,17 @@ const api = {
       return import("./mocks/default.json").then((result: {default: IProduct[]}) => result.default);
     }
 
-    return fetch(process.env.PRODUCTS!).then(async (response) => {
-      const csv = await response.text();
+    const rows = await fetchCsv<RawProduct | RawOption | RawUnknown>(
+      process.env.PRODUCTS,
+      "products",
+    );
+    const products = normalize(rows);
 
-      return new Promise<IProduct[]>((resolve, reject) => {
-        Papa.parse(csv, {
-          header: true,
-          complete: (results) => {
-            const data = normalize(results.data as (RawProduct | RawOption | RawUnknown)[]);
+    if (products.length === 0) {
+      throw new Error('products: no rows with type "product" found');
+    }
 
-            return resolve(data);
-          },
-          error: (error: Error) => reject(error.message),
-        });
-      });
-    });
+    return products;
   },
   fetch: cache(async (id: IProduct["id"]): Promise<IProduct> => {
     const products = await api.list();
