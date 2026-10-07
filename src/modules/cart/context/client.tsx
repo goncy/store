@@ -125,7 +125,7 @@ function CartProviderClient({
           </div>
         )}
         {/* Cart Drawer */}
-        {Boolean(isCartOpen) && (
+        {isCartOpen ? (
           <CartDrawer
             fields={fields}
             store={store}
@@ -133,7 +133,7 @@ function CartProviderClient({
               setIsCartOpen(false);
             }}
           />
-        )}
+        ) : null}
       </>
     </CartContext.Provider>
   );

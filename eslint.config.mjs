@@ -147,7 +147,7 @@ export default defineConfig([
       "react/jsx-boolean-value": "warn",
       "react/jsx-curly-brace-presence": "warn",
       "react/jsx-fragments": "warn",
-      "react/jsx-no-leaked-render": ["warn", {validStrategies: ["coerce"]}],
+      "react/jsx-no-leaked-render": ["warn", {validStrategies: ["coerce", "ternary"]}],
       "react/jsx-no-target-blank": ["error", {allowReferrer: true}],
       "react/jsx-no-useless-fragment": ["warn", {allowExpressions: true}],
       "react/jsx-pascal-case": "warn",
