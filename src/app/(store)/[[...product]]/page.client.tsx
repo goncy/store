@@ -2,7 +2,6 @@
 
 import type {Product} from "~/product/types";
 
-import {useEffect} from "react";
 import {useRouter} from "next/navigation";
 
 import {useCart} from "~/cart/context/client";
@@ -11,11 +10,6 @@ import CartItemDrawer from "~/cart/components/CartItemDrawer";
 export default function PageClient({product}: {product: Product}) {
   const router = useRouter();
   const [, {addItem}] = useCart();
-
-  // `/` is a separate route, so prefetch it to make closing the drawer free of requests.
-  useEffect(() => {
-    router.prefetch("/");
-  }, [router]);
 
   return (
     <CartItemDrawer
